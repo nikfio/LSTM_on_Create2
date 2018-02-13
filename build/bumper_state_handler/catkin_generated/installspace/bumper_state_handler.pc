@@ -1,0 +1,8 @@
+prefix=/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/install
+
+Name: bumper_state_handler
+Description: Description of bumper_state_handler
+Version: 0.0.0
+Cflags: -I/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/install/include
+Libs: -L/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/install/lib -lbumper_state_handler
+Requires: ca_msgs roscpp

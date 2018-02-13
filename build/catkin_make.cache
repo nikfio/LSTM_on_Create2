@@ -1,0 +1,2 @@
+bumper_state_handler
+-DCATKIN_DEVEL_PREFIX=/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/devel -DCMAKE_INSTALL_PREFIX=/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/install -G Unix Makefiles
