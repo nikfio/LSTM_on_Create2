@@ -1,0 +1,10 @@
+TEST: LSTM_stack-bn-7-24 DATE: 2 8 13:52 
+ PARAMETERS: 
+ TRAIN_SIZE = 1000 
+ VALID_SIZE = 1000 
+ train_batch_size = 16 
+ iter_size = 1 
+ batch_updates = 1 
+  base_learning_rate = 0.00100 
+ weight_decay = 0.000010 
+ loss_data = [ 

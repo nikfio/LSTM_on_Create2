@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find gazebo_ros)/launch/willowgarage_world.launch">
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <arg name="model" />
+  <param name="robot_description" 
+	 command="$(find xacro)/xacro.py  '$(find nav_setup)/config/gazebo/create_2_gazebo.xacro'"  />
+ 
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+	<param name="publish frequency" type="double" value="20" />
+  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" >
+	<param name="publish frequency" type="double" value="20" />
+  </node>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model robot -param robot_description -z 0.05"/> 
+ 
+</launch>

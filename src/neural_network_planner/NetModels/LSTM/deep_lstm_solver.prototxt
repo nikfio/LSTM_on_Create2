@@ -1,0 +1,16 @@
+  net: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack-bn_net.prototxt"
+  test_net: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack-bn_testnet.prototxt"
+  iter_size: 1
+  test_iter: 0
+  test_interval: 100000000
+  base_lr: 0.001
+  lr_policy: "fixed"
+  weight_decay : 0.00001
+  regularization_type: "L1"
+  momentum: 0.95
+  display: 25
+  max_iter: 100000
+  snapshot: 300
+  snapshot_prefix: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_deep-stack-bn-realworld"
+  solver_type: RMSPROP
+  solver_mode: GPU

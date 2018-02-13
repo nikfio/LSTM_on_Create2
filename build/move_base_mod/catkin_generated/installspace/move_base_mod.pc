@@ -1,0 +1,8 @@
+prefix=/home/leonida/ThesisCode/LSTM_on_Create2/install
+
+Name: move_base_mod
+Description: Description of move_base_mod
+Version: 1.0.0
+Cflags: 
+Libs: -L/home/leonida/ThesisCode/LSTM_on_Create2/install/lib 
+Requires: roscpp dynamic_reconfigure

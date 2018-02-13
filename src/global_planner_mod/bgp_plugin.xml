@@ -1,0 +1,7 @@
+<library path="lib/libglobal_planner_mod">
+  <class name="global_planner_mod/GlobalPlanner" type="global_planner_mod::GlobalPlanner" base_class_type="nav_core::BaseGlobalPlanner">
+    <description>
+      A implementation of a grid based planner using Dijkstras or A*, modification of A* is added
+    </description>
+  </class>
+</library>

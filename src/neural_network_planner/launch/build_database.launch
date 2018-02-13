@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+	<node pkg="neural_network_planner" type="build_database_node" respawn="false" 
+     			name="build_database_node"  output="screen" >
+
+		<rosparam file="$(find neural_network_planner)/config/build_database.yaml"
+			command="load" />
+
+	</node>
+
+</launch>

@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<robot name="create_2" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find nav_setup)/config/robot/create_base_hokuyo.xacro" />
+
+  <xacro:create_base wheel_separation="0.235" base_diameter="0.3485">
+    <mesh filename="package://ca_description/meshes/create_2.dae" />
+  </xacro:create_base>
+</robot>

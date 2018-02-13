@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>nav_setup</name>
+  <version>0.0.0</version>
+  <description>The nav_setup package</description>
+
+  <maintainer email="fiorato.nicola@gmail.com">Nicola Fiorato</maintainer>
+
+  <license>BSD</license>
+
+
+  <author email="fiorato.nicola@gmail.com">Nicola Fiorato</author> 
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <run_depend>base_local_planner</run_depend>
+  <run_depend>ca_description</run_depend>
+  <run_depend>ca_driver</run_depend>
+  <run_depend>ca_msgs</run_depend>
+  <run_depend>costmap_2d</run_depend>
+  <run_depend>gmapping</run_depend>
+  <run_depend>map_server</run_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>stage_ros</run_depend>
+  <run_depend>urg_node</run_depend>
+
+</package>

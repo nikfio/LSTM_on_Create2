@@ -1,0 +1,34 @@
+# example of build_database_node parameters set up
+
+set_size: 10000
+
+batch_size: 50
+
+move_angle_distance: 45   # degrees
+
+checking_rate: 2
+
+minimal_step_distance: 0.1 # meters
+
+pos_update_threshold: 0.05 # meters
+
+# better give absolute paths
+base_path: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/NavDatabases/
+
+averaged_ranges_size: 24
+
+# if true publish state ranges as lines, false means only points 
+show_lines: true
+
+# labels are velocity commands, two modes, not decided which one is best, reasons given below
+# label mode: true -> measured (synchronized)
+# 		    false -> nav_stack commands (not synchronized, Header missing)
+# to have alse commands from navigation stack synchronized
+# we should modify the msg type and include Header section
+# but there is not time for that
+command_measured: false 
+
+# database backend type {leveldb, lmdb} allowed
+database_backend: lmdb
+
+logs_path: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/logs/ 

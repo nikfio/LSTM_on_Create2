@@ -1,8 +1,12 @@
 # CMake generated Testfile for 
-# Source directory: /home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/src
-# Build directory: /home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/build
+# Source directory: /home/leonida/ThesisCode/LSTM_on_Create2/src
+# Build directory: /home/leonida/ThesisCode/LSTM_on_Create2/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-subdirs(gtest)
-subdirs(bumper_state_handler)
+SUBDIRS(gtest)
+SUBDIRS(nav_setup)
+SUBDIRS(robot_setup_tf)
+SUBDIRS(global_planner_mod)
+SUBDIRS(neural_network_planner)
+SUBDIRS(move_base_mod)

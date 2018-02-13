@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="robot_description" command="$(find xacro)/xacro.py 
+			'$(find nav_setup)/config/robot/create_2.xacro'" />
+
+<!--  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen" > -->
+<!--   		<param name="publish frequency" type="double" value="100" />-->
+<!--  </node>-->
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" >
+		<param name="publish frequency" type="double" value="20" />
+  </node>
+
+</launch>

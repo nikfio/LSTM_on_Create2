@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<node pkg="neural_network_planner" type="train_validate_node" respawn="false" 
+     			name="train_validate"  output="screen" >
+
+		<rosparam file="$(find neural_network_planner)/config/train_validate.yaml"
+			command="load" />
+
+	</node>
+
+</launch>

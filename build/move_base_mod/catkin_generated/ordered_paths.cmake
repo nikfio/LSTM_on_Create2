@@ -1,0 +1,1 @@
+set(ORDERED_PATHS "/home/leonida/bin/ros-jade-roomba-packages/devel/lib;/opt/ros/jade/lib")

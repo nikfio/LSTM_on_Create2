@@ -1,0 +1,38 @@
+#Independent settings for the local planner's costmap. Detailed descriptions of these parameters can be found at http://www.ros.org/wiki/costmap_2d
+
+local_costmap:
+   #We'll publish the voxel grid used by this costmap
+   publish_voxel_map: true
+   #Set the global and robot frames for the costmap
+   global_frame: /odom
+   robot_base_frame: base_footprint
+
+   #Set the update and publish frequency of the costmap
+   update_frequency: 5.0
+   publish_frequency: 2.0
+
+   #We'll configure this costmap to be a rolling window... meaning it is always
+   #centered at the robot
+   static_map: false
+   rolling_window: true
+   width: 5
+   height: 5
+   resolution: 0.050
+   origin_x: 0.0
+   origin_y: 0.0
+
+   #Obstacle marking parameters
+   obstacle_range: 5.0
+   max_obstacle_height: 2.0
+   raytrace_range: 4.0
+
+   #The footprint of the robot and associated padding
+   footprint: [[-0.135, -0.135], [-0.135, 0.135], [0.135, 0.135], [0.145, 0.0], [0.135, -0.135]]
+   footprint_padding: 0.01
+
+   #Cost function parameters
+   inflation_radius: 0.20
+   cost_scaling_factor: 7.5
+
+   #The cost at which a cell is considered an obstacle when a map is read from the map_server
+   lethal_cost_threshold: 125

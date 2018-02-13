@@ -1,2 +1,2 @@
-bumper_state_handler
--DCATKIN_DEVEL_PREFIX=/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/devel -DCMAKE_INSTALL_PREFIX=/home/nikfio/Documents/ThesisCode/NN-Roomba/RealEnv/install -G Unix Makefiles
+global_planner_mod:move_base_mod:nav_setup:neural_network_planner:robot_setup_tf
+-DCATKIN_DEVEL_PREFIX=/home/leonida/ThesisCode/LSTM_on_Create2/devel -DCMAKE_INSTALL_PREFIX=/home/leonida/ThesisCode/LSTM_on_Create2/install -G Unix Makefiles
