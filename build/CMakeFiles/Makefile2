@@ -3212,93 +3212,6 @@ clean: nav_setup/CMakeFiles/urg_node_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory robot_setup_tf
-
-# Convenience name for "all" pass in the directory.
-robot_setup_tf/all: robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/all
-robot_setup_tf/all: robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/all
-.PHONY : robot_setup_tf/all
-
-# Convenience name for "clean" pass in the directory.
-robot_setup_tf/clean: robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/clean
-robot_setup_tf/clean: robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/clean
-.PHONY : robot_setup_tf/clean
-
-# Convenience name for "preinstall" pass in the directory.
-robot_setup_tf/preinstall:
-.PHONY : robot_setup_tf/preinstall
-
-#=============================================================================
-# Target rules for target robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir
-
-# All Build rule for target.
-robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/all:
-	$(MAKE) -f robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/build.make robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/depend
-	$(MAKE) -f robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/build.make robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  18
-	@echo "Built target tf_basetolaser_broadcaster"
-.PHONY : robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/all
-
-# Include target in all.
-all: robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
-.PHONY : robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/rule
-
-# Convenience name for target.
-tf_basetolaser_broadcaster: robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/rule
-.PHONY : tf_basetolaser_broadcaster
-
-# clean rule for target.
-robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/clean:
-	$(MAKE) -f robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/build.make robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/clean
-.PHONY : robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/clean
-
-# clean rule for target.
-clean: robot_setup_tf/CMakeFiles/tf_basetolaser_broadcaster.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir
-
-# All Build rule for target.
-robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/all:
-	$(MAKE) -f robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/build.make robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/depend
-	$(MAKE) -f robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/build.make robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  19
-	@echo "Built target tf_basetolaser_listener"
-.PHONY : robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/all
-
-# Include target in all.
-all: robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
-.PHONY : robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/rule
-
-# Convenience name for target.
-tf_basetolaser_listener: robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/rule
-.PHONY : tf_basetolaser_listener
-
-# clean rule for target.
-robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/clean:
-	$(MAKE) -f robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/build.make robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/clean
-.PHONY : robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/clean
-
-# clean rule for target.
-clean: robot_setup_tf/CMakeFiles/tf_basetolaser_listener.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Directory level rules for directory global_planner_mod
 
 # Convenience name for "all" pass in the directory.
@@ -3522,7 +3435,7 @@ clean: global_planner_mod/CMakeFiles/navfn_generate_messages_py.dir/clean
 global_planner_mod/CMakeFiles/planner.dir/all: global_planner_mod/CMakeFiles/global_planner_mod.dir/all
 	$(MAKE) -f global_planner_mod/CMakeFiles/planner.dir/build.make global_planner_mod/CMakeFiles/planner.dir/depend
 	$(MAKE) -f global_planner_mod/CMakeFiles/planner.dir/build.make global_planner_mod/CMakeFiles/planner.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  17
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  19
 	@echo "Built target planner"
 .PHONY : global_planner_mod/CMakeFiles/planner.dir/all
 
@@ -3557,6 +3470,8 @@ clean: global_planner_mod/CMakeFiles/planner.dir/clean
 neural_network_planner/all: neural_network_planner/CMakeFiles/TestReadDB.dir/all
 neural_network_planner/all: neural_network_planner/CMakeFiles/build_database.dir/all
 neural_network_planner/all: neural_network_planner/CMakeFiles/build_database_node.dir/all
+neural_network_planner/all: neural_network_planner/CMakeFiles/online_deploy.dir/all
+neural_network_planner/all: neural_network_planner/CMakeFiles/online_deploy_node.dir/all
 neural_network_planner/all: neural_network_planner/CMakeFiles/train_validate.dir/all
 neural_network_planner/all: neural_network_planner/CMakeFiles/train_validate_node.dir/all
 .PHONY : neural_network_planner/all
@@ -3569,6 +3484,8 @@ neural_network_planner/clean: neural_network_planner/CMakeFiles/move_base_msgs_g
 neural_network_planner/clean: neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/clean
 neural_network_planner/clean: neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/clean
 neural_network_planner/clean: neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/clean
+neural_network_planner/clean: neural_network_planner/CMakeFiles/online_deploy.dir/clean
+neural_network_planner/clean: neural_network_planner/CMakeFiles/online_deploy_node.dir/clean
 neural_network_planner/clean: neural_network_planner/CMakeFiles/train_validate.dir/clean
 neural_network_planner/clean: neural_network_planner/CMakeFiles/train_validate_node.dir/clean
 .PHONY : neural_network_planner/clean
@@ -3804,6 +3721,77 @@ neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/clean:
 
 # clean rule for target.
 clean: neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target neural_network_planner/CMakeFiles/online_deploy.dir
+
+# All Build rule for target.
+neural_network_planner/CMakeFiles/online_deploy.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
+	$(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/depend
+	$(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  17
+	@echo "Built target online_deploy"
+.PHONY : neural_network_planner/CMakeFiles/online_deploy.dir/all
+
+# Include target in all.
+all: neural_network_planner/CMakeFiles/online_deploy.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+neural_network_planner/CMakeFiles/online_deploy.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/online_deploy.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
+.PHONY : neural_network_planner/CMakeFiles/online_deploy.dir/rule
+
+# Convenience name for target.
+online_deploy: neural_network_planner/CMakeFiles/online_deploy.dir/rule
+.PHONY : online_deploy
+
+# clean rule for target.
+neural_network_planner/CMakeFiles/online_deploy.dir/clean:
+	$(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/clean
+.PHONY : neural_network_planner/CMakeFiles/online_deploy.dir/clean
+
+# clean rule for target.
+clean: neural_network_planner/CMakeFiles/online_deploy.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target neural_network_planner/CMakeFiles/online_deploy_node.dir
+
+# All Build rule for target.
+neural_network_planner/CMakeFiles/online_deploy_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
+neural_network_planner/CMakeFiles/online_deploy_node.dir/all: neural_network_planner/CMakeFiles/online_deploy.dir/all
+	$(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/depend
+	$(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  18
+	@echo "Built target online_deploy_node"
+.PHONY : neural_network_planner/CMakeFiles/online_deploy_node.dir/all
+
+# Include target in all.
+all: neural_network_planner/CMakeFiles/online_deploy_node.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+neural_network_planner/CMakeFiles/online_deploy_node.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/online_deploy_node.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
+.PHONY : neural_network_planner/CMakeFiles/online_deploy_node.dir/rule
+
+# Convenience name for target.
+online_deploy_node: neural_network_planner/CMakeFiles/online_deploy_node.dir/rule
+.PHONY : online_deploy_node
+
+# clean rule for target.
+neural_network_planner/CMakeFiles/online_deploy_node.dir/clean:
+	$(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/clean
+.PHONY : neural_network_planner/CMakeFiles/online_deploy_node.dir/clean
+
+# clean rule for target.
+clean: neural_network_planner/CMakeFiles/online_deploy_node.dir/clean
 .PHONY : clean
 
 #=============================================================================

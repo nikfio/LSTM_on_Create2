@@ -6,19 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/TestReadDB.cpp
-cassert
--
-string
--
-vector
--
-iostream
--
-cstdio
--
-leveldb/db.h
-/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/leveldb/db.h
-lmdb.h
-/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/lmdb.h
-

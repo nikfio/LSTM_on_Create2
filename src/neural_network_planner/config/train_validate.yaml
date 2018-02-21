@@ -20,8 +20,6 @@ epochs: 1000
 
 time_sequence: 10
 
-move_rad_distance: 1.57
-
 folder_path: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/
 
 averaged_ranges_size: 24

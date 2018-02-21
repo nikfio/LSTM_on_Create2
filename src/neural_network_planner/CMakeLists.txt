@@ -86,7 +86,7 @@ get_filename_component(Caffe_CMAKE_DIR "/usr/local/caffe/cmake" PATH)
 #FIND_PACKAGE(Caffe)
 set(Caffe_INCLUDE_DIRS /usr/local/caffe/include)
 list(APPEND Caffe_INCLUDE_DIRS "/usr/include")
-list(APPEND Caffe_INCLUDE_DIRS "/usr/local/cuda-8.0/include")
+list(APPEND Caffe_INCLUDE_DIRS "/usr/local/cuda/include")
 list(APPEND Caffe_INCLUDE_DIRS "/usr/include/opencv")
 list(APPEND Caffe_INCLUDE_DIRS "/usr/include/atlas")
 list(APPEND Caffe_INCLUDE_DIRS "/usr/local/caffe/build/src/")
@@ -137,7 +137,13 @@ target_link_libraries(train_validate_node train_validate)
 
 #target_link_libraries(goal_generator ${catkin_LIBRARIES})
 
+add_library(online_deploy src/online_deploy.cpp)
 
+target_link_libraries(online_deploy build_database)
+
+add_executable(online_deploy_node src/online_deploy_node.cpp)
+
+target_link_libraries(online_deploy_node online_deploy)
 
 #############
 ## Install ##

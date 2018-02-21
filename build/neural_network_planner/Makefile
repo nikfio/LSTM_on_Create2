@@ -248,6 +248,34 @@ move_base_msgs_generate_messages_py/fast:
 .PHONY : move_base_msgs_generate_messages_py/fast
 
 # Convenience name for target.
+neural_network_planner/CMakeFiles/online_deploy.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/online_deploy.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/online_deploy.dir/rule
+
+# Convenience name for target.
+online_deploy: neural_network_planner/CMakeFiles/online_deploy.dir/rule
+.PHONY : online_deploy
+
+# fast build rule for target.
+online_deploy/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/build
+.PHONY : online_deploy/fast
+
+# Convenience name for target.
+neural_network_planner/CMakeFiles/online_deploy_node.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/online_deploy_node.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/online_deploy_node.dir/rule
+
+# Convenience name for target.
+online_deploy_node: neural_network_planner/CMakeFiles/online_deploy_node.dir/rule
+.PHONY : online_deploy_node
+
+# fast build rule for target.
+online_deploy_node/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/build
+.PHONY : online_deploy_node/fast
+
+# Convenience name for target.
 neural_network_planner/CMakeFiles/train_validate.dir/rule:
 	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_validate.dir/rule
 .PHONY : neural_network_planner/CMakeFiles/train_validate.dir/rule
@@ -347,6 +375,54 @@ src/build_database_node.cpp.s:
 	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/build_database_node.dir/build.make neural_network_planner/CMakeFiles/build_database_node.dir/src/build_database_node.cpp.s
 .PHONY : src/build_database_node.cpp.s
 
+src/online_deploy.o: src/online_deploy.cpp.o
+.PHONY : src/online_deploy.o
+
+# target to build an object file
+src/online_deploy.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/src/online_deploy.cpp.o
+.PHONY : src/online_deploy.cpp.o
+
+src/online_deploy.i: src/online_deploy.cpp.i
+.PHONY : src/online_deploy.i
+
+# target to preprocess a source file
+src/online_deploy.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/src/online_deploy.cpp.i
+.PHONY : src/online_deploy.cpp.i
+
+src/online_deploy.s: src/online_deploy.cpp.s
+.PHONY : src/online_deploy.s
+
+# target to generate assembly for a file
+src/online_deploy.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy.dir/build.make neural_network_planner/CMakeFiles/online_deploy.dir/src/online_deploy.cpp.s
+.PHONY : src/online_deploy.cpp.s
+
+src/online_deploy_node.o: src/online_deploy_node.cpp.o
+.PHONY : src/online_deploy_node.o
+
+# target to build an object file
+src/online_deploy_node.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/src/online_deploy_node.cpp.o
+.PHONY : src/online_deploy_node.cpp.o
+
+src/online_deploy_node.i: src/online_deploy_node.cpp.i
+.PHONY : src/online_deploy_node.i
+
+# target to preprocess a source file
+src/online_deploy_node.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/src/online_deploy_node.cpp.i
+.PHONY : src/online_deploy_node.cpp.i
+
+src/online_deploy_node.s: src/online_deploy_node.cpp.s
+.PHONY : src/online_deploy_node.s
+
+# target to generate assembly for a file
+src/online_deploy_node.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/src/online_deploy_node.cpp.s
+.PHONY : src/online_deploy_node.cpp.s
+
 src/train_validate.o: src/train_validate.cpp.o
 .PHONY : src/train_validate.o
 
@@ -413,6 +489,8 @@ help:
 	@echo "... move_base_msgs_generate_messages_eus"
 	@echo "... move_base_msgs_generate_messages_lisp"
 	@echo "... move_base_msgs_generate_messages_py"
+	@echo "... online_deploy"
+	@echo "... online_deploy_node"
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... train_validate"
@@ -426,6 +504,12 @@ help:
 	@echo "... src/build_database_node.o"
 	@echo "... src/build_database_node.i"
 	@echo "... src/build_database_node.s"
+	@echo "... src/online_deploy.o"
+	@echo "... src/online_deploy.i"
+	@echo "... src/online_deploy.s"
+	@echo "... src/online_deploy_node.o"
+	@echo "... src/online_deploy_node.i"
+	@echo "... src/online_deploy_node.s"
 	@echo "... src/train_validate.o"
 	@echo "... src/train_validate.i"
 	@echo "... src/train_validate.s"

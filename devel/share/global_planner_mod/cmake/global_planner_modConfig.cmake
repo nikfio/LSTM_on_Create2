@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib;/home/leonida/bin/ros-jade-roomba-packages/devel/lib;/opt/ros/jade/lib)
+    foreach(path /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib;/home/leonida/ThesisCode/LSTM_on_Create2/devel/lib;/home/leonida/bin/ros-jade-roomba-packages/devel/lib;/opt/ros/jade/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

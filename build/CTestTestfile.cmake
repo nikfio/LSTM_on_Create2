@@ -6,7 +6,6 @@
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
 SUBDIRS(nav_setup)
-SUBDIRS(robot_setup_tf)
 SUBDIRS(global_planner_mod)
 SUBDIRS(neural_network_planner)
 SUBDIRS(move_base_mod)

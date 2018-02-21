@@ -146,24 +146,8 @@ stdio.h
 global_planner_mod/planner_core.h
 -
 
-/home/leonida/ThesisCode/LSTM_on_Create2/src/global_planner_mod/src/grid_path.cpp
-global_planner_mod/grid_path.h
--
-algorithm
--
-stdio.h
--
-
 /home/leonida/ThesisCode/LSTM_on_Create2/src/global_planner_mod/src/node_functions.cpp
 global_planner_mod/astar_mod.h
--
-
-/home/leonida/ThesisCode/LSTM_on_Create2/src/global_planner_mod/src/orientation_filter.cpp
-global_planner_mod/orientation_filter.h
--
-tf/tf.h
--
-angles/angles.h
 -
 
 /home/leonida/ThesisCode/LSTM_on_Create2/src/global_planner_mod/src/planner_core.cpp
@@ -185,10 +169,6 @@ global_planner_mod/grid_path.h
 -
 global_planner_mod/gradient_path.h
 -
-global_planner_mod/quadratic_calculator.h
--
-
-/home/leonida/ThesisCode/LSTM_on_Create2/src/global_planner_mod/src/quadratic_calculator.cpp
 global_planner_mod/quadratic_calculator.h
 -
 
@@ -476,12 +456,6 @@ string
 vector
 -
 time.h
--
-
-/opt/ros/jade/include/angles/angles.h
-algorithm
--
-cmath
 -
 
 /opt/ros/jade/include/class_loader/class_loader.h

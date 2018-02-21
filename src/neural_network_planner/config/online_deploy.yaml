@@ -1,0 +1,24 @@
+# example of online deployment parameters set up
+
+trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM
+
+online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM
+
+GPU: false
+
+control_rate: 5 # Hertz
+
+minimal_step_distance: 0.1 # meters
+
+pos_update_threshold: 0.05 # meters
+
+target_tolerance: 0.25
+
+averaged_ranges_size: 24
+
+# if true publish state ranges as lines, false means only points 
+show_lines: true
+
+time_sequence: 10
+
+logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 

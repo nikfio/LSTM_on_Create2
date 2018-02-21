@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<node pkg="neural_network_planner" type="online_deploy_node" respawn="false" 
+     			name="online_deploy"  output="screen" >
+
+		<rosparam file="$(find neural_network_planner)/config/online_deploy.yaml"
+				command="load" />
+
+	</node>
+
+</launch>

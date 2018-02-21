@@ -23,7 +23,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include"
   "/usr/local/caffe/include"
-  "/usr/local/cuda-8.0/include"
+  "/usr/local/cuda/include"
   "/usr/include/opencv"
   "/usr/include/atlas"
   "/usr/local/caffe/build/src"

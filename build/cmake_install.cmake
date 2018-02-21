@@ -118,7 +118,6 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/leonida/ThesisCode/LSTM_on_Create2/build/gtest/cmake_install.cmake")
   INCLUDE("/home/leonida/ThesisCode/LSTM_on_Create2/build/nav_setup/cmake_install.cmake")
-  INCLUDE("/home/leonida/ThesisCode/LSTM_on_Create2/build/robot_setup_tf/cmake_install.cmake")
   INCLUDE("/home/leonida/ThesisCode/LSTM_on_Create2/build/global_planner_mod/cmake_install.cmake")
   INCLUDE("/home/leonida/ThesisCode/LSTM_on_Create2/build/neural_network_planner/cmake_install.cmake")
   INCLUDE("/home/leonida/ThesisCode/LSTM_on_Create2/build/move_base_mod/cmake_install.cmake")

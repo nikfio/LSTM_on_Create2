@@ -453,6 +453,9 @@ neural_network_planner_SOURCE_DIR:STATIC=/home/leonida/ThesisCode/LSTM_on_Create
 //The directory containing a CMake configuration file for nodelet.
 nodelet_DIR:PATH=/opt/ros/jade/share/nodelet/cmake
 
+//Dependencies for the target
+online_deploy_LIB_DEPENDS:STATIC=general;build_database;
+
 //The directory containing a CMake configuration file for pcl_conversions.
 pcl_conversions_DIR:PATH=/opt/ros/jade/share/pcl_conversions/cmake
 
@@ -671,7 +674,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=7
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

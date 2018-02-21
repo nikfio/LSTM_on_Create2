@@ -6,7 +6,7 @@
      			name="train_validate"  output="screen" >
 
 		<rosparam file="$(find neural_network_planner)/config/train_validate.yaml"
-			command="load" />
+				command="load" />
 
 	</node>
 

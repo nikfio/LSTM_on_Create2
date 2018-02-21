@@ -48,7 +48,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	private_nh.param("set_size", set_size, 10000);
 	private_nh.param("batch_size", batch_size, 100);	
-	private_nh.param("move_angle_distance", move_angle_distance, 45.0);	
 	private_nh.param("scan_topic", scan_topic, std::string("/base_scan") );
 	private_nh.param("goal_topic", goal_topic, std::string("/move_base/goal") );	
 	private_nh.param("odom_topic", odom_topic, std::string("/odom") );
@@ -62,9 +61,11 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
 	private_nh.param("show_lines", show_lines, false);
 	private_nh.param("command_measured", command_measured, true);
+	private_nh.param("crowdy", crowdy, false); 
+	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
+	private_nh.param("saturate_vel", saturate_vel, true);
 
 	FLAGS_log_dir = logs_path;
-	FLAGS_logtostderr = 0;
 	FLAGS_alsologtostderr = 1;
 	FLAGS_minloglevel = 0;
 
@@ -145,18 +146,11 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	while( ros::ok() && db_writestep < set_size) {
 
-//	  LOG(INFO) << "Distance from previous point: " << Step_dist() << "   " << goal_received;
+//	  LOG(INFO) << "Condition seq: " << crowdy << "  " << meas_linear_x << "  " 
+//			  << meas_angular_z << "  " << goal_received << endl;
 
-	/* step consistency checking:
-      * condition 1: actual movement more than the minimal distance  
-	 * condition 2: first iteration check is always a false positive
-      *              odom could remain alive while database node can
-      *              restart - meaning the first callback will update 
-      *              a position always distant from initial zero values 
-      */
-
-		
-	  if( Step_dist() > minimal_step_dist && actual_start && goal_received) { 
+	  if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level 
+			||  crowdy ) && goal_received ) { 
 
 		float x_rel = current_target.first - current_source.first;
 		float y_rel = current_target.second - current_source.second;	 
@@ -164,8 +158,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		float distance = hypot( x_rel, y_rel);
 		float relative_angle = fabs(atan2( y_rel , x_rel ) - current_orientation);
 
-		//LOG(INFO) << "Writing step " << db_writestep << " in " << states_db_path << " and " << labels_db_path;
-	
+		
 		std::string state_value;
 		caffe::Datum state_datum;
 		state_datum.set_channels(state_sequence_size);
@@ -191,20 +184,37 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		label_datum.set_width(1);
 
 		// storing labels
-		/* debugging tool: if real command mode is selected
-		 * check time difference
-           * between storing time (now) and cmd_vel update time
+		/* debugging tool: if measured vel mode is selected
+		 * perform saturation within driver limits
            */
-		if( !command_measured ) {
+		if( command_measured ) {
 
-			float diff = ros::Time::now().sec + ros::Time::now().nsec / std::pow(10,9) - ( cmdvel_time.sec + cmdvel_time.nsec / std::pow(10,9) );
- 
-			LOG(INFO) << "Time diff cmd_vel - storing instant: " << diff << " sec";
+			label_linear_x = meas_linear_x;
+			label_angular_z = meas_angular_z;
+
+			LOG(INFO) << "Before eventual saturation: linear" << label_linear_x
+					     << "  angular: " << label_angular_z;
+
+			if( saturate_vel ) {
+		
+				saturate(linear_neg, linear_pos, label_linear_x);
+				saturate(angular_neg, angular_pos, label_angular_z);
+				LOG(INFO) << "After saturation: linear" << label_linear_x
+					     << "  angular: " << label_angular_z;
+			}
+
 	
 		}
-    
-		label_datum.add_float_data(current_linear_x);
-		label_datum.add_float_data(current_angular_z);
+		else {
+
+			label_linear_x = ref_linear_x;
+			label_angular_z = ref_angular_z;
+	
+		}
+
+		// order of loading labels is unique and decided here    
+		label_datum.add_float_data(label_linear_x);
+		label_datum.add_float_data(label_angular_z);
 		label_datum.set_encoded(false);
 		label_datum.SerializeToString(&label_value);
 		
@@ -222,7 +232,8 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		}
 		 fprintf(table, "%.4f   ", distance); 
 		 fprintf(table, "%.4f \n  ", relative_angle); 
-		 fprintf(table, "DB STEP %d   LABELS   %.4f  %.4f \n ", db_writestep, current_linear_x, current_angular_z); 
+		 fprintf(table, "DB STEP %d   LABELS   %.4f  %.4f \n ", 
+					db_writestep, label_linear_x, label_angular_z); 
 		 fclose(table);
 		
 
@@ -240,12 +251,15 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	     
 	  } // check available step
-	  else if ( Step_dist() > minimal_step_dist ) 
-		actual_start = true;
-	  else if ( point_distance(current_source, current_target) <= minimal_step_dist ) // current pos has achieved target within the minimal step range
-		goal_received = false;
 	  
-		
+
+
+	  if ( point_distance(current_source, current_target) <= target_tolerance ) {
+		 // current pos has achieved target within tolerance
+		LOG(INFO) << "target reached";
+		goal_received = false;
+	  }
+
 	  prev_source = current_source;
 
 	  store_rate.sleep();
@@ -297,12 +311,9 @@ void BuildDatabase::build_callback(const LaserScan::ConstPtr& laser_msg,
 	if ( point_distance(current_source, tmp_source) > pos_update_threshold ) 
 		current_source = tmp_source;
 
-	if( command_measured ) {
-		// update velocity commands with measured values 
-		current_linear_x = odom_msg->twist.twist.linear.x;
-		current_angular_z = odom_msg->twist.twist.angular.z;
-	}
-
+	meas_linear_x = odom_msg->twist.twist.linear.x;
+	meas_angular_z = odom_msg->twist.twist.angular.z;
+	
 	vector<float> ranges = laser_msg->ranges;
 	
 	float range_num = ranges.size();
@@ -390,9 +401,9 @@ void BuildDatabase::updateTarget_callback( const MoveBaseActionGoal::ConstPtr& a
 void BuildDatabase::updateCmdVel_callback( const geometry_msgs::Twist::ConstPtr& cmdvel_msg ) {
 
 	cmdvel_time = ros::Time::now();
-	LOG(INFO) << "Updating velocity commands from navigation stack";
-	current_linear_x = cmdvel_msg->linear.x;
-	current_angular_z = cmdvel_msg->angular.z;
+//	LOG(INFO) << "Updating ref commands from navigation stack";
+	ref_linear_x = cmdvel_msg->linear.x;
+	ref_angular_z = cmdvel_msg->angular.z;
 
 }
 
@@ -408,6 +419,23 @@ float point_distance(std::pair<float, float>& start_point, std::pair<float, floa
 	return hypot(end_point.second - start_point.second, end_point.first - start_point.first);
 
 }
+
+int  saturate(float neg_lim, float pos_lim, float& value) 
+ {
+
+	if( value < neg_lim ) { 
+		value = neg_lim;
+		return 1;
+	}
+	else if( value > pos_lim ) {
+		value = pos_lim;
+	  	return 2;
+	}
+	else 
+		return 0;
+
+ }
+
 
 } // namespace neural_network_planner
 

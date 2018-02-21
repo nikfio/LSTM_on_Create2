@@ -29,6 +29,14 @@ using namespace message_filters;
 using namespace geometry_msgs; 
 
 
+// limits set by the driver in use
+const float linear_neg = -0.5;
+const float linear_pos = 0.5;
+const float angular_neg = -4.5;
+const float angular_pos = 4.5; 
+
+const float noise_level = 0.05; 
+
 namespace neural_network_planner {
 
 
@@ -45,7 +53,9 @@ private:
 
 	ros::NodeHandle private_nh;
 
-	int averaged_ranges_size, scan_time_span;	
+	int averaged_ranges_size, scan_time_span;
+
+	float target_tolerance;	
 
 	std::string backend, logs_path, base_path;	
 
@@ -62,8 +72,6 @@ private:
 
 	int set_size, batch_size, state_sequence_size;
 	int db_writestep, timestep, database_counter;
-	
-	double move_angle_distance;
 
 	vector<double> steering_angles;
 	
@@ -77,11 +85,12 @@ private:
 	std::pair<float, float> tmp_source;
 
 	float current_orientation;
-	float current_linear_x;
-	float current_angular_z;
+	float ref_linear_x, meas_linear_x, label_linear_x;
+	float ref_angular_z, meas_angular_z, label_angular_z;;
 	float minimal_step_dist, sampling_rate, pos_update_threshold;
 
-	bool show_lines, command_measured, goal_received;
+	bool show_lines, command_measured, goal_received, crowdy;
+	bool saturate_vel;
 
 	ros::Time cmdvel_time;
 
@@ -99,6 +108,8 @@ private:
 	float Step_dist();
 
 };
+
+int saturate(float neg_lim, float pos_lim, float& value);
 
 float point_distance(std::pair<float, float>& start_point, std::pair<float, float>& end_point); 
 

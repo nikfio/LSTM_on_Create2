@@ -40,6 +40,8 @@ namespace neural_network_planner {
 		private_nh.param("folder_path", folder_path, std::string(""));
 		private_nh.param("averaged_ranges_size", averaged_ranges_size, 22 );
 		private_nh.param("validation_test_frequency", val_freq, 2 );
+		private_nh.param("logs_path", logs_path, std::string(""));
+
 
 		if (GPU) {
 	    		caffe::Caffe::set_mode(caffe::Caffe::GPU);
@@ -61,7 +63,6 @@ namespace neural_network_planner {
 		// basic checking for minimal functioning
 		CHECK(net->has_blob("data"));	
 		CHECK(net->has_blob("labels"));	
-		CHECK(net->has_blob("clip"));	
 		CHECK(net->has_blob("loss"));
 //		CHECK(net->has_blob("out"));		
 
@@ -76,7 +77,6 @@ namespace neural_network_planner {
 		// basic checking for minimal functioning
 		CHECK(test_net->has_blob("data"));	
 		CHECK(test_net->has_blob("labels"));	
-		CHECK(test_net->has_blob("clip"));	
 		CHECK(test_net->has_blob("loss"));			
 //		CHECK(test_net->has_blob("out"));		
 	

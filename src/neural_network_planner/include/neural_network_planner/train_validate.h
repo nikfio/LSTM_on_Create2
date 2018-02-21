@@ -58,7 +58,7 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > test_blobOut;
 
 
-	std::string solver_conf, trained, folder_path;
+	std::string solver_conf, trained, folder_path, logs_path;
 	bool solver_mode, TRAIN, GPU, resume;
 
 	int batch_updates, iter_size, val_freq;
