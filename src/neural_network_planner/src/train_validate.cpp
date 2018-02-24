@@ -22,6 +22,8 @@ using std::string;
 
 using boost::lexical_cast;
 
+const int labels_size = 1;
+
 namespace neural_network_planner {
 
 	TrainValidateRNN::TrainValidateRNN(string& process_name) : private_nh("~")
@@ -41,6 +43,7 @@ namespace neural_network_planner {
 		private_nh.param("averaged_ranges_size", averaged_ranges_size, 22 );
 		private_nh.param("validation_test_frequency", val_freq, 2 );
 		private_nh.param("logs_path", logs_path, std::string(""));
+		private_nh.param("command_tail", command_tail, true);
 
 		FLAGS_log_dir = logs_path;
 		FLAGS_alsologtostderr = 1;
@@ -56,7 +59,7 @@ namespace neural_network_planner {
 		
 		// initializing the neural network - parsing the solver config file
 		FLAGS_minloglevel = 1;
-		LOG(INFO) << "Parsing solver config " << solver_conf;
+		LOG(WARNING) << "Parsing solver config " << solver_conf;
 		caffe::SolverParameter solver_param;
 		caffe::ReadProtoFromTextFileOrDie(solver_conf, &solver_param);
 		solver.reset(caffe::SolverRegistry<float>::CreateSolver(solver_param));	
@@ -64,8 +67,6 @@ namespace neural_network_planner {
 		FLAGS_minloglevel = 0;
 
 		net = solver->net();
-
-
 
 		// basic checking for minimal functioning
 		CHECK(net->has_blob("data"));	
@@ -103,9 +104,15 @@ namespace neural_network_planner {
 		validate_batch_num = validate_set_size / validate_batch_size;
 
 		// input state size checks
-		state_sequence_size = averaged_ranges_size + 2;
+		if( command_tail ) 
+			state_sequence_size = averaged_ranges_size + 3;
+		else
+			state_sequence_size = averaged_ranges_size + 2;
+					
 		CHECK_EQ( state_sequence_size, blobData->shape(1) ) << "train net: supposed input sequence size check failed";
 		CHECK_EQ( state_sequence_size, test_blobData->shape(1) ) << "validate net: supposed input sequence size check failed";
+
+		cout << blobData->shape(1) << endl;
 
 		// output size checks
 		CHECK_EQ(blobOut->shape(1), blobLabel->shape(1)) << "train net: output size and labels size must match"; 

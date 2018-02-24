@@ -38,6 +38,7 @@ using boost::scoped_ptr;
 using std::cout;
 using std::endl;
 
+const int labels_size = 1;
 
 namespace neural_network_planner {
 
@@ -56,7 +57,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param("averaged_ranges_size", averaged_ranges_size, 15 );
 	private_nh.param("database_backend", backend, std::string("leveldb"));
 	private_nh.param("logs_path", logs_path, std::string(""));
-	private_nh.param<float>("minimal_step_distance", minimal_step_dist, 0.5); 
 	private_nh.param<float>("sampling_rate", sampling_rate, 1);
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
 	private_nh.param("show_lines", show_lines, false);
@@ -64,6 +64,8 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
 	private_nh.param("saturate_vel", saturate_vel, true);
 	private_nh.param("command_tail", command_tail, true);
+	private_nh.param<float>("dist_preweight", dist_preweight, 4);
+	
 
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
@@ -79,9 +81,11 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	prev_meas_linear_x = prev_meas_angular_z = 0;
 
 	// related neural network input size selected for this build_database run 
-	state_sequence_size = averaged_ranges_size + 2;
 
-	int labels_size = 2;
+	if ( command_tail )
+		state_sequence_size = averaged_ranges_size + 3;
+	else
+		state_sequence_size = averaged_ranges_size + 2;
 
 	timestep = database_counter = 0;
 	db_writestep = 0;
@@ -130,7 +134,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	// labels measured signals database initialization
 	std::string labels_meas_db_path = base_path + "labels_meas_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
-				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist-variant_" + backend;
+				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist_" + backend;
 	scoped_ptr<caffe::db::DB> labels_meas_database(caffe::db::GetDB(backend));
 	labels_meas_database->Open(labels_meas_db_path, caffe::db::NEW);
 	scoped_ptr<caffe::db::Transaction> labels_meas_txn(labels_meas_database->NewTransaction());
@@ -138,7 +142,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	// labels reference signals database initialization
 	std::string labels_ref_db_path = base_path + "labels_ref_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
-				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist-variant_" + backend;
+				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist_" + backend;
 	scoped_ptr<caffe::db::DB> labels_ref_database(caffe::db::GetDB(backend));
 	labels_ref_database->Open(labels_ref_db_path, caffe::db::NEW);
 	scoped_ptr<caffe::db::Transaction> labels_ref_txn(labels_ref_database->NewTransaction());
@@ -157,9 +161,14 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		cout << "Plot file opening failed.\n";
 		exit(1);
 	}
+	fprintf(table, "PREWEIGHTS: DIST %.3f \n", dist_preweight);
 
-	bool actual_start = false;
+	fclose(table);
+
+
 	goal_received = false;
+
+	LOG(INFO) << "DATASETS INITIALIZED: sequence length: " << state_sequence_size;
 
 	FLAGS_minloglevel = 1;
 
@@ -184,7 +193,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 		std::string state_ref_value;
 		caffe::Datum state_ref_datum;
-		state_ref_datum.set_channels(state_sequence_size);
+		state_ref_datum.set_channels(state_sequence_size+1);
 		state_ref_datum.set_height(1);
 		state_ref_datum.set_width(1);
 		
@@ -193,7 +202,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 			state_ref_datum.add_float_data(range_data[i]);
 		}		
 
-		state_ref_datum.add_float_data(distance);
+		state_ref_datum.add_float_data(distance * dist_preweight);
 		state_ref_datum.add_float_data(relative_angle);
 
 		if( command_tail ) {
@@ -217,11 +226,11 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 			state_meas_datum.add_float_data(range_data[i]);
 		}		
 		
-		state_meas_datum.add_float_data(distance);
+		state_meas_datum.add_float_data(distance * dist_preweight);
 		state_meas_datum.add_float_data(relative_angle);
 
 		if( command_tail ) {
-			state_meas_datum.add_float_data(prev_meas_linear_x);
+			//state_meas_datum.add_float_data(prev_meas_linear_x);
 			state_meas_datum.add_float_data(prev_meas_angular_z);
 		}
 		
@@ -233,7 +242,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 		std::string label_ref_value;
 		caffe::Datum label_ref_datum;
-		label_ref_datum.set_channels(labels_size);
+		label_ref_datum.set_channels(labels_size+1);
 		label_ref_datum.set_height(1);	
 		label_ref_datum.set_width(1);
 
@@ -255,7 +264,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		label_meas_datum.set_width(1);
 
 		// order of loading labels is unique and decided here    
-		label_meas_datum.add_float_data(meas_linear_x);
+		//label_meas_datum.add_float_data(meas_linear_x);
 		label_meas_datum.add_float_data(meas_angular_z);
 		label_meas_datum.set_encoded(false);
 		
@@ -277,6 +286,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 					db_writestep, ref_linear_x, ref_angular_z, meas_linear_x, meas_angular_z); 
 		 fclose(table);
 		
+		LOG_EVERY_N(WARNING, 1000) << "Stored step  " << db_writestep;
 
 		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
 
@@ -290,8 +300,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 			labels_meas_txn.reset(labels_meas_database->NewTransaction());
 
       	} 
-
-		LOG(WARNING) << "Stored step  " << db_writestep;
+		
 
 		// update the tails
 		prev_ref_linear_x = ref_linear_x;
@@ -309,6 +318,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		LOG(INFO) << "target reached";
 		goal_received = false;
 	  }
+
 
 	  prev_source = current_source;
 
@@ -369,10 +379,6 @@ void BuildDatabase::build_callback(const LaserScan::ConstPtr& laser_msg,
 	
 	float range_num = ranges.size();
 	vector<float> current_ranges;
-
-//	LOG(INFO) << "Range measures total num:" << range_num;
-//     LOG(INFO) << "Scan message ranges size: " << ranges.size();
-//	LOG(INFO) << "ANGLE INCREMENT: " << laser_msg->angle_increment;
 	
 	int average_base = range_num / averaged_ranges_size;
 
@@ -486,6 +492,8 @@ int  saturate(float neg_lim, float pos_lim, float& value)
 		return 0;
 
  }
+
+
 
 
 } // namespace neural_network_planner

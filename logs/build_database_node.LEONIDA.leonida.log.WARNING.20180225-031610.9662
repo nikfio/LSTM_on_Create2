@@ -1,0 +1,27 @@
+Log file created at: 2018/02/25 03:16:10
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0225 03:16:10.258785  9662 build_database.cpp:289] Stored step  0
+W0225 03:17:36.347126  9662 build_database.cpp:289] Stored step  1000
+W0225 03:18:41.557101  9662 build_database.cpp:289] Stored step  2000
+W0225 03:19:54.161933  9662 build_database.cpp:289] Stored step  3000
+W0225 03:20:39.621053  9662 build_database.cpp:289] Stored step  4000
+W0225 03:23:11.483676  9662 build_database.cpp:289] Stored step  5000
+W0225 03:24:34.887967  9662 build_database.cpp:289] Stored step  6000
+W0225 03:25:56.322772  9662 build_database.cpp:289] Stored step  7000
+W0225 03:26:39.663075  9662 build_database.cpp:289] Stored step  8000
+W0225 03:28:03.835719  9662 build_database.cpp:289] Stored step  9000
+W0225 03:28:50.181231  9662 build_database.cpp:289] Stored step  10000
+W0225 03:29:51.698894  9662 build_database.cpp:289] Stored step  11000
+W0225 03:30:28.804951  9662 build_database.cpp:289] Stored step  12000
+W0225 03:31:31.811081  9662 build_database.cpp:289] Stored step  13000
+W0225 03:32:05.295394  9662 build_database.cpp:289] Stored step  14000
+W0225 03:32:59.449156  9662 build_database.cpp:289] Stored step  15000
+W0225 03:34:32.032059  9662 build_database.cpp:289] Stored step  16000
+W0225 03:35:14.438063  9662 build_database.cpp:289] Stored step  17000
+W0225 03:35:55.983835  9662 build_database.cpp:289] Stored step  18000
+W0225 03:38:02.140602  9662 build_database.cpp:289] Stored step  19000
+W0225 03:39:32.421438  9662 build_database.cpp:289] Stored step  20000
+W0225 03:40:47.505328  9662 build_database.cpp:289] Stored step  21000
+W0225 03:41:48.433135  9662 build_database.cpp:289] Stored step  22000
+W0225 03:42:46.609642  9662 build_database.cpp:289] Stored step  23000

@@ -28,10 +28,11 @@ using std::string;
 
 using boost::lexical_cast;
 
+const int labels_size = 1;
 
 namespace neural_network_planner {
 
-  OnlineDeploy::OnlineDeploy(string& process_name) 
+  OnlineDeploy::OnlineDeploy(string& process_name) : private_nh("~")
   {
 	
 	private_nh.param("trained", trained, std::string("") );
@@ -44,12 +45,13 @@ namespace neural_network_planner {
 	private_nh.param("goal_topic", goal_topic, std::string("/move_base/goal") );	
 	private_nh.param("odom_topic", odom_topic, std::string("/odom") );
 	private_nh.param("command_topic", command_topic, std::string("/cmd_vel") );
-	private_nh.param<float>("minimal_step_distance", minimal_step_dist, 0.5); 
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
 	private_nh.param("show_lines", show_lines, false);
 	private_nh.param("crowdy", crowdy, false); 
 	private_nh.param("logs_path", logs_path, std::string(""));
 	private_nh.param<float>("control_rate", control_rate, 5);
+	private_nh.param<float>("cruise_linear_vel", cruise_linear_vel, 0.3);
+	private_nh.param("command_tail", command_tail, true);
 
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
@@ -61,8 +63,6 @@ namespace neural_network_planner {
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
 
-	int labels_size = 2;
-
 
 	if (GPU) {
 		caffe::Caffe::set_mode(caffe::Caffe::GPU);
@@ -72,7 +72,10 @@ namespace neural_network_planner {
 		LOG(INFO) << "CPU mode";
 	}
 
-	FLAGS_minloglevel = 2;
+	FLAGS_minloglevel = 1;
+
+	LOG(WARNING) << "Loading " << online_model;
+
 	// initialize net for online test
 	online_net.reset(new caffe::Net<float>(online_model, caffe::TEST));
 	online_net->CopyTrainedLayersFrom(trained);
@@ -82,9 +85,14 @@ namespace neural_network_planner {
 						
 	blobData = online_net->blob_by_name("data");
 	blobClip = online_net->blob_by_name("clip");
-	blobArgmax = online_net->blob_by_name("out");
+	blobOut = online_net->blob_by_name("out");
 
-	state_sequence_size = averaged_ranges_size + 2;
+	// input state size checks
+		if( command_tail ) 
+			state_sequence_size = averaged_ranges_size + 3;
+		else
+			state_sequence_size = averaged_ranges_size + 2;
+
 	CHECK_EQ(state_sequence_size, blobData->shape(1) ) << "net: supposed input sequence size check failed";
 
 	CHECK_EQ(labels_size, blobOut->shape(1) );
@@ -121,13 +129,16 @@ namespace neural_network_planner {
 	ros::Rate store_rate(control_rate);
 
 	int online_step = 0;
-	bool actual_start = false;
+
+	FLAGS_minloglevel = 0;
+
+	LOG(INFO) << "ONLINE NET INITIALIZED ";
 
 	while( ros::ok() ) {
 
 //	  LOG(INFO) << "Distance from previous point: " << Step_dist() << "   " << goal_received;	  
 		
-	  if( actual_start && goal_received) { 
+	  if( goal_received ) { 
 
 
 		// populate clip blob 
@@ -155,13 +166,23 @@ namespace neural_network_planner {
 		blobData->mutable_cpu_data()[range_data.size() + 1] =
 					 fabs(atan2( y_rel , x_rel ) - current_orientation);
 
+		if( command_tail ) {
+			blobData->mutable_cpu_data()[range_data.size() + 2] = prev_meas_angular_z;
+ 		}
+
+
+//		for(int i = 0; i < state_sequence_size; i++) {
+//			cout << blobData->mutable_cpu_data()[i] << "  ";
+//		}
 
 		online_net->Forward();
 	
 		geometry_msgs::Twist cmd_out;
 
-		float linear = blobOut->mutable_cpu_data()[0];
-		float angular = blobOut->mutable_cpu_data()[1];
+		float linear = cruise_linear_vel;
+		float angular = blobOut->mutable_cpu_data()[0];
+
+		LOG(INFO) << "Linear: " <<  linear << " Angular: " << angular;
 
 		if( saturate(linear_neg, linear_pos, linear) ) {
 			LOG(INFO) << "Linear velocity command saturating";
@@ -169,8 +190,7 @@ namespace neural_network_planner {
 
 		if( saturate(angular_neg, angular_pos, angular) ) {
 			LOG(INFO) << "Angular velocity command saturating";
-		}
-				
+		}	
 
 		cmd_out.linear.x = linear;
 		cmd_out.angular.z = angular;	
@@ -179,11 +199,17 @@ namespace neural_network_planner {
 		
 		online_step++;
 
+		prev_ref_angular_z = angular;
+		prev_ref_linear_x = linear;
+		prev_meas_angular_z = meas_angular_z; 
+		prev_meas_linear_x = meas_linear_x; 	
+
       }
 
 	 if ( point_distance(current_source, current_target) <= target_tolerance ) {
 		 // current pos has achieved target within the tolerance
-		LOG(INFO) << "target reached";
+//		LOG(INFO) << "target reached";
+		PublishZeroVelocity();
 		goal_received = false;
 	 }
 
@@ -221,7 +247,7 @@ namespace neural_network_planner {
 	current_target.second = actiongoal_msg->goal.target_pose.pose.position.y;
 	goal_received = true;
 
-}
+ } 
 
  /* this thread is collecting navigation data - first variant - labels are set depending
  * on the real path effectively taken by the robot - output of controller (local planner)
@@ -230,7 +256,6 @@ void OnlineDeploy::build_callback(const LaserScan::ConstPtr& laser_msg,
 							const Odometry::ConstPtr& odom_msg)
 {
 	
-
 	// update measured robot position
 	tmp_source.first = odom_msg->pose.pose.position.x;
 	tmp_source.second = odom_msg->pose.pose.position.y;
@@ -239,14 +264,13 @@ void OnlineDeploy::build_callback(const LaserScan::ConstPtr& laser_msg,
 	if ( point_distance(current_source, tmp_source) > pos_update_threshold ) 
 		current_source = tmp_source;
 
+	meas_linear_x = odom_msg->twist.twist.linear.x;
+	meas_angular_z = odom_msg->twist.twist.angular.z;
+
 	vector<float> ranges = laser_msg->ranges;
 	
 	float range_num = ranges.size();
 	vector<float> current_ranges;
-
-//	LOG(INFO) << "Range measures total num:" << range_num;
-//     LOG(INFO) << "Scan message ranges size: " << ranges.size();
-//	LOG(INFO) << "ANGLE INCREMENT: " << laser_msg->angle_increment;
 	
 	int average_base = range_num / averaged_ranges_size;
 
@@ -311,6 +335,18 @@ void OnlineDeploy::build_callback(const LaserScan::ConstPtr& laser_msg,
 	}
 
 	net_ranges_pub_.publish(state_ranges);	
+
+}
+
+
+void OnlineDeploy::PublishZeroVelocity() {
+
+	geometry_msgs::Twist zero_vel;
+	zero_vel.linear.x = 0;
+	zero_vel.angular.z = 0;
+	
+	vel_command_pub_.publish(zero_vel);
+
 
 }
 

@@ -2,9 +2,9 @@
 # it is always better to write absolute paths of files needed
 # you never know from which location you launch the process
 
-train_set_size: 365
+train_set_size: 7656
 
-validate_set_size: 106
+validate_set_size: 6261
 
 resume: false
 
@@ -23,5 +23,8 @@ time_sequence: 10
 folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/
 
 averaged_ranges_size: 24
+
+# whether or not dataset has command tail as input
+command_tail: true
 
 logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 

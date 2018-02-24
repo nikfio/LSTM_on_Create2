@@ -63,7 +63,6 @@ int main(int argc, char **argv) {
 	goal_generated.target_pose.header.frame_id = "map";
 	goal_generated.target_pose.header.stamp = ros::Time::now();
 
-	
 	std::pair<float, float> goal_coord;
 	std::pair<float, float> current_target;
 

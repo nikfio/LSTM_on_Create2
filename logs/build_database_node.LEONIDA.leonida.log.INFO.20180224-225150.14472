@@ -1,0 +1,7 @@
+Log file created at: 2018/02/24 22:51:50
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0224 22:51:50.860358 14472 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_reftail_db-2-24-22-51_lmdb
+I0224 22:51:50.860611 14472 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_meastail_db-2-24-22-51_lmdb
+I0224 22:51:50.860699 14472 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_meas_db-2-24-22-51_twist-variant_lmdb
+I0224 22:51:50.860783 14472 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_ref_db-2-24-22-51_twist-variant_lmdb

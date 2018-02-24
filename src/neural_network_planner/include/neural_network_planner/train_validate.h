@@ -59,7 +59,7 @@ namespace neural_network_planner {
 
 
 	std::string solver_conf, trained, folder_path, logs_path;
-	bool solver_mode, TRAIN, GPU, resume;
+	bool solver_mode, TRAIN, GPU, resume, command_tail;
 
 	int batch_updates, iter_size, val_freq;
 	int train_batch_size, train_set_size, train_batch_num; 	

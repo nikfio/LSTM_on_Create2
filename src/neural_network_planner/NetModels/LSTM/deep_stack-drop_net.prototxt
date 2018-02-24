@@ -1,12 +1,12 @@
-name: "LSTM_stack-drop-4-64"
+name: "LSTM_stack-drop-4-16"
 
 layer {
   name: "data"
   type: "Data"
   top: "data"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-20-2/states_db-2-20-10-23_lmdb"
-    batch_size: 16
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_meastail_db-2-24-23-40_lmdb"
+    batch_size: 48
     backend: LMDB
   }
 
@@ -18,15 +18,13 @@ layer {
   type: "Data"
   top: "labels"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-20-2/labels_db-2-20-10-23_twist-variant_lmdb"
-    batch_size: 16
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_meas_db-2-24-23-40_twist-variant_lmdb"
+    batch_size: 48
     backend: LMDB
   }
 
  
 }
-
-
 
 layer {
 	name: "clip"
@@ -34,8 +32,8 @@ layer {
 	top:  "clip"
 	input_param {
 		shape {
-			dim: 16
-			dim: 26  		
+			dim: 48
+			dim: 27  		
 		}
 	
 	}
@@ -51,7 +49,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -80,7 +78,7 @@ layer {
   bottom: "clip"
   top: "lstm2"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -109,7 +107,7 @@ layer {
   bottom: "clip"
   top: "lstm3"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -139,7 +137,7 @@ layer {
   bottom: "clip"
   top: "lstm4"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -163,74 +161,16 @@ layer {
 
 
 
-layer {
-  name: "lstm5"
-  type: "LSTM"
-  bottom: "drop4"
-  bottom: "clip"
-  top: "lstm5"
-  recurrent_param {
-    num_output: 64
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-    }
-  }
-}
-
-
-layer {
-  name: "drop5"
-  type: "Dropout"
-  bottom: "lstm5"
-  top: "drop5"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-
-}
-
-
-layer {
-  name: "lstm6"
-  type: "LSTM"
-  bottom: "drop5"
-  bottom: "clip"
-  top: "lstm6"
-  recurrent_param {
-    num_output: 64
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-    }
-  }
-}
-
-
-layer {
-  name: "drop6"
-  type: "Dropout"
-  bottom: "lstm6"
-  top: "drop6"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-
-}
 
 
 layer {
   name: "out"
   type: "InnerProduct"
-  bottom: "drop4"
+  bottom: "drop2"
   top: "out"
 
   inner_product_param {
-    num_output: 2
+    num_output: 1
     weight_filler {
       type: "gaussian"
       std: 0.1

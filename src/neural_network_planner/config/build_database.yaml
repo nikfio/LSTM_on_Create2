@@ -1,27 +1,27 @@
 # example of build_database_node parameters set up
 
-set_size: 10000
+set_size: 100000
 
 batch_size: 50
 
-sampling_rate: 10
+sampling_rate: 30 # Hertz
 
 crowdy: false
 
-minimal_step_distance: 0.1 # meters
-
-pos_update_threshold: 0.01 # meters
+pos_update_threshold: 0.005 # meters
 
 target_tolerance: 0.15
 
 # better give absolute paths
-base_path: /home/nikfio/ThesisCode/LSTM_on_Create2/NavDatabases/
+base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 
 averaged_ranges_size: 24
 
 command_tail: true
 
+dist_preweight: 10
+
 # database backend type {leveldb, lmdb} allowed
 database_backend: lmdb
 
-logs_path: /home/nikfio/ThesisCode/LSTM_on_Create2/logs/ 
+logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 

@@ -50,11 +50,15 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > blobOut;
 	boost::shared_ptr<caffe::Blob<float> > blobArgmax;
 
-	bool GPU, show_lines, goal_received, crowdy;
+	bool GPU, show_lines, goal_received, crowdy, command_tail;
 
 	float target_tolerance, minimal_step_dist, pos_update_threshold;
 
-	float control_rate, current_orientation;
+	float control_rate, cruise_linear_vel;
+
+	float meas_linear_x, meas_angular_z, current_orientation;
+	float prev_ref_linear_x, prev_meas_linear_x;
+	float prev_ref_angular_z, prev_meas_angular_z;
 
 	int time_sequence, averaged_ranges_size, state_sequence_size;
 	std::pair<float, float> current_source;
@@ -88,6 +92,8 @@ namespace neural_network_planner {
 
 	void build_callback(const LaserScan::ConstPtr& laser_msg, 
 					const Odometry::ConstPtr& odom_msg);
+
+	void PublishZeroVelocity();
 
 
   };	

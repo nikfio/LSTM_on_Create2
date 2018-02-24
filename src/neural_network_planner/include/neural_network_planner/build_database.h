@@ -64,6 +64,8 @@ private:
 	message_filters::Subscriber<sensor_msgs::LaserScan> laserscan_sub_;
 	message_filters::Subscriber<nav_msgs::Odometry> odom_sub_;
 
+	float dist_preweight;
+
 	ros::Subscriber goal_sub_;
 	ros::Subscriber command_sub_;
 	ros::Publisher net_ranges_pub_;

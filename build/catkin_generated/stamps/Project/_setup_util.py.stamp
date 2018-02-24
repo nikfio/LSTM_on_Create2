@@ -263,7 +263,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # environment at generation time
-        CMAKE_PREFIX_PATH = '/home/nikfio/bin/roombs-robot-pkgs/devel;/home/nikfio/ThesisCode/LSTM_on_Create2/devel;/opt/ros/jade'.split(';')
+        CMAKE_PREFIX_PATH = '/home/leonida/bin/ros-planners-pkgs/devel;/home/leonida/ThesisCode/LSTM_on_Create2/devel;/home/leonida/bin/ros-jade-roomba-packages/devel;/opt/ros/jade'.split(';')
         # prepend current workspace if not already part of CPP
         base_path = os.path.dirname(__file__)
         if base_path not in CMAKE_PREFIX_PATH:

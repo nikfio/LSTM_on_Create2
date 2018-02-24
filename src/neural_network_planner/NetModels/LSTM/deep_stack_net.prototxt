@@ -1,12 +1,12 @@
-name: "LSTM_stack-1-128"
+name: "LSTM_stack-2-16"
 
 layer {
   name: "data"
   type: "Data"
   top: "data"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/states_db-2-21-15-4_lmdb"
-    batch_size: 16
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_meastail_db-2-24-23-40_lmdb"
+    batch_size: 32
     backend: LMDB
   }
 
@@ -18,8 +18,8 @@ layer {
   type: "Data"
   top: "labels"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/labels_db-2-21-15-4_twist-variant_lmdb"
-    batch_size: 16
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_meas_db-2-24-23-40_twist-variant_lmdb"
+    batch_size: 32
     backend: LMDB
   }
 
@@ -34,13 +34,14 @@ layer {
 	top:  "clip"
 	input_param {
 		shape {
-			dim: 16
-			dim: 26  		
+			dim: 32
+			dim: 27 		
 		}
 	
 	}
 	
 }
+
 
 
 
@@ -51,7 +52,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 128
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -61,26 +62,15 @@ layer {
   }
 }
 
-
-layer {
-  name: "bn1"
-  type: "BatchNorm"
-  bottom: "lstm1"
-  top: "bn1"
-  batch_norm_param {
-    use_global_stats: false
-  }
-
-}
 
 layer {
   name: "lstm2"
   type: "LSTM"
-  bottom: "bn1"
+  bottom: "lstm1"
   bottom: "clip"
   top: "lstm2"
   recurrent_param {
-    num_output: 128
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -91,73 +81,15 @@ layer {
 }
 
 
-layer {
-  name: "bn2"
-  type: "BatchNorm"
-  bottom: "lstm2"
-  top: "bn2"
-  batch_norm_param {
-    use_global_stats: false
-  }
-
-}
-
-
-layer {
-  name: "lstm3"
-  type: "LSTM"
-  bottom: "bn2"
-  bottom: "clip"
-  top: "lstm3"
-  recurrent_param {
-    num_output: 128
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-    }
-  }
-}
-
-
-layer {
-  name: "bn3"
-  type: "BatchNorm"
-  bottom: "lstm3"
-  top: "bn3"
-  batch_norm_param {
-    use_global_stats: false
-  }
-
-}
-
-
-layer {
-  name: "lstm4"
-  type: "LSTM"
-  bottom: "bn3"
-  bottom: "clip"
-  top: "lstm4"
-  recurrent_param {
-    num_output: 128
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-    }
-  }
-}
 
 layer {
   name: "out"
   type: "InnerProduct"
-  bottom: "lstm4"
+  bottom: "lstm2"
   top: "out"
 
   inner_product_param {
-    num_output: 2
+    num_output: 1
     weight_filler {
       type: "gaussian"
       std: 0.1
@@ -167,7 +99,6 @@ layer {
     }
   }
 }
-
 
 
 layer {

@@ -1,8 +1,8 @@
-prefix=/home/nikfio/ThesisCode/LSTM_on_Create2/install
+prefix=/home/leonida/ThesisCode/LSTM_on_Create2/install
 
 Name: neural_network_planner
 Description: Description of neural_network_planner
 Version: 0.0.0
-Cflags: -I/home/nikfio/ThesisCode/LSTM_on_Create2/install/include
-Libs: -L/home/nikfio/ThesisCode/LSTM_on_Create2/install/lib 
+Cflags: -I/home/leonida/ThesisCode/LSTM_on_Create2/install/include
+Libs: -L/home/leonida/ThesisCode/LSTM_on_Create2/install/lib 
 Requires: geometry_msgs nav_msgs roscpp sensor_msgs

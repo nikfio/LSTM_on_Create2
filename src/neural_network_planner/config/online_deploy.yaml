@@ -1,20 +1,23 @@
 # example of online deployment parameters set up
 
-trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM
+trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_deep-stack-2-16-27-onlyang_iter_80000.caffemodel
 
-online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM
+online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-drop_online.prototxt
 
 GPU: false
 
-control_rate: 5 # Hertz
+control_rate: 25 # Hertz
 
-minimal_step_distance: 0.1 # meters
+pos_update_threshold: 0.01 # meters
 
-pos_update_threshold: 0.05 # meters
+cruise_linear_vel: 0.3
 
-target_tolerance: 0.25
+target_tolerance: 0.5
 
 averaged_ranges_size: 24
+
+# whether or not net has trained with command tail as input
+command_tail: true
 
 # if true publish state ranges as lines, false means only points 
 show_lines: true

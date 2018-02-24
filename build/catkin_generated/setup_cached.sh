@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/nikfio/ThesisCode/LSTM_on_Create2/build"
+export PWD="/home/leonida/ThesisCode/LSTM_on_Create2/build"

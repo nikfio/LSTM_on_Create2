@@ -150,7 +150,7 @@ target_link_libraries(online_deploy_node online_deploy)
 #############
 
 
-install(TARGETS build_database build_database_node TestReadDB train_validate_node
+install(TARGETS build_database build_database_node TestReadDB train_validate_node online_deploy_node
    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

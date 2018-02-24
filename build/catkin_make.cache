@@ -1,2 +1,2 @@
 global_planner_mod:move_base_mod:nav_setup:neural_network_planner
--DCATKIN_DEVEL_PREFIX=/home/nikfio/ThesisCode/LSTM_on_Create2/devel -DCMAKE_INSTALL_PREFIX=/home/nikfio/ThesisCode/LSTM_on_Create2/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/leonida/ThesisCode/LSTM_on_Create2/devel -DCMAKE_INSTALL_PREFIX=/home/leonida/ThesisCode/LSTM_on_Create2/install -G Unix Makefiles
