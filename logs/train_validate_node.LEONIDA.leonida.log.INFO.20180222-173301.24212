@@ -1,0 +1,127 @@
+Log file created at: 2018/02/22 17:33:01
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0222 17:33:01.782824 24212 train_validate.cpp:51] GPU mode
+I0222 17:33:01.782960 24212 train_validate.cpp:59] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0222 17:33:01.790913 24212 solver.cpp:44] Initializing solver from parameters: 
+test_net: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack_testnet.prototxt"
+test_iter: 0
+test_interval: 100000000
+base_lr: 0.01
+display: 25
+max_iter: 100000
+lr_policy: "fixed"
+momentum: 0.95
+weight_decay: 1e-05
+snapshot: 300
+snapshot_prefix: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_deep-stack-realworld"
+solver_mode: GPU
+net: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack_net.prototxt"
+regularization_type: "L1"
+solver_type: ADADELTA
+iter_size: 1
+I0222 17:33:01.791035 24212 solver.cpp:87] Creating training net from net file: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack_net.prototxt
+I0222 17:33:01.791225 24212 net.cpp:51] Initializing net from parameters: 
+name: "LSTM_stack-1-16"
+state {
+  phase: TRAIN
+}
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/states_db-2-21-15-4_lmdb"
+    batch_size: 24
+    backend: LMDB
+  }
+}
+layer {
+  name: "label"
+  type: "Data"
+  top: "label"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/labels_db-2-21-15-4_twist-variant_lmdb"
+    batch_size: 24
+    backend: LMDB
+  }
+}
+layer {
+  name: "clip"
+  type: "Input"
+  top: "clip"
+  input_param {
+    shape {
+      dim: 24
+      dim: 10
+    }
+  }
+}
+layer {
+  name: "lstm1"
+  type: "LSTM"
+  bottom: "data"
+  bottom: "clip"
+  top: "lstm1"
+  recurrent_param {
+    num_output: 16
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "out"
+  type: "InnerProduct"
+  bottom: "lstm1"
+  top: "out"
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "euclideanLoss"
+  type: "EuclideanLoss"
+  bottom: "out"
+  bottom: "label"
+  top: "loss"
+}
+I0222 17:33:01.791303 24212 layer_factory.hpp:77] Creating layer data
+I0222 17:33:01.791422 24212 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/states_db-2-21-15-4_lmdb
+I0222 17:33:01.791455 24212 net.cpp:84] Creating Layer data
+I0222 17:33:01.791465 24212 net.cpp:380] data -> data
+I0222 17:33:01.792155 24212 data_layer.cpp:45] output data size: 24,26,1,1
+I0222 17:33:01.793596 24212 net.cpp:122] Setting up data
+I0222 17:33:01.793613 24212 net.cpp:129] Top shape: 24 26 1 1 (624)
+I0222 17:33:01.793618 24212 net.cpp:137] Memory required for data: 2496
+I0222 17:33:01.793625 24212 layer_factory.hpp:77] Creating layer label
+I0222 17:33:01.793665 24212 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/labels_db-2-21-15-4_twist-variant_lmdb
+I0222 17:33:01.793676 24212 net.cpp:84] Creating Layer label
+I0222 17:33:01.793682 24212 net.cpp:380] label -> label
+I0222 17:33:01.793745 24212 data_layer.cpp:45] output data size: 24,2,1,1
+I0222 17:33:01.794106 24212 net.cpp:122] Setting up label
+I0222 17:33:01.794134 24212 net.cpp:129] Top shape: 24 2 1 1 (48)
+I0222 17:33:01.794139 24212 net.cpp:137] Memory required for data: 2688
+I0222 17:33:01.794145 24212 layer_factory.hpp:77] Creating layer clip
+I0222 17:33:01.794157 24212 net.cpp:84] Creating Layer clip
+I0222 17:33:01.794168 24212 net.cpp:380] clip -> clip
+I0222 17:33:01.794294 24212 net.cpp:122] Setting up clip
+I0222 17:33:01.794319 24212 net.cpp:129] Top shape: 24 10 (240)
+I0222 17:33:01.794324 24212 net.cpp:137] Memory required for data: 3648
+I0222 17:33:01.794347 24212 layer_factory.hpp:77] Creating layer lstm1
+I0222 17:33:01.794356 24212 net.cpp:84] Creating Layer lstm1
+I0222 17:33:01.794379 24212 net.cpp:406] lstm1 <- data
+I0222 17:33:01.794389 24212 net.cpp:406] lstm1 <- clip
+I0222 17:33:01.794405 24212 net.cpp:380] lstm1 -> lstm1
+I0222 17:33:01.794420 24212 recurrent_layer.cpp:20] Initializing recurrent layer: assuming input batch contains 24 timesteps of 26 independent streams.
+F0222 17:33:01.794435 24212 recurrent_layer.cpp:26] Check failed: N_ == bottom[1]->shape(1) (26 vs. 10) 

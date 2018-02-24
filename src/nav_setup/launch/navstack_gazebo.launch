@@ -6,7 +6,7 @@
    <param name="/use_sim_time" value="true"/> 
 
 	<!-- set up the navigation stack via move_base node -->
-    <node pkg="move_base_mod" type="move_base_mod" respawn="false" name="move_base_mod_node" output="screen">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
     <param name="footprint_padding" value="0.01" />
     <param name="controller_frequency" value="10.0" />
     <param name="controller_patience" value="3.0" />
@@ -48,7 +48,7 @@
 	
     </node> 
    
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nav_setup)/rviz_config/single_robot.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nav_setup)/rviz_config/single_robot_planning.rviz" />
 
 </launch>
 

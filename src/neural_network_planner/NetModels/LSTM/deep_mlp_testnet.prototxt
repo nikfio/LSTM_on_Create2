@@ -1,0 +1,215 @@
+name: "LSTM_stack-bn-7-24"
+
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/states_db-2-21-14-36_lmdb"
+    batch_size: 16
+    backend: LMDB
+  }
+ 
+}
+
+layer {
+  name: "label"
+  type: "Data"
+  top: "labels"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/labels_db-2-21-14-36_twist-variant_lmdb"
+    batch_size: 16
+    backend: LMDB
+  }
+
+}
+
+
+layer {
+	name: "clip"
+	type: "Input"
+	top:  "clip"
+	input_param {
+		shape {
+			dim: 16
+			dim: 26  		
+		}
+	
+	}
+	
+}
+
+layer {
+  name: "fc1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "fc1"
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+	 std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "fc1"
+  top: "fc1"
+}
+
+
+layer {
+  name: "fc2"
+  type: "InnerProduct"
+  bottom: "fc1"
+  top: "fc2"
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+	 std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "fc2"
+  top: "fc2"
+}
+
+
+
+layer {
+  name: "fc3"
+  type: "InnerProduct"
+  bottom: "fc2"
+  top: "fc3"
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+	 std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "fc3"
+  top: "fc3"
+}
+
+
+
+layer {
+  name: "fc4"
+  type: "InnerProduct"
+  bottom: "fc3"
+  top: "fc4"
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+	 std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "fc4"
+  top: "fc4"
+}
+
+
+
+layer {
+  name: "fc5"
+  type: "InnerProduct"
+  bottom: "fc4"
+  top: "fc5"
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+	 std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "relu5"
+  type: "ReLU"
+  bottom: "fc5"
+  top: "fc5"
+}
+
+
+layer {
+  name: "out"
+  type: "InnerProduct"
+  bottom: "fc5"
+  top: "out"
+
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "out-concat"
+  type: "Concat"
+  bottom: "out"
+  top: "out-concat"
+  
+  concat_param {
+	axis: 1
+  }
+
+}
+
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "out-concat"
+  bottom: "labels"
+  top: "loss"  
+}
+
+
+

@@ -2,17 +2,17 @@
 # it is always better to write absolute paths of files needed
 # you never know from which location you launch the process
 
-train_set_size: 251
+train_set_size: 365
 
-validate_set_size: 194
+validate_set_size: 106
 
 resume: false
 
 validation_test_frequency: 3
 
-solver_config: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+solver_config: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
 
-trained_weights: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack-bn_iter.caffemodel
+trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack_iter.caffemodel
 
 GPU: true
 
@@ -20,6 +20,8 @@ epochs: 1000
 
 time_sequence: 10
 
-folder_path: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/
+folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/
 
 averaged_ranges_size: 24
+
+logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 

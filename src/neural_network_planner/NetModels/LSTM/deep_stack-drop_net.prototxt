@@ -1,0 +1,254 @@
+name: "LSTM_stack-drop-4-64"
+
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-20-2/states_db-2-20-10-23_lmdb"
+    batch_size: 16
+    backend: LMDB
+  }
+
+}
+
+
+layer {
+  name: "label"
+  type: "Data"
+  top: "labels"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-20-2/labels_db-2-20-10-23_twist-variant_lmdb"
+    batch_size: 16
+    backend: LMDB
+  }
+
+ 
+}
+
+
+
+layer {
+	name: "clip"
+	type: "Input"
+	top:  "clip"
+	input_param {
+		shape {
+			dim: 16
+			dim: 26  		
+		}
+	
+	}
+	
+}
+
+
+
+layer {
+  name: "lstm1"
+  type: "LSTM"
+  bottom: "data"
+  bottom: "clip"
+  top: "lstm1"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+	name: "Drop1"
+	type: "Dropout"
+	bottom: "lstm1"
+	top: "drop1"
+	dropout_param {
+		dropout_ratio: 0.5
+	}
+} 
+
+
+layer {
+  name: "lstm2"
+  type: "LSTM"
+  bottom: "drop1"
+  bottom: "clip"
+  top: "lstm2"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+	name: "Drop1"
+	type: "Dropout"
+	bottom: "lstm2"
+	top: "drop2"
+	dropout_param {
+		dropout_ratio: 0.5
+	}
+} 
+
+
+layer {
+  name: "lstm3"
+  type: "LSTM"
+  bottom: "drop2"
+  bottom: "clip"
+  top: "lstm3"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "drop3"
+  type: "Dropout"
+  bottom: "lstm3"
+  top: "drop3"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+
+}
+
+
+layer {
+  name: "lstm4"
+  type: "LSTM"
+  bottom: "drop3"
+  bottom: "clip"
+  top: "lstm4"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "drop4"
+  type: "Dropout"
+  bottom: "lstm4"
+  top: "drop4"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+
+}
+
+
+
+layer {
+  name: "lstm5"
+  type: "LSTM"
+  bottom: "drop4"
+  bottom: "clip"
+  top: "lstm5"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "drop5"
+  type: "Dropout"
+  bottom: "lstm5"
+  top: "drop5"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+
+}
+
+
+layer {
+  name: "lstm6"
+  type: "LSTM"
+  bottom: "drop5"
+  bottom: "clip"
+  top: "lstm6"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "lstm6"
+  top: "drop6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+
+}
+
+
+layer {
+  name: "out"
+  type: "InnerProduct"
+  bottom: "drop4"
+  top: "out"
+
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+
+layer {
+  name: "euclideanLoss"
+  type: "EuclideanLoss"
+  bottom: "out"
+  bottom: "labels"
+  top: "loss"  
+}
+
+

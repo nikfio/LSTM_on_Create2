@@ -1,0 +1,24 @@
+Log file created at: 2018/02/22 17:29:37
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0222 17:29:37.926071 24041 train_validate.cpp:51] GPU mode
+I0222 17:29:37.926205 24041 train_validate.cpp:59] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0222 17:29:37.934011 24041 solver.cpp:44] Initializing solver from parameters: 
+test_net: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack_testnet.prototxt"
+test_iter: 0
+test_interval: 100000000
+base_lr: 0.01
+display: 25
+max_iter: 100000
+lr_policy: "fixed"
+momentum: 0.95
+weight_decay: 1e-05
+snapshot: 300
+snapshot_prefix: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_deep-stack-realworld"
+solver_mode: GPU
+net: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack_net.prototxt"
+regularization_type: "L1"
+solver_type: ADADELTA
+iter_size: 1
+I0222 17:29:37.934109 24041 solver.cpp:87] Creating training net from net file: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack_net.prototxt
+F0222 17:29:37.934125 24041 io.cpp:36] Check failed: fd != -1 (-1 vs. -1) File not found: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_stack_net.prototxt

@@ -4,7 +4,8 @@ dev: "/dev/ttyUSB0"
 # Baud rate. Passing this parameter overwrites the inferred value based on the robot_model
 baud: 115200
 
-
+# Base frame ID
+base_frame: base_footprint
 
 # Odometry frame ID
 odom_frame: "odom"

@@ -133,9 +133,9 @@ add_executable(train_validate_node src/train_validate_node.cpp)
 
 target_link_libraries(train_validate_node train_validate)
 
-#add_executable(goal_generator src/goal_generator.cpp)
+add_executable(goal_generator src/goal_generator.cpp)
 
-#target_link_libraries(goal_generator ${catkin_LIBRARIES})
+target_link_libraries(goal_generator ${catkin_LIBRARIES} -lglog -lprotobuf)
 
 add_library(online_deploy src/online_deploy.cpp)
 

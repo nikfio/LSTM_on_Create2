@@ -1,0 +1,14 @@
+# parameters set for goal generation function
+
+one_shot: true
+
+max_radius: 15 # meters
+
+min_radius: 1.5 # meters
+
+one_dist: 8 # meters
+
+one_angle: 0.785 # rad 
+
+# maximum time allowed to reach goal
+timeout: 120.0 # seconds

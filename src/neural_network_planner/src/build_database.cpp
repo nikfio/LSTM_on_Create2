@@ -60,10 +60,10 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param<float>("sampling_rate", sampling_rate, 1);
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
 	private_nh.param("show_lines", show_lines, false);
-	private_nh.param("command_measured", command_measured, true);
 	private_nh.param("crowdy", crowdy, false); 
 	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
 	private_nh.param("saturate_vel", saturate_vel, true);
+	private_nh.param("command_tail", command_tail, true);
 
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
@@ -74,6 +74,9 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	prev_source = std::pair<float,float>(0,0);
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
+
+	prev_ref_linear_x = prev_ref_angular_z = 0;	
+	prev_meas_linear_x = prev_meas_angular_z = 0;
 
 	// related neural network input size selected for this build_database run 
 	state_sequence_size = averaged_ranges_size + 2;
@@ -96,8 +99,8 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	ros::NodeHandle nh;
 	goal_sub_ = nh.subscribe<MoveBaseActionGoal>(goal_topic , 1, boost::bind(&BuildDatabase::updateTarget_callback, this, _1));
-	if( !command_measured ) 
-		command_sub_ = nh.subscribe<geometry_msgs::Twist>(command_topic , 1, boost::bind(&BuildDatabase::updateCmdVel_callback, this, _1));
+
+	command_sub_ = nh.subscribe<geometry_msgs::Twist>(command_topic , 1, boost::bind(&BuildDatabase::updateCmdVel_callback, this, _1));
 	
 
 	net_ranges_pub_ = nh.advertise<LaserScan>("state_ranges", 1);
@@ -108,21 +111,37 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	time_t init = time(0);
 	tm *init_tm = localtime(&init);	
 
-	// states database initialization
-	std::string states_db_path = base_path + "states_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
+	// states database with ref command tail initialization
+	std::string states_ref_db_path = base_path + "states_reftail_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_" + backend;
-	scoped_ptr<caffe::db::DB> states_database(caffe::db::GetDB(backend));
-	states_database->Open(states_db_path, caffe::db::NEW);
-	scoped_ptr<caffe::db::Transaction> states_txn(states_database->NewTransaction());
+	scoped_ptr<caffe::db::DB> states_ref_database(caffe::db::GetDB(backend));
+	states_ref_database->Open(states_ref_db_path, caffe::db::NEW);
+	scoped_ptr<caffe::db::Transaction> states_ref_txn(states_ref_database->NewTransaction());
 
-	// labels databse initialization
-	std::string labels_db_path = base_path + "labels_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
+	// states database with measured command tail initialization
+	std::string states_meas_db_path = base_path + "states_meastail_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
+				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
+				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_" + backend;
+	scoped_ptr<caffe::db::DB> states_meas_database(caffe::db::GetDB(backend));
+	states_meas_database->Open(states_meas_db_path, caffe::db::NEW);
+	scoped_ptr<caffe::db::Transaction> states_meas_txn(states_meas_database->NewTransaction());
+
+	// labels measured signals database initialization
+	std::string labels_meas_db_path = base_path + "labels_meas_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist-variant_" + backend;
-	scoped_ptr<caffe::db::DB> labels_database(caffe::db::GetDB(backend));
-	labels_database->Open(labels_db_path, caffe::db::NEW);
-	scoped_ptr<caffe::db::Transaction> labels_txn(labels_database->NewTransaction());
+	scoped_ptr<caffe::db::DB> labels_meas_database(caffe::db::GetDB(backend));
+	labels_meas_database->Open(labels_meas_db_path, caffe::db::NEW);
+	scoped_ptr<caffe::db::Transaction> labels_meas_txn(labels_meas_database->NewTransaction());
+
+	// labels reference signals database initialization
+	std::string labels_ref_db_path = base_path + "labels_ref_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
+				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
+				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist-variant_" + backend;
+	scoped_ptr<caffe::db::DB> labels_ref_database(caffe::db::GetDB(backend));
+	labels_ref_database->Open(labels_ref_db_path, caffe::db::NEW);
+	scoped_ptr<caffe::db::Transaction> labels_ref_txn(labels_ref_database->NewTransaction());
 
 
 	// creating a text file to debug database building - just first times
@@ -157,70 +176,90 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 		float distance = hypot( x_rel, y_rel);
 		float relative_angle = fabs(atan2( y_rel , x_rel ) - current_orientation);
-
 		
-		std::string state_value;
-		caffe::Datum state_datum;
-		state_datum.set_channels(state_sequence_size);
-		state_datum.set_height(1);
-		state_datum.set_width(1);
+		
+		/* STATE with reference command tail */
+
+		std::string state_ref_value;
+		caffe::Datum state_ref_datum;
+		state_ref_datum.set_channels(state_sequence_size);
+		state_ref_datum.set_height(1);
+		state_ref_datum.set_width(1);
 		
 		// storing the state data 				
 		for(int i = 0; i < range_data.size(); i++) {
-			state_datum.add_float_data(range_data[i]);
+			state_ref_datum.add_float_data(range_data[i]);
 		}		
-		state_datum.add_float_data(distance);
-		state_datum.add_float_data(relative_angle);
 
-		state_datum.set_encoded(false);
-		state_datum.SerializeToString(&state_value);	
+		state_ref_datum.add_float_data(distance);
+		state_ref_datum.add_float_data(relative_angle);
+
+		if( command_tail ) {
+			state_ref_datum.add_float_data(prev_ref_linear_x);
+			state_ref_datum.add_float_data(prev_ref_angular_z);
+		}
+
+		state_ref_datum.set_encoded(false);
+		state_ref_datum.SerializeToString(&state_ref_value);	
 		std::string key_str = caffe::format_int(db_writestep, 8);
-		states_txn->Put(key_str, state_value);
+		states_ref_txn->Put(key_str, state_ref_value);
+
+		std::string state_meas_value;
+		caffe::Datum state_meas_datum;
+		state_meas_datum.set_channels(state_sequence_size);
+		state_meas_datum.set_height(1);
+		state_meas_datum.set_width(1);
 		
-		std::string label_value;
-		caffe::Datum label_datum;
-		label_datum.set_channels(labels_size);
-		label_datum.set_height(1);	
-		label_datum.set_width(1);
-
-		// storing labels
-		/* debugging tool: if measured vel mode is selected
-		 * perform saturation within driver limits
-           */
-		if( command_measured ) {
-
-			label_linear_x = meas_linear_x;
-			label_angular_z = meas_angular_z;
-
-			LOG(INFO) << "Before eventual saturation: linear" << label_linear_x
-					     << "  angular: " << label_angular_z;
-
-			if( saturate_vel ) {
+		// storing the state data 				
+		for(int i = 0; i < range_data.size(); i++) {
+			state_meas_datum.add_float_data(range_data[i]);
+		}		
 		
-				saturate(linear_neg, linear_pos, label_linear_x);
-				saturate(angular_neg, angular_pos, label_angular_z);
-				LOG(INFO) << "After saturation: linear" << label_linear_x
-					     << "  angular: " << label_angular_z;
-			}
+		state_meas_datum.add_float_data(distance);
+		state_meas_datum.add_float_data(relative_angle);
 
-	
+		if( command_tail ) {
+			state_meas_datum.add_float_data(prev_meas_linear_x);
+			state_meas_datum.add_float_data(prev_meas_angular_z);
 		}
-		else {
+		
+		state_meas_datum.set_encoded(false);
+		state_meas_datum.SerializeToString(&state_meas_value);	
+		states_meas_txn->Put(key_str, state_meas_value);
 
-			label_linear_x = ref_linear_x;
-			label_angular_z = ref_angular_z;
-	
-		}
+		/* LABELS with reference command */
+
+		std::string label_ref_value;
+		caffe::Datum label_ref_datum;
+		label_ref_datum.set_channels(labels_size);
+		label_ref_datum.set_height(1);	
+		label_ref_datum.set_width(1);
 
 		// order of loading labels is unique and decided here    
-		label_datum.add_float_data(label_linear_x);
-		label_datum.add_float_data(label_angular_z);
-		label_datum.set_encoded(false);
-		label_datum.SerializeToString(&label_value);
+		label_ref_datum.add_float_data(ref_linear_x);
+		label_ref_datum.add_float_data(ref_angular_z);
+		label_ref_datum.set_encoded(false);
 		
 		// using same key as state one - consistent accessing to databases
-		label_datum.SerializeToString(&label_value);
-		labels_txn->Put(key_str, label_value);
+		label_ref_datum.SerializeToString(&label_ref_value);
+		labels_ref_txn->Put(key_str, label_ref_value);
+
+		/* LABELS with measured command */
+
+		std::string label_meas_value;
+		caffe::Datum label_meas_datum;
+		label_meas_datum.set_channels(labels_size);
+		label_meas_datum.set_height(1);	
+		label_meas_datum.set_width(1);
+
+		// order of loading labels is unique and decided here    
+		label_meas_datum.add_float_data(meas_linear_x);
+		label_meas_datum.add_float_data(meas_angular_z);
+		label_meas_datum.set_encoded(false);
+		
+		// using same key as state one - consistent accessing to databases
+		label_meas_datum.SerializeToString(&label_meas_value);
+		labels_meas_txn->Put(key_str, label_meas_value);
 
 		table = fopen(check_text.c_str(), "a");
 		if( table == NULL ) {
@@ -232,22 +271,31 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		}
 		 fprintf(table, "%.4f   ", distance); 
 		 fprintf(table, "%.4f \n  ", relative_angle); 
-		 fprintf(table, "DB STEP %d   LABELS   %.4f  %.4f \n ", 
-					db_writestep, label_linear_x, label_angular_z); 
+		 fprintf(table, "DB STEP %d   LABELS   %.4f  %.4f    %.4f  %.4f \n ", 
+					db_writestep, ref_linear_x, ref_angular_z, meas_linear_x, meas_angular_z); 
 		 fclose(table);
 		
 
 		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
 
-			states_txn->Commit();	
-			labels_txn->Commit();
-			states_txn.reset(states_database->NewTransaction());
-			labels_txn.reset(labels_database->NewTransaction());			
+			states_ref_txn->Commit();	
+			states_meas_txn->Commit();				
+			labels_ref_txn->Commit();
+			labels_meas_txn->Commit();
+			states_ref_txn.reset(states_ref_database->NewTransaction());
+			states_meas_txn.reset(states_meas_database->NewTransaction());			
+			labels_ref_txn.reset(labels_ref_database->NewTransaction());			
+			labels_meas_txn.reset(labels_meas_database->NewTransaction());
 
       	} 
 
 		LOG(INFO) << "Stored step  " << db_writestep;
-		
+
+		// update the tails
+		prev_ref_linear_x = ref_linear_x;
+		prev_ref_angular_z = ref_angular_z;
+		prev_meas_linear_x = meas_linear_x;
+		prev_meas_angular_z = meas_angular_z;
 
 	     
 	  } // check available step
@@ -272,13 +320,14 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	if( db_writestep % batch_size != 0) { // Last commit if needed for a safe closing
 
 		LOG(INFO) << "Closing DATABASES ";
-		states_txn->Commit();
-		labels_txn->Commit();
-
+		states_ref_txn->Commit();	
+		states_meas_txn->Commit();		
+		labels_ref_txn->Commit();
+		labels_meas_txn->Commit();
 	}
 
 	
-	LOG(INFO) << "In databases " << states_db_path << " and " << labels_db_path << " have been stored " << db_writestep << " steps";
+	LOG(INFO) << "In databases " << states_ref_db_path << " have been stored " << db_writestep << " steps";
 
 
 	
@@ -438,7 +487,5 @@ int  saturate(float neg_lim, float pos_lim, float& value)
 
 
 } // namespace neural_network_planner
-
-
 
 

@@ -33,6 +33,8 @@ boost/thread.hpp
 /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/build_database_node.cpp
 neural_network_planner/build_database.h
 -
+glog/logging.h
+-
 
 /opt/ros/jade/include/XmlRpcDecl.h
 ros/macros.h

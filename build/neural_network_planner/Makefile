@@ -192,6 +192,20 @@ build_database_node/fast:
 .PHONY : build_database_node/fast
 
 # Convenience name for target.
+neural_network_planner/CMakeFiles/goal_generator.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/goal_generator.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/goal_generator.dir/rule
+
+# Convenience name for target.
+goal_generator: neural_network_planner/CMakeFiles/goal_generator.dir/rule
+.PHONY : goal_generator
+
+# fast build rule for target.
+goal_generator/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/build
+.PHONY : goal_generator/fast
+
+# Convenience name for target.
 neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule:
 	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
 .PHONY : neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
@@ -375,6 +389,30 @@ src/build_database_node.cpp.s:
 	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/build_database_node.dir/build.make neural_network_planner/CMakeFiles/build_database_node.dir/src/build_database_node.cpp.s
 .PHONY : src/build_database_node.cpp.s
 
+src/goal_generator.o: src/goal_generator.cpp.o
+.PHONY : src/goal_generator.o
+
+# target to build an object file
+src/goal_generator.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/src/goal_generator.cpp.o
+.PHONY : src/goal_generator.cpp.o
+
+src/goal_generator.i: src/goal_generator.cpp.i
+.PHONY : src/goal_generator.i
+
+# target to preprocess a source file
+src/goal_generator.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/src/goal_generator.cpp.i
+.PHONY : src/goal_generator.cpp.i
+
+src/goal_generator.s: src/goal_generator.cpp.s
+.PHONY : src/goal_generator.s
+
+# target to generate assembly for a file
+src/goal_generator.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/src/goal_generator.cpp.s
+.PHONY : src/goal_generator.cpp.s
+
 src/online_deploy.o: src/online_deploy.cpp.o
 .PHONY : src/online_deploy.o
 
@@ -481,6 +519,7 @@ help:
 	@echo "... build_database"
 	@echo "... build_database_node"
 	@echo "... edit_cache"
+	@echo "... goal_generator"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -504,6 +543,9 @@ help:
 	@echo "... src/build_database_node.o"
 	@echo "... src/build_database_node.i"
 	@echo "... src/build_database_node.s"
+	@echo "... src/goal_generator.o"
+	@echo "... src/goal_generator.i"
+	@echo "... src/goal_generator.s"
 	@echo "... src/online_deploy.o"
 	@echo "... src/online_deploy.i"
 	@echo "... src/online_deploy.s"

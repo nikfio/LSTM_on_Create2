@@ -1,0 +1,4 @@
+Log file created at: 2018/02/22 18:33:44
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0222 18:33:44.561328 27050 euclidean_loss_layer.cpp:12] Check failed: bottom[0]->count(1) == bottom[1]->count(1) (8 vs. 2) Inputs must have the same dimension.

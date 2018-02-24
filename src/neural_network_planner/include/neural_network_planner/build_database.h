@@ -75,7 +75,7 @@ private:
 
 	vector<double> steering_angles;
 	
-	vector<float> range_data;
+	vector<float> range_data, tail;
 
 	std::pair<float, float> current_source;
 	std::pair<float, float> current_target;
@@ -88,9 +88,12 @@ private:
 	float ref_linear_x, meas_linear_x, label_linear_x;
 	float ref_angular_z, meas_angular_z, label_angular_z;;
 	float minimal_step_dist, sampling_rate, pos_update_threshold;
+	float prev_ref_linear_x, prev_meas_linear_x;
+	float prev_ref_angular_z, prev_meas_angular_z;
+
 
 	bool show_lines, command_measured, goal_received, crowdy;
-	bool saturate_vel;
+	bool saturate_vel, command_tail;
 
 	ros::Time cmdvel_time;
 

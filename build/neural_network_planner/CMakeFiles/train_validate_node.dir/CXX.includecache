@@ -19,6 +19,8 @@ string
 /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/train_validate_node.cpp
 neural_network_planner/train_validate.h
 -
+glog/logging.h
+-
 
 /opt/ros/jade/include/XmlRpcDecl.h
 ros/macros.h

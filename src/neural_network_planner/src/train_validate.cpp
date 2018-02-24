@@ -42,6 +42,9 @@ namespace neural_network_planner {
 		private_nh.param("validation_test_frequency", val_freq, 2 );
 		private_nh.param("logs_path", logs_path, std::string(""));
 
+		FLAGS_log_dir = logs_path;
+		FLAGS_alsologtostderr = 1;
+		FLAGS_minloglevel = 0;
 
 		if (GPU) {
 	    		caffe::Caffe::set_mode(caffe::Caffe::GPU);
@@ -58,13 +61,17 @@ namespace neural_network_planner {
 		caffe::ReadProtoFromTextFileOrDie(solver_conf, &solver_param);
 		solver.reset(caffe::SolverRegistry<float>::CreateSolver(solver_param));	
 
+		FLAGS_minloglevel = 0;
+
 		net = solver->net();
+
+
 
 		// basic checking for minimal functioning
 		CHECK(net->has_blob("data"));	
 		CHECK(net->has_blob("labels"));	
 		CHECK(net->has_blob("loss"));
-//		CHECK(net->has_blob("out"));		
+		CHECK(net->has_blob("out"));		
 
 		blobData = net->blob_by_name("data");
 		blobClip = net->blob_by_name("clip");
@@ -78,7 +85,7 @@ namespace neural_network_planner {
 		CHECK(test_net->has_blob("data"));	
 		CHECK(test_net->has_blob("labels"));	
 		CHECK(test_net->has_blob("loss"));			
-//		CHECK(test_net->has_blob("out"));		
+		CHECK(test_net->has_blob("out"));		
 	
 		test_blobData = test_net->blob_by_name("data");
 		test_blobClip = test_net->blob_by_name("clip");

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<node pkg="neural_network_planner" type="goal_generator" respawn="false" 
+     			name="goal_generator"  output="screen" >
+
+		<rosparam file="$(find neural_network_planner)/config/goal_gen.yaml"
+				command="load" />
+
+	</node>
+
+</launch>

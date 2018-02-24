@@ -10,7 +10,7 @@ crowdy: false
 
 minimal_step_distance: 0.1 # meters
 
-pos_update_threshold: 0.05 # meters
+pos_update_threshold: 0.01 # meters
 
 target_tolerance: 0.15
 
@@ -19,16 +19,7 @@ base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 
 averaged_ranges_size: 24
 
-# if true publish state ranges as lines, false means only points 
-show_lines: true
-
-# labels are velocity commands, two modes, not decided which one is best, reasons given below
-# label mode: true -> measured (synchronized)
-# 		    false -> nav_stack commands (not synchronized, Header missing)
-# to have alse commands from navigation stack synchronized
-# we should modify the msg type and include Header section
-# but there is not time for that
-command_measured: true 
+command_tail: true
 
 # database backend type {leveldb, lmdb} allowed
 database_backend: lmdb

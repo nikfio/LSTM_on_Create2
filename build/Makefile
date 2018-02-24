@@ -1554,6 +1554,19 @@ build_database_node/fast:
 .PHONY : build_database_node/fast
 
 #=============================================================================
+# Target rules for targets named goal_generator
+
+# Build rule for target.
+goal_generator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 goal_generator
+.PHONY : goal_generator
+
+# fast build rule for target.
+goal_generator/fast:
+	$(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/build
+.PHONY : goal_generator/fast
+
+#=============================================================================
 # Target rules for targets named move_base_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -1804,6 +1817,7 @@ help:
 	@echo "... TestReadDB"
 	@echo "... build_database"
 	@echo "... build_database_node"
+	@echo "... goal_generator"
 	@echo "... move_base_msgs_generate_messages_cpp"
 	@echo "... move_base_msgs_generate_messages_eus"
 	@echo "... move_base_msgs_generate_messages_lisp"

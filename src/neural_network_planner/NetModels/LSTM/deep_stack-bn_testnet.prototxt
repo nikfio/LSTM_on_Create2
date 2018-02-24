@@ -4,43 +4,40 @@ layer {
   name: "data"
   type: "Data"
   top: "data"
- 
   data_param {
-	source: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/NavDatabases/states_db-2-8-11-38_lmdb"
-	batch_size: 16
-	backend: LMDB
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/states_db-2-21-14-36_lmdb"
+    batch_size: 16
+    backend: LMDB
   }
-
+ 
 }
 
-
 layer {
-  name: "data"
+  name: "label"
   type: "Data"
   top: "labels"
- 
   data_param {
-	source: "/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/NavDatabases/labels_db-2-8-11-38_twist-variant_lmdb"
-	batch_size: 16
-	backend: LMDB
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/labels_db-2-21-14-36_twist-variant_lmdb"
+    batch_size: 16
+    backend: LMDB
   }
 
 }
 
+
 layer {
-	name: "Input"
+	name: "clip"
 	type: "Input"
 	top:  "clip"
 	input_param {
 		shape {
 			dim: 16
-			dim: 26  		
+			dim: 26 		
 		}
 	
 	}
 	
 }
-
 
 layer {
   name: "lstm1"
@@ -263,7 +260,7 @@ layer {
 layer {
   name: "fc1"
   type: "InnerProduct"
-  bottom: "lstm1"
+  bottom: "bn7"
   top: "fc1"
 
   inner_product_param {
@@ -282,7 +279,7 @@ layer {
 layer {
   name: "out"
   type: "InnerProduct"
-  bottom: "fc1"
+  bottom: "lstm7"
   top: "out"
   
   inner_product_param {
@@ -316,5 +313,6 @@ layer {
   bottom: "labels"
   top: "loss"  
 }
+
 
 
