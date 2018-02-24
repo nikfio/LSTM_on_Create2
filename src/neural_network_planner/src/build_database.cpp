@@ -291,7 +291,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
       	} 
 
-		LOG(INFO) << "Stored step  " << db_writestep;
+		LOG(WARNING) << "Stored step  " << db_writestep;
 
 		// update the tails
 		prev_ref_linear_x = ref_linear_x;
