@@ -2,9 +2,9 @@
 # it is always better to write absolute paths of files needed
 # you never know from which location you launch the process
 
-train_set_size: 7656
+train_set_size: 50017
 
-validate_set_size: 6261
+validate_set_size: 20372
 
 resume: false
 
@@ -16,7 +16,7 @@ trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_pla
 
 GPU: true
 
-epochs: 1000
+epochs: 2000
 
 time_sequence: 10
 

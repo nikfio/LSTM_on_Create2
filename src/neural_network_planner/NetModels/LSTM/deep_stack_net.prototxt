@@ -5,8 +5,8 @@ layer {
   type: "Data"
   top: "data"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_meastail_db-2-24-23-40_lmdb"
-    batch_size: 32
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-24-END/states_meastail_db-2-25-3-16_lmdb"
+    batch_size: 64
     backend: LMDB
   }
 
@@ -18,8 +18,8 @@ layer {
   type: "Data"
   top: "labels"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_meas_db-2-24-23-40_twist-variant_lmdb"
-    batch_size: 32
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-24-END/labels_meas_db-2-25-3-16_twist_lmdb"
+    batch_size: 64
     backend: LMDB
   }
 
@@ -34,8 +34,8 @@ layer {
 	top:  "clip"
 	input_param {
 		shape {
-			dim: 32
-			dim: 27 		
+			dim: 64
+			dim: 27		
 		}
 	
 	}

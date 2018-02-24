@@ -1,0 +1,12 @@
+Log file created at: 2018/02/25 04:40:03
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0225 04:40:03.973062 12612 train_validate.cpp:54] GPU mode
+W0225 04:40:03.973191 12612 train_validate.cpp:62] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0225 04:40:04.034714 12612 train_validate.cpp:132] Selected start a new training
+I0225 04:40:04.034742 12612 train_validate.cpp:144] Net loaded: LSTM_stack-2-16
+I0225 04:40:04.034746 12612 train_validate.cpp:145] TRAIN INFO: set size: 35000 batch size: 32
+I0225 04:40:04.034749 12612 train_validate.cpp:146] VALIDATE INFO: set size: 10000
+I0225 04:40:04.034752 12612 train_validate.cpp:147] Forward - backward per batch (gradients accumulated): 1
+I0225 04:40:04.034755 12612 train_validate.cpp:148] Number of updates per batch: 1
+W0225 04:40:15.816931 12612 train_validate.cpp:277] TRAIN EPOCH: 2 AVERAGE LOSS: 0.042244

@@ -1,0 +1,21 @@
+TEST: LSTM_stack-2-16 DATE: 2 25 4:46 
+ PARAMETERS: 
+ TRAIN_SIZE = 50017 
+ VALID_SIZE = 20372 
+ train_batch_size = 64 
+ iter_size = 1 
+ batch_updates = 1 
+  base_learning_rate = 0.01000 
+ weight_decay = 0.000100 
+ loss_data = [ 
+    0.0684       0.0000  ; 
+    0.0351       0.0539  ; 
+    0.0300       0.0539  ; 
+    0.0243       0.0539  ; 
+    0.0196       0.0413  ; 
+    0.0162       0.0413  ; 
+    0.0169       0.0413  ; 
+    0.0139       0.0328  ; 
+    0.0132       0.0328  ; 
+    0.0116       0.0328  ; 
+    0.0114       0.0213  ; 
