@@ -1,1 +1,1 @@
-set(ORDERED_PATHS "/home/leonida/bin/ros-jade-roomba-packages/devel/lib;/opt/ros/jade/lib")
+set(ORDERED_PATHS "/home/nikfio/bin/roombs-robot-pkgs/devel/lib;/opt/ros/jade/lib")

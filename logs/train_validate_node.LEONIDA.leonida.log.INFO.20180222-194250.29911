@@ -1,5 +1,0 @@
-Log file created at: 2018/02/22 19:42:50
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I0222 19:42:50.458765 29911 train_validate.cpp:51] GPU mode
-F0222 19:42:50.465791 29911 db_lmdb.hpp:15] Check failed: mdb_status == 0 (2 vs. 0) No such file or directory

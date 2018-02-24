@@ -1,5 +1,0 @@
-Log file created at: 2018/02/22 18:34:04
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0222 18:34:04.286866 27133 net.cpp:956] Unknown blob name clip
-W0222 18:34:04.286949 27133 net.cpp:956] Unknown blob name clip

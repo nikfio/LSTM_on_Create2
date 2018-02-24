@@ -1,4 +1,0 @@
-Log file created at: 2018/02/22 17:52:49
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-F0222 17:52:49.752430 25679 insert_splits.cpp:29] Unknown bottom blob 'lstm2' (layer 'bn2', bottom index 0)

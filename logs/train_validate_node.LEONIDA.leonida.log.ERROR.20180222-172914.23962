@@ -1,4 +1,0 @@
-Log file created at: 2018/02/22 17:29:14
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-F0222 17:29:14.832243 23962 solver.cpp:431] Cannot write to snapshot prefix '/home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_deep-stack-realworld'.  Make sure that the directory exists and is writeable.

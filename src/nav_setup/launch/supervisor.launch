@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<launch>
+
+	<include file="$(find nav_setup)/launch/robot_setup.launch" />
+
+<!--	<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">-->
+
+<!--	<param name="scan" value="base_scan" />-->
+<!--	<param name="_linearUpdate" value="0" />-->
+<!--	<param name="_angularUpdate" value="0" />-->
+
+<!--	</node>-->
+
+	<!-- set up the navigation stack via move_base node -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
+    <param name="footprint_padding" value="0.01" />
+    <param name="controller_frequency" value="10.0" />
+    <param name="controller_patience" value="3.0" />
+
+    <param name="oscillation_timeout" value="30.0" />
+    <param name="oscillation_distance" value="0.5" />
+
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+  
+<!--    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />  -->
+    
+    <!--	
+    <param name="base_local_planner" value="astar_local_planner/AstarTrajectoryPlannerROS" />
+    -->    
+   
+    <rosparam file="$(find nav_setup)/params/costmap_common.yaml" 
+	 command="load" ns="global_costmap" />
+
+    <rosparam file="$(find nav_setup)/params/costmap_common.yaml"
+	 command="load" ns="local_costmap" />
+
+    <rosparam file="$(find nav_setup)/params/local_costmap.yaml" 
+	command="load" />
+
+    <rosparam file="$(find nav_setup)/params/global_costmap.yaml" 
+	command="load" />
+
+    <rosparam file="$(find nav_setup)/params/base_local_planner.yaml" 
+	command="load" />
+	
+    <rosparam file="$(find nav_setup)/params/base_global_planner.yaml" 
+	command="load" />
+    
+<!--  <rosparam file="$(find nav_setup)/params/dwa_local_planner.yaml"-->
+<!--	 command="load" />-->
+	
+    </node> 
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find nav_setup)/rviz_config/single_robot_planning.rviz" />
+   
+	<include file="$(find neural_network_planner)/launch/build_database.launch" />
+
+</launch>
+
+

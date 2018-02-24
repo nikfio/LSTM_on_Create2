@@ -161,6 +161,8 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	bool actual_start = false;
 	goal_received = false;
 
+	FLAGS_minloglevel = 1;
+
 	ros::Rate store_rate(sampling_rate);
 
 	while( ros::ok() && db_writestep < set_size) {

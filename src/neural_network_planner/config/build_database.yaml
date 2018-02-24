@@ -4,7 +4,7 @@ set_size: 10000
 
 batch_size: 50
 
-sampling_rate: 2
+sampling_rate: 10
 
 crowdy: false
 
@@ -15,7 +15,7 @@ pos_update_threshold: 0.01 # meters
 target_tolerance: 0.15
 
 # better give absolute paths
-base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
+base_path: /home/nikfio/ThesisCode/LSTM_on_Create2/NavDatabases/
 
 averaged_ranges_size: 24
 
@@ -24,4 +24,4 @@ command_tail: true
 # database backend type {leveldb, lmdb} allowed
 database_backend: lmdb
 
-logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 
+logs_path: /home/nikfio/ThesisCode/LSTM_on_Create2/logs/ 

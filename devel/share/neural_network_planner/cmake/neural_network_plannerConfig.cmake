@@ -67,14 +67,14 @@ set(neural_network_planner_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(neural_network_planner_SOURCE_PREFIX /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner)
-  set(neural_network_planner_DEVEL_PREFIX /home/leonida/ThesisCode/LSTM_on_Create2/devel)
+  set(neural_network_planner_SOURCE_PREFIX /home/nikfio/ThesisCode/LSTM_on_Create2/src/neural_network_planner)
+  set(neural_network_planner_DEVEL_PREFIX /home/nikfio/ThesisCode/LSTM_on_Create2/devel)
   set(neural_network_planner_INSTALL_PREFIX "")
   set(neural_network_planner_PREFIX ${neural_network_planner_DEVEL_PREFIX})
 else()
   set(neural_network_planner_SOURCE_PREFIX "")
   set(neural_network_planner_DEVEL_PREFIX "")
-  set(neural_network_planner_INSTALL_PREFIX /home/leonida/ThesisCode/LSTM_on_Create2/install)
+  set(neural_network_planner_INSTALL_PREFIX /home/nikfio/ThesisCode/LSTM_on_Create2/install)
   set(neural_network_planner_PREFIX ${neural_network_planner_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(neural_network_planner_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include " STREQUAL " ")
+if(NOT "/home/nikfio/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include " STREQUAL " ")
   set(neural_network_planner_INCLUDE_DIRS "")
-  set(_include_dirs "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include")
+  set(_include_dirs "/home/nikfio/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/incl
         message(FATAL_ERROR "Project 'neural_network_planner' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'Nicola Fiorato <fiorato.nicola@gmail.com>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'neural_network_planner' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/${idir}'.  Ask the maintainer 'Nicola Fiorato <fiorato.nicola@gmail.com>' to fix it.")
+      message(FATAL_ERROR "Project 'neural_network_planner' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/nikfio/ThesisCode/LSTM_on_Create2/src/neural_network_planner/${idir}'.  Ask the maintainer 'Nicola Fiorato <fiorato.nicola@gmail.com>' to fix it.")
     endif()
     _list_append_unique(neural_network_planner_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib;/home/leonida/ThesisCode/LSTM_on_Create2/devel/lib;/home/leonida/bin/ros-jade-roomba-packages/devel/lib;/opt/ros/jade/lib)
+    foreach(path /home/nikfio/ThesisCode/LSTM_on_Create2/devel/lib;/home/nikfio/bin/roombs-robot-pkgs/devel/lib;/home/nikfio/ThesisCode/LSTM_on_Create2/devel/lib;/opt/ros/jade/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

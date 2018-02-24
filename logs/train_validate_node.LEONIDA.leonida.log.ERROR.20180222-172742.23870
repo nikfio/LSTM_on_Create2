@@ -1,4 +1,0 @@
-Log file created at: 2018/02/22 17:27:42
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-F0222 17:27:42.026441 23870 io.cpp:36] Check failed: fd != -1 (-1 vs. -1) File not found: /home/leonida/ThesisCode/realenv-folder/NN-Roomba/RealEnv/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt

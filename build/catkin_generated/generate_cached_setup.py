@@ -12,16 +12,16 @@ try:
     from catkin.environment_cache import generate_environment_script
 except ImportError:
     # search for catkin package in all workspaces and prepend to path
-    for workspace in "/home/leonida/ThesisCode/LSTM_on_Create2/devel;/home/leonida/bin/ros-jade-roomba-packages/devel;/opt/ros/jade".split(';'):
+    for workspace in "/home/nikfio/bin/roombs-robot-pkgs/devel;/home/nikfio/ThesisCode/LSTM_on_Create2/devel;/opt/ros/jade".split(';'):
         python_path = os.path.join(workspace, 'lib/python2.7/dist-packages')
         if os.path.isdir(os.path.join(python_path, 'catkin')):
             sys.path.insert(0, python_path)
             break
     from catkin.environment_cache import generate_environment_script
 
-code = generate_environment_script('/home/leonida/ThesisCode/LSTM_on_Create2/devel/env.sh')
+code = generate_environment_script('/home/nikfio/ThesisCode/LSTM_on_Create2/devel/env.sh')
 
-output_filename = '/home/leonida/ThesisCode/LSTM_on_Create2/build/catkin_generated/setup_cached.sh'
+output_filename = '/home/nikfio/ThesisCode/LSTM_on_Create2/build/catkin_generated/setup_cached.sh'
 with open(output_filename, 'w') as f:
     #print('Generate script for cached setup "%s"' % output_filename)
     f.write('\n'.join(code))

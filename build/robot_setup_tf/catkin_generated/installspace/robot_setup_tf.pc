@@ -1,8 +1,0 @@
-prefix=/home/leonida/ThesisCode/LSTM_on_Create2/install
-
-Name: robot_setup_tf
-Description: Description of robot_setup_tf
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/leonida/ThesisCode/LSTM_on_Create2/install/lib -lrobot_setup_tf
-Requires: geometry_msgs roscpp tf

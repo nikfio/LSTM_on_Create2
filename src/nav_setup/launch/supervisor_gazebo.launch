@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+	<include file="$(find nav_setup)/launch/robot_gazebo.launch" />
+
+<!--	<node pkg="gmapping" type="slam_gmapping" respawn="false" -->
+<!--							name="slam_gmapping" output="screen">-->
+
+<!--	<param name="_scan" value="base_scan" />-->
+<!--	<param name="_linearUpdate" value="0" />-->
+<!--	<param name="_angularUpdate" value="0" />-->
+
+<!--	</node>-->
+
+	<include file="$(find nav_setup)/launch/navstack_gazebo.launch" />
+
+	<include file="$(find neural_network_planner)/launch/build_database.launch" />
+
+</launch>
