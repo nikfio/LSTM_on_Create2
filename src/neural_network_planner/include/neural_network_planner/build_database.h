@@ -10,7 +10,7 @@
 #include <move_base_msgs/MoveBaseActionFeedback.h>
 #include <geometry_msgs/Twist.h>
 #include <visualization_msgs/Marker.h>
-
+#include <tf/transform_datatypes.h>
 
 #include <glog/logging.h>
 #include <vector>
@@ -59,7 +59,7 @@ private:
 
 	std::string backend, logs_path, base_path;	
 
-	std::string scan_topic, goal_topic, odom_topic, command_topic;
+	std::string scan_topic, goal_topic, odom_topic;
 	std::string tail_type;
 
 	int out_size;
@@ -67,10 +67,9 @@ private:
 	message_filters::Subscriber<sensor_msgs::LaserScan> laserscan_sub_;
 	message_filters::Subscriber<nav_msgs::Odometry> odom_sub_;
 
-	float dist_preweight;
+	float dist_preweight, angle_preweight;
 
 	ros::Subscriber goal_sub_;
-	ros::Subscriber command_sub_;
 	ros::Publisher net_ranges_pub_;
 	ros::Publisher marker_pub_;
 	LaserScan state_ranges;
@@ -78,7 +77,7 @@ private:
 	int set_size, batch_size, state_sequence_size;
 	int db_writestep, timestep, database_counter;
 
-	vector<double> steering_angles;
+	vector<double> allowed_angles;
 	
 	vector<float> range_data, tail;
 
@@ -88,17 +87,17 @@ private:
 	std::pair<float, float> prev_source;
 	std::pair<float, float> prev_target;
 	std::pair<float, float> tmp_source;
+	
+	float step_resolution, sampling_rate, pos_update_threshold;
+	float meas_linear_x, meas_angular_z;
+	float ref_linear_x, ref_angular_z;
 
-	float current_orientation;
-	float ref_linear_x, meas_linear_x, label_linear_x;
-	float ref_angular_z, meas_angular_z, label_angular_z;;
-	float minimal_step_dist, sampling_rate, pos_update_threshold;
-	float prev_ref_linear_x, prev_meas_linear_x;
-	float prev_ref_angular_z, prev_meas_angular_z;
-
-
-	bool show_lines, command_measured, goal_received, crowdy;
-	bool saturate_vel, command_feedback;
+	float current_yaw_angle, prev_yaw_angle;
+	int yaw_resolution;
+	vector<float> steer_angles;
+	
+	bool show_lines, goal_received, steer_feedback;
+	
 
 	ros::Time cmdvel_time;
 
@@ -112,6 +111,10 @@ private:
 	void updateTarget_callback(const MoveBaseActionGoal::ConstPtr& actiongoal_msg);
 
 	void updateCmdVel_callback(const geometry_msgs::Twist::ConstPtr& cmdvel_msg);
+
+	void initializeSteer();
+	
+	int getClosestSteer( float yaw_angle, float& closest ); 
 
 	float Step_dist();
 

@@ -4,11 +4,13 @@ set_size: 100000
 
 batch_size: 50
 
-sampling_rate: 30 # Hertz
+sampling_rate: 20 # Hertz
 
 crowdy: false
 
 pos_update_threshold: 0.005 # meters
+
+step_resolution: 0.15
 
 target_tolerance: 0.15
 
@@ -18,17 +20,14 @@ base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 averaged_ranges_size: 24
 
 # whether or not net has trained with command tail as input
-command_feedback: true
+steer_feedback: true
 
-# if command_feedback is true the type of the feedback {measured, reference}
-feedback_type: measured 
+# resolution of allowed steering angles [degrees]
+yaw_resolution: 30
 
-# output size:
-# - 1 means just angular vel is generated
-# - 2 means both angular and translational vel are generated
-output_size: 2
-
-dist_preweight: 10
+# biasing the distance info
+dist_preweight: 50
+angle_preweight: 1
 
 # database backend type {leveldb, lmdb} allowed
 database_backend: lmdb

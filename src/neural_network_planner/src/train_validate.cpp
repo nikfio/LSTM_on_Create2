@@ -42,9 +42,7 @@ namespace neural_network_planner {
 		private_nh.param("averaged_ranges_size", averaged_ranges_size, 22 );
 		private_nh.param("validation_test_frequency", val_freq, 2 );
 		private_nh.param("logs_path", logs_path, std::string(""));
-		private_nh.param("command_feedback", command_feedback, true);
-		private_nh.param("feedback_type", tail_type, std::string(""));
-		private_nh.param("output_size", out_size, 1); 
+		private_nh.param("steer_feedback", steer_feedback, true);
 
 		FLAGS_log_dir = logs_path;
 		FLAGS_alsologtostderr = 1;
@@ -99,17 +97,12 @@ namespace neural_network_planner {
 		train_batch_size = blobData->shape(0);
 		validate_batch_size = test_blobData->shape(0);
 
-//		CHECK_EQ( train_set_size % train_batch_size, 0) << "train set size must be must be multiple of train batch size";
-//		CHECK_EQ( validate_set_size % validate_batch_size, 0) << "validate set size must be must be multiple of validate batch size";
-
 		train_batch_num = train_set_size / train_batch_size;
 		validate_batch_num = validate_set_size / validate_batch_size;
 
 		// input state size checks
-		if( command_feedback && out_size == 1 ) 
+		if( steer_feedback ) 
 			state_sequence_size = averaged_ranges_size + 3;
-		else if( command_feedback && out_size == 2 ) 
-			state_sequence_size = averaged_ranges_size + 4;
 		else
 			state_sequence_size = averaged_ranges_size + 2;
 					
@@ -169,8 +162,7 @@ namespace neural_network_planner {
 				    " base_learning_rate = %.5f \n"
 				    " weight_decay = %f \n "
 				    " input_size = %d \n "
-				    " command_feedback = %d \n "
-				    " tail_type = %s \n "
+				    " steer_feedback = %d \n "
 				    " loss_data = [ \n ",
 				     net->name().c_str(), local->tm_mon+1, 
 				     local->tm_mday, local->tm_hour, local->tm_min,
@@ -179,8 +171,7 @@ namespace neural_network_planner {
 				     solver->param().base_lr(),
 				     solver->param().weight_decay(),
 					state_sequence_size,
-					command_feedback,
-					tail_type.c_str());
+					steer_feedback );
 	
 		if(print_check <= 0) {
 		   printf("File: writetofile() failed\n");

@@ -1,0 +1,4 @@
+Log file created at: 2018/02/27 01:32:59
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0227 01:32:59.884888  1110 build_database.cpp:456] Allowed steer angles: 0

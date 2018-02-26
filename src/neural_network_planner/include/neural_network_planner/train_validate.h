@@ -36,8 +36,7 @@ namespace neural_network_planner {
 	 * @brief predefined blobs to handle the training process
 	 *        standard elements for every recurrent network
       */
-	  
-     //boost::shared_ptr<caffe::Blob<float> > mult_;
+	 
 
      boost::shared_ptr<caffe::Solver<float> > solver;
      boost::shared_ptr<caffe::Net<float> > net;
@@ -60,7 +59,7 @@ namespace neural_network_planner {
 
 	std::string solver_conf, trained, folder_path, logs_path;
 	std::string tail_type;
-	bool solver_mode, TRAIN, GPU, resume, command_feedback;
+	bool solver_mode, TRAIN, GPU, resume, steer_feedback;
 
 	int out_size;
 

@@ -1,0 +1,279 @@
+Log file created at: 2018/02/27 00:00:12
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0227 00:00:12.798076 19314 build_database.cpp:455] Allowed steer angles: 0
+I0227 00:00:12.798226 19314 build_database.cpp:464] Allowed steer angle: 0.523599
+I0227 00:00:12.798236 19314 build_database.cpp:464] Allowed steer angle: 1.0472
+I0227 00:00:12.798240 19314 build_database.cpp:464] Allowed steer angle: 1.5708
+I0227 00:00:12.798243 19314 build_database.cpp:464] Allowed steer angle: 2.0944
+I0227 00:00:12.798246 19314 build_database.cpp:464] Allowed steer angle: 2.61799
+I0227 00:00:12.798249 19314 build_database.cpp:464] Allowed steer angle: 3.14159
+I0227 00:00:12.798252 19314 build_database.cpp:475] Allowed steer angle: -0.523599
+I0227 00:00:12.798257 19314 build_database.cpp:475] Allowed steer angle: -1.0472
+I0227 00:00:12.798260 19314 build_database.cpp:475] Allowed steer angle: -1.5708
+I0227 00:00:12.798264 19314 build_database.cpp:475] Allowed steer angle: -2.0944
+I0227 00:00:12.798266 19314 build_database.cpp:475] Allowed steer angle: -2.61799
+I0227 00:00:12.798270 19314 build_database.cpp:479] A total of 12 steering angles have been set
+I0227 00:00:13.801281 19314 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-2-27-0-0_lmdb
+I0227 00:00:13.801440 19314 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-2-27-0-0_lmdb
+I0227 00:00:13.801476 19314 build_database.cpp:151] DATASET INITIALIZED: sequence length: 27
+I0227 00:00:13.801488 19314 build_database.cpp:269] target reached
+I0227 00:00:13.835491 19314 build_database.cpp:269] target reached
+I0227 00:00:13.867890 19314 build_database.cpp:269] target reached
+I0227 00:00:13.900346 19314 build_database.cpp:269] target reached
+I0227 00:00:13.934144 19314 build_database.cpp:269] target reached
+I0227 00:00:13.968029 19314 build_database.cpp:269] target reached
+I0227 00:00:14.000932 19314 build_database.cpp:269] target reached
+I0227 00:00:14.034754 19314 build_database.cpp:269] target reached
+I0227 00:00:14.068727 19314 build_database.cpp:269] target reached
+I0227 00:00:14.101724 19314 build_database.cpp:269] target reached
+I0227 00:00:14.135650 19314 build_database.cpp:269] target reached
+I0227 00:00:14.169850 19314 build_database.cpp:269] target reached
+I0227 00:00:14.203788 19314 build_database.cpp:269] target reached
+I0227 00:00:14.237231 19314 build_database.cpp:269] target reached
+I0227 00:00:14.271109 19314 build_database.cpp:269] target reached
+I0227 00:00:14.304987 19314 build_database.cpp:269] target reached
+I0227 00:00:14.338641 19314 build_database.cpp:269] target reached
+I0227 00:00:14.371630 19314 build_database.cpp:269] target reached
+I0227 00:00:14.405571 19314 build_database.cpp:269] target reached
+I0227 00:00:14.439613 19314 build_database.cpp:269] target reached
+I0227 00:00:14.473531 19314 build_database.cpp:269] target reached
+I0227 00:00:14.507483 19314 build_database.cpp:269] target reached
+I0227 00:00:14.541419 19314 build_database.cpp:269] target reached
+I0227 00:00:14.574262 19314 build_database.cpp:269] target reached
+I0227 00:00:14.608273 19314 build_database.cpp:269] target reached
+I0227 00:00:14.642256 19314 build_database.cpp:269] target reached
+I0227 00:00:14.679278 19314 build_database.cpp:269] target reached
+I0227 00:00:14.714843 19314 build_database.cpp:269] target reached
+I0227 00:00:14.747809 19314 build_database.cpp:269] target reached
+I0227 00:00:14.784837 19314 build_database.cpp:269] target reached
+I0227 00:00:14.818722 19314 build_database.cpp:269] target reached
+I0227 00:00:14.852411 19314 build_database.cpp:269] target reached
+I0227 00:00:14.887377 19314 build_database.cpp:269] target reached
+I0227 00:00:14.920163 19314 build_database.cpp:269] target reached
+I0227 00:00:14.954509 19314 build_database.cpp:269] target reached
+I0227 00:00:14.988085 19314 build_database.cpp:269] target reached
+I0227 00:00:15.022243 19314 build_database.cpp:269] target reached
+I0227 00:00:15.056257 19314 build_database.cpp:269] target reached
+I0227 00:00:15.090164 19314 build_database.cpp:269] target reached
+I0227 00:00:15.124213 19314 build_database.cpp:269] target reached
+I0227 00:00:15.158412 19314 build_database.cpp:269] target reached
+I0227 00:00:15.192399 19314 build_database.cpp:269] target reached
+I0227 00:00:15.226590 19314 build_database.cpp:269] target reached
+I0227 00:00:15.260506 19314 build_database.cpp:269] target reached
+I0227 00:00:15.293370 19314 build_database.cpp:269] target reached
+I0227 00:00:15.327409 19314 build_database.cpp:269] target reached
+I0227 00:00:15.361572 19314 build_database.cpp:269] target reached
+I0227 00:00:15.394343 19314 build_database.cpp:269] target reached
+I0227 00:00:15.428174 19314 build_database.cpp:269] target reached
+I0227 00:00:15.462121 19314 build_database.cpp:269] target reached
+I0227 00:00:15.496196 19314 build_database.cpp:269] target reached
+I0227 00:00:15.530211 19314 build_database.cpp:269] target reached
+I0227 00:00:15.564255 19314 build_database.cpp:269] target reached
+I0227 00:00:15.598181 19314 build_database.cpp:269] target reached
+I0227 00:00:15.631027 19314 build_database.cpp:269] target reached
+I0227 00:00:15.665309 19314 build_database.cpp:269] target reached
+I0227 00:00:15.699388 19314 build_database.cpp:269] target reached
+I0227 00:00:15.733567 19314 build_database.cpp:269] target reached
+I0227 00:00:15.767438 19314 build_database.cpp:269] target reached
+I0227 00:00:15.801290 19314 build_database.cpp:269] target reached
+I0227 00:00:15.835311 19314 build_database.cpp:269] target reached
+I0227 00:00:15.869246 19314 build_database.cpp:269] target reached
+I0227 00:00:15.903131 19314 build_database.cpp:269] target reached
+I0227 00:00:15.937088 19314 build_database.cpp:269] target reached
+I0227 00:00:15.971010 19314 build_database.cpp:269] target reached
+I0227 00:00:16.004896 19314 build_database.cpp:269] target reached
+I0227 00:00:16.038722 19314 build_database.cpp:269] target reached
+I0227 00:00:16.072728 19314 build_database.cpp:269] target reached
+I0227 00:00:16.106612 19314 build_database.cpp:269] target reached
+I0227 00:00:16.139874 19314 build_database.cpp:269] target reached
+I0227 00:00:16.174777 19314 build_database.cpp:269] target reached
+I0227 00:00:16.207512 19314 build_database.cpp:269] target reached
+I0227 00:00:16.241470 19314 build_database.cpp:269] target reached
+I0227 00:00:16.275491 19314 build_database.cpp:269] target reached
+I0227 00:00:16.309406 19314 build_database.cpp:269] target reached
+I0227 00:00:16.343356 19314 build_database.cpp:269] target reached
+I0227 00:00:16.377398 19314 build_database.cpp:269] target reached
+I0227 00:00:16.411396 19314 build_database.cpp:269] target reached
+I0227 00:00:16.444357 19314 build_database.cpp:269] target reached
+I0227 00:00:16.478287 19314 build_database.cpp:269] target reached
+I0227 00:00:16.512086 19314 build_database.cpp:269] target reached
+I0227 00:00:16.547194 19314 build_database.cpp:269] target reached
+I0227 00:00:16.581143 19314 build_database.cpp:269] target reached
+I0227 00:00:16.615082 19314 build_database.cpp:269] target reached
+I0227 00:00:16.649220 19314 build_database.cpp:269] target reached
+I0227 00:00:16.683153 19314 build_database.cpp:269] target reached
+I0227 00:00:16.715935 19314 build_database.cpp:269] target reached
+I0227 00:00:16.749671 19314 build_database.cpp:269] target reached
+I0227 00:00:16.783653 19314 build_database.cpp:269] target reached
+I0227 00:00:16.816530 19314 build_database.cpp:269] target reached
+I0227 00:00:16.850637 19314 build_database.cpp:269] target reached
+I0227 00:00:16.884817 19314 build_database.cpp:269] target reached
+I0227 00:00:16.918812 19314 build_database.cpp:269] target reached
+I0227 00:00:16.953826 19314 build_database.cpp:269] target reached
+I0227 00:00:16.987819 19314 build_database.cpp:269] target reached
+I0227 00:00:17.023217 19314 build_database.cpp:269] target reached
+I0227 00:00:17.057413 19314 build_database.cpp:269] target reached
+I0227 00:00:17.091187 19314 build_database.cpp:269] target reached
+I0227 00:00:17.126049 19314 build_database.cpp:269] target reached
+I0227 00:00:17.159907 19314 build_database.cpp:269] target reached
+I0227 00:00:17.193935 19314 build_database.cpp:269] target reached
+I0227 00:00:17.227619 19314 build_database.cpp:269] target reached
+I0227 00:00:17.261698 19314 build_database.cpp:269] target reached
+I0227 00:00:17.296303 19314 build_database.cpp:269] target reached
+I0227 00:00:17.329159 19314 build_database.cpp:269] target reached
+I0227 00:00:17.362934 19314 build_database.cpp:269] target reached
+I0227 00:00:17.396906 19314 build_database.cpp:269] target reached
+I0227 00:00:17.431109 19314 build_database.cpp:269] target reached
+I0227 00:00:17.464130 19314 build_database.cpp:269] target reached
+I0227 00:00:17.498121 19314 build_database.cpp:269] target reached
+I0227 00:00:17.532121 19314 build_database.cpp:269] target reached
+I0227 00:00:17.566110 19314 build_database.cpp:269] target reached
+I0227 00:00:17.599558 19314 build_database.cpp:269] target reached
+I0227 00:00:17.633416 19314 build_database.cpp:269] target reached
+I0227 00:00:17.667538 19314 build_database.cpp:269] target reached
+I0227 00:00:17.701503 19314 build_database.cpp:269] target reached
+I0227 00:00:17.734688 19314 build_database.cpp:269] target reached
+I0227 00:00:17.768537 19314 build_database.cpp:269] target reached
+I0227 00:00:17.803544 19314 build_database.cpp:269] target reached
+I0227 00:00:17.836442 19314 build_database.cpp:269] target reached
+I0227 00:00:17.870471 19314 build_database.cpp:269] target reached
+I0227 00:00:17.904590 19314 build_database.cpp:269] target reached
+I0227 00:00:17.937634 19314 build_database.cpp:269] target reached
+I0227 00:00:17.971626 19314 build_database.cpp:269] target reached
+I0227 00:00:18.005828 19314 build_database.cpp:269] target reached
+I0227 00:00:18.038599 19314 build_database.cpp:269] target reached
+I0227 00:00:18.072576 19314 build_database.cpp:269] target reached
+I0227 00:00:18.106559 19314 build_database.cpp:269] target reached
+I0227 00:00:18.139403 19314 build_database.cpp:269] target reached
+I0227 00:00:18.173341 19314 build_database.cpp:269] target reached
+I0227 00:00:18.207837 19314 build_database.cpp:269] target reached
+I0227 00:00:18.240799 19314 build_database.cpp:269] target reached
+I0227 00:00:18.275667 19314 build_database.cpp:269] target reached
+I0227 00:00:18.309727 19314 build_database.cpp:269] target reached
+I0227 00:00:18.342774 19314 build_database.cpp:269] target reached
+I0227 00:00:18.376580 19314 build_database.cpp:269] target reached
+I0227 00:00:18.410408 19314 build_database.cpp:269] target reached
+I0227 00:00:18.444401 19314 build_database.cpp:269] target reached
+I0227 00:00:18.478394 19314 build_database.cpp:269] target reached
+I0227 00:00:18.512459 19314 build_database.cpp:269] target reached
+I0227 00:00:18.546435 19314 build_database.cpp:269] target reached
+I0227 00:00:18.580533 19314 build_database.cpp:269] target reached
+I0227 00:00:18.614552 19314 build_database.cpp:269] target reached
+I0227 00:00:18.648591 19314 build_database.cpp:269] target reached
+I0227 00:00:18.682857 19314 build_database.cpp:269] target reached
+I0227 00:00:18.716979 19314 build_database.cpp:269] target reached
+I0227 00:00:18.749629 19314 build_database.cpp:269] target reached
+I0227 00:00:18.784787 19314 build_database.cpp:269] target reached
+I0227 00:00:18.818634 19314 build_database.cpp:269] target reached
+I0227 00:00:18.853720 19314 build_database.cpp:269] target reached
+I0227 00:00:18.886435 19314 build_database.cpp:269] target reached
+I0227 00:00:18.922454 19314 build_database.cpp:269] target reached
+I0227 00:00:18.956508 19314 build_database.cpp:269] target reached
+I0227 00:00:18.989542 19314 build_database.cpp:269] target reached
+I0227 00:00:19.024729 19314 build_database.cpp:269] target reached
+I0227 00:00:19.057508 19314 build_database.cpp:269] target reached
+I0227 00:00:19.090432 19314 build_database.cpp:269] target reached
+I0227 00:00:19.126581 19314 build_database.cpp:269] target reached
+I0227 00:00:19.159662 19314 build_database.cpp:269] target reached
+I0227 00:00:19.192723 19314 build_database.cpp:269] target reached
+I0227 00:00:19.227782 19314 build_database.cpp:269] target reached
+I0227 00:00:19.260512 19314 build_database.cpp:269] target reached
+I0227 00:00:19.294510 19314 build_database.cpp:269] target reached
+I0227 00:00:19.329548 19314 build_database.cpp:269] target reached
+I0227 00:00:19.363447 19314 build_database.cpp:269] target reached
+I0227 00:00:19.395304 19314 build_database.cpp:269] target reached
+I0227 00:00:19.430218 19314 build_database.cpp:269] target reached
+I0227 00:00:19.464107 19314 build_database.cpp:269] target reached
+I0227 00:00:19.496899 19314 build_database.cpp:269] target reached
+I0227 00:00:19.532044 19314 build_database.cpp:269] target reached
+I0227 00:00:19.565950 19314 build_database.cpp:269] target reached
+I0227 00:00:19.598726 19314 build_database.cpp:269] target reached
+I0227 00:00:19.632611 19314 build_database.cpp:269] target reached
+I0227 00:00:19.667626 19314 build_database.cpp:269] target reached
+I0227 00:00:19.699328 19314 build_database.cpp:269] target reached
+I0227 00:00:19.734380 19314 build_database.cpp:269] target reached
+I0227 00:00:19.768257 19314 build_database.cpp:269] target reached
+I0227 00:00:19.801087 19314 build_database.cpp:269] target reached
+I0227 00:00:19.837081 19314 build_database.cpp:269] target reached
+I0227 00:00:19.871028 19314 build_database.cpp:269] target reached
+I0227 00:00:19.904217 19314 build_database.cpp:269] target reached
+I0227 00:00:19.940639 19314 build_database.cpp:269] target reached
+I0227 00:00:19.974555 19314 build_database.cpp:399] Updating target pose
+I0227 00:00:24.247151 19314 build_database.cpp:228] Label data: index 8 index_value: -1.0472 current yaw: -1.08323
+W0227 00:00:24.247211 19314 build_database.cpp:246] Stored step  0
+I0227 00:00:24.694985 19314 build_database.cpp:228] Label data: index 9 index_value: -1.5708 current yaw: -1.47033
+I0227 00:00:25.101488 19314 build_database.cpp:228] Label data: index 10 index_value: -2.0944 current yaw: -1.84751
+I0227 00:00:25.473983 19314 build_database.cpp:228] Label data: index 10 index_value: -2.0944 current yaw: -2.19057
+I0227 00:00:25.880730 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.44637
+I0227 00:00:26.320973 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.62838
+I0227 00:00:26.725522 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.75599
+I0227 00:00:27.098099 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.83464
+I0227 00:00:27.537591 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.83588
+I0227 00:00:27.943063 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.8064
+I0227 00:00:28.315059 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.77179
+I0227 00:00:28.719514 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.71404
+I0227 00:00:29.158525 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.69057
+I0227 00:00:29.529058 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.64535
+I0227 00:00:29.933933 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.6435
+I0227 00:00:30.373864 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.64568
+I0227 00:00:30.744822 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.66775
+I0227 00:00:31.149566 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.65616
+I0227 00:00:31.590391 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.68357
+I0227 00:00:31.994673 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.68131
+I0227 00:00:32.367848 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.63907
+I0227 00:00:32.806500 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.59546
+I0227 00:00:33.217586 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.55333
+I0227 00:00:33.593513 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.52991
+I0227 00:00:34.034720 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.47584
+I0227 00:00:34.446136 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.45697
+I0227 00:00:34.816596 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.42865
+I0227 00:00:35.222815 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.39669
+I0227 00:00:35.660799 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.37429
+I0227 00:00:36.033644 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.3667
+I0227 00:00:36.472698 19314 build_database.cpp:228] Label data: index 10 index_value: -2.0944 current yaw: -2.35548
+I0227 00:00:36.844524 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.3683
+I0227 00:00:37.253599 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.40103
+I0227 00:00:37.693985 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.41214
+I0227 00:00:38.100474 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.41542
+I0227 00:00:38.473850 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.41506
+I0227 00:00:38.917750 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.40599
+I0227 00:00:39.288465 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.42377
+I0227 00:00:39.698187 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.4181
+I0227 00:00:40.108613 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.39144
+I0227 00:00:40.694818 19314 build_database.cpp:228] Label data: index 10 index_value: -2.0944 current yaw: -2.3549
+I0227 00:00:41.454095 19314 build_database.cpp:228] Label data: index 10 index_value: -2.0944 current yaw: -2.34857
+I0227 00:00:59.637017 19314 build_database.cpp:399] Updating target pose
+I0227 00:01:01.111517 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -2.69711
+I0227 00:01:01.482604 19314 build_database.cpp:228] Label data: index 11 index_value: -2.61799 current yaw: -3.0816
+I0227 00:01:01.922561 19314 build_database.cpp:228] Label data: index 5 index_value: 2.61799 current yaw: 2.82981
+I0227 00:01:02.325814 19314 build_database.cpp:228] Label data: index 5 index_value: 2.61799 current yaw: 2.48323
+I0227 00:01:02.697710 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 2.22461
+I0227 00:01:03.135988 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 2.08252
+I0227 00:01:03.507791 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 1.98158
+I0227 00:01:03.912286 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 1.93821
+I0227 00:01:04.349234 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 1.90497
+I0227 00:01:04.719383 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 1.84635
+I0227 00:01:05.125166 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.81833
+I0227 00:01:05.561882 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.81509
+I0227 00:01:06.784278 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.56096
+I0227 00:01:07.191256 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.39362
+I0227 00:01:07.603699 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.32259
+I0227 00:01:07.976629 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.31628
+I0227 00:01:08.417901 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.34497
+I0227 00:01:08.821743 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.40491
+I0227 00:01:09.193632 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.45838
+I0227 00:01:09.632639 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.49941
+I0227 00:01:10.038664 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.53307
+I0227 00:01:10.447803 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.55666
+I0227 00:01:10.853368 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.57244
+I0227 00:01:11.257751 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.57651
+I0227 00:01:11.628268 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.5765
+I0227 00:01:12.067744 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.60373
+I0227 00:01:12.438422 19314 build_database.cpp:228] Label data: index 3 index_value: 1.5708 current yaw: 1.82523
+I0227 00:01:12.877605 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 2.07136
+I0227 00:01:13.281503 19314 build_database.cpp:228] Label data: index 4 index_value: 2.0944 current yaw: 2.22439
+I0227 00:01:13.656383 19314 build_database.cpp:228] Label data: index 5 index_value: 2.61799 current yaw: 2.36649
+I0227 00:01:14.125772 19314 build_database.cpp:228] Label data: index 5 index_value: 2.61799 current yaw: 2.48961
+I0227 00:01:14.663219 19314 build_database.cpp:228] Label data: index 5 index_value: 2.61799 current yaw: 2.57508
+I0227 00:02:33.959128 19314 build_database.cpp:285] Closing DATABASES 

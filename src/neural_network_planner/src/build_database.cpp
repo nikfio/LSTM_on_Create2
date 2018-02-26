@@ -7,6 +7,7 @@
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 
+
 #include <string>
 #include <ctime>
 #include <cmath>
@@ -52,7 +53,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param("scan_topic", scan_topic, std::string("/base_scan") );
 	private_nh.param("goal_topic", goal_topic, std::string("/move_base/goal") );	
 	private_nh.param("odom_topic", odom_topic, std::string("/odom") );
-	private_nh.param("command_topic", command_topic, std::string("/cmd_vel") );
 	private_nh.param("base_path", base_path, std::string("") );
 	private_nh.param("averaged_ranges_size", averaged_ranges_size, 15 );
 	private_nh.param("database_backend", backend, std::string("leveldb"));
@@ -60,18 +60,21 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param<float>("sampling_rate", sampling_rate, 1);
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
 	private_nh.param("show_lines", show_lines, false);
-	private_nh.param("crowdy", crowdy, false); 
 	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
-	private_nh.param("saturate_vel", saturate_vel, true);
-	private_nh.param("command_feedback", command_feedback, true);
-	private_nh.param<float>("dist_preweight", dist_preweight, 4);
-	private_nh.param("feedback_type", tail_type, std::string(""));
-	private_nh.param("output_size", out_size, 1); 
+	private_nh.param("steer_feedback", steer_feedback, true);
+	private_nh.param<float>("dist_preweight", dist_preweight, 1);
+	private_nh.param<float>("angle_preweight", dist_preweight, 1);
+	private_nh.param<float>("step_resolution", step_resolution, 0.10); 
+	private_nh.param("yaw_resolution", yaw_resolution, 10); 
 	
 
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
 	FLAGS_minloglevel = 0;
+
+	
+	initializeSteer();
+	
 
 	prev_target = std::pair<float, float>(0,0);
 	current_source = std::pair<float,float>(0,0);
@@ -79,15 +82,12 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
 
-	prev_ref_linear_x = prev_ref_angular_z = 0;	
-	prev_meas_linear_x = prev_meas_angular_z = 0;
+	current_yaw_angle = prev_yaw_angle = 0;
 
 	// related neural network input size selected for this build_database run 
 
-	if ( command_feedback )
+	if ( steer_feedback )
 		state_sequence_size = averaged_ranges_size + 3;
-	else
-		state_sequence_size = averaged_ranges_size + 2;
 
 	timestep = database_counter = 0;
 	db_writestep = 0;
@@ -106,9 +106,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	ros::NodeHandle nh;
 	goal_sub_ = nh.subscribe<MoveBaseActionGoal>(goal_topic , 1, boost::bind(&BuildDatabase::updateTarget_callback, this, _1));
 
-	command_sub_ = nh.subscribe<geometry_msgs::Twist>(command_topic , 1, boost::bind(&BuildDatabase::updateCmdVel_callback, this, _1));
-	
-
 	net_ranges_pub_ = nh.advertise<LaserScan>("state_ranges", 1);
 	if( show_lines ) {
 		marker_pub_ = nh.advertise<Marker>("range_lines", 1);
@@ -117,38 +114,20 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	time_t init = time(0);
 	tm *init_tm = localtime(&init);	
 
-	// states database with ref command tail initialization
-	std::string states_ref_db_path = base_path + "states_reftail_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
+	// dataset initialization
+	std::string yaw_db_path = base_path + "yaw_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_" + backend;
-	scoped_ptr<caffe::db::DB> states_ref_database(caffe::db::GetDB(backend));
-	states_ref_database->Open(states_ref_db_path, caffe::db::NEW);
-	scoped_ptr<caffe::db::Transaction> states_ref_txn(states_ref_database->NewTransaction());
+	scoped_ptr<caffe::db::DB> yaw_database(caffe::db::GetDB(backend));
+	yaw_database->Open(yaw_db_path, caffe::db::NEW);
+	scoped_ptr<caffe::db::Transaction> yaw_txn(yaw_database->NewTransaction());
 
-	// states database with measured command tail initialization
-	std::string states_meas_db_path = base_path + "states_meastail_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
+	std::string steer_db_path = base_path + "steer_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
 				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_" + backend;
-	scoped_ptr<caffe::db::DB> states_meas_database(caffe::db::GetDB(backend));
-	states_meas_database->Open(states_meas_db_path, caffe::db::NEW);
-	scoped_ptr<caffe::db::Transaction> states_meas_txn(states_meas_database->NewTransaction());
-
-	// labels measured signals database initialization
-	std::string labels_meas_db_path = base_path + "labels_meas_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
-				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
-				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist_" + backend;
-	scoped_ptr<caffe::db::DB> labels_meas_database(caffe::db::GetDB(backend));
-	labels_meas_database->Open(labels_meas_db_path, caffe::db::NEW);
-	scoped_ptr<caffe::db::Transaction> labels_meas_txn(labels_meas_database->NewTransaction());
-
-	// labels reference signals database initialization
-	std::string labels_ref_db_path = base_path + "labels_ref_db-" + lexical_cast<std::string>(init_tm->tm_mon+1) 
-				              + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
-				              + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_twist_" + backend;
-	scoped_ptr<caffe::db::DB> labels_ref_database(caffe::db::GetDB(backend));
-	labels_ref_database->Open(labels_ref_db_path, caffe::db::NEW);
-	scoped_ptr<caffe::db::Transaction> labels_ref_txn(labels_ref_database->NewTransaction());
-
+	scoped_ptr<caffe::db::DB> steer_database(caffe::db::GetDB(backend));
+	steer_database->Open(steer_db_path, caffe::db::NEW);
+	scoped_ptr<caffe::db::Transaction> steer_txn(steer_database->NewTransaction());
 
 	// creating a text file to debug database building - just first times
      // to check everything is right
@@ -163,14 +142,14 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		cout << "Plot file opening failed.\n";
 		exit(1);
 	}
-	fprintf(table, "PREWEIGHTS: DIST %.3f \n", dist_preweight);
+	fprintf(table, "PREWEIGHTS: DIST %.3f  ANGLE  %.3f \n", dist_preweight, angle_preweight);
 
 	fclose(table);
 
 
 	goal_received = false;
 
-	LOG(INFO) << "DATASETS INITIALIZED: sequence length: " << state_sequence_size;
+	LOG(INFO) << "DATASET INITIALIZED: sequence length: " << state_sequence_size;
 
 	FLAGS_minloglevel = 1;
 
@@ -178,100 +157,78 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	while( ros::ok() && db_writestep < set_size) {
 
-//	  LOG(INFO) << "Condition seq: " << crowdy << "  " << meas_linear_x << "  " 
-//			  << meas_angular_z << "  " << goal_received << endl;
+//	  LOG(INFO) << "Condition seq:  " << meas_linear_x << "  " 
+//			  << meas_angular_z << "  " << goal_received << "  " 
+//			  << Step_dist() << endl;
 
-	  if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level 
-			||  crowdy ) && goal_received ) { 
+	  if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level )
+			 && goal_received ) { 
 
 		float x_rel = current_target.first - current_source.first;
 		float y_rel = current_target.second - current_source.second;	 
 
 		float distance = hypot( x_rel, y_rel);
-		float relative_angle = fabs(atan2( y_rel , x_rel ) - current_orientation);
-		
-		/* STATE with reference command tail */
+		float relative_angle = atan2( y_rel , x_rel );
 
-		std::string state_ref_value;
-		caffe::Datum state_ref_datum;
-		state_ref_datum.set_channels(state_sequence_size+1);
-		state_ref_datum.set_height(1);
-		state_ref_datum.set_width(1);
+		std::string yaw_value;
+		caffe::Datum yaw_datum;
+		yaw_datum.set_channels(state_sequence_size);
+		yaw_datum.set_height(1);
+		yaw_datum.set_width(1);
 		
 		// storing the state data 				
 		for(int i = 0; i < range_data.size(); i++) {
-			state_ref_datum.add_float_data(range_data[i]);
+			yaw_datum.add_float_data(range_data[i]);
 		}		
 
-		state_ref_datum.add_float_data(distance * dist_preweight);
-		state_ref_datum.add_float_data(relative_angle);
+		yaw_datum.add_float_data(distance * dist_preweight);
+		yaw_datum.add_float_data(relative_angle);
 
-		if( command_feedback ) {
-			state_ref_datum.add_float_data(prev_ref_linear_x);
-			state_ref_datum.add_float_data(prev_ref_angular_z);
+		if( steer_feedback ) {
+			yaw_datum.add_float_data(prev_yaw_angle);
 		}
 
-		state_ref_datum.set_encoded(false);
-		state_ref_datum.SerializeToString(&state_ref_value);	
+		yaw_datum.set_label(current_yaw_angle);
+
+		yaw_datum.set_encoded(false);
+		yaw_datum.SerializeToString(&yaw_value);	
 		std::string key_str = caffe::format_int(db_writestep, 8);
-		states_ref_txn->Put(key_str, state_ref_value);
+		yaw_txn->Put(key_str, yaw_value);
 
-		std::string state_meas_value;
-		caffe::Datum state_meas_datum;
-		state_meas_datum.set_channels(state_sequence_size);
-		state_meas_datum.set_height(1);
-		state_meas_datum.set_width(1);
+		std::string steer_value;
+		caffe::Datum steer_datum;
+		steer_datum.set_channels(state_sequence_size);
+		steer_datum.set_height(1);
+		steer_datum.set_width(1);
 		
 		// storing the state data 				
 		for(int i = 0; i < range_data.size(); i++) {
-			state_meas_datum.add_float_data(range_data[i]);
+			steer_datum.add_float_data(range_data[i]);
 		}		
-		
-		state_meas_datum.add_float_data(distance * dist_preweight);
-		state_meas_datum.add_float_data(relative_angle);
 
-		if( command_feedback ) {
-			//state_meas_datum.add_float_data(prev_meas_linear_x);
-			state_meas_datum.add_float_data(prev_meas_angular_z);
+		steer_datum.add_float_data(distance * dist_preweight);
+		steer_datum.add_float_data(relative_angle);
+
+		if( steer_feedback ) {
+			steer_datum.add_float_data(prev_yaw_angle);
 		}
+
+		int steer_label;
+		float closest_steer = 0;
 		
-		state_meas_datum.set_encoded(false);
-		state_meas_datum.SerializeToString(&state_meas_value);	
-		states_meas_txn->Put(key_str, state_meas_value);
-
-		/* LABELS with reference command */
-
-		std::string label_ref_value;
-		caffe::Datum label_ref_datum;
-		label_ref_datum.set_channels(labels_size+1);
-		label_ref_datum.set_height(1);	
-		label_ref_datum.set_width(1);
-
-		// order of loading labels is unique and decided here    
-		label_ref_datum.add_float_data(ref_linear_x);
-		label_ref_datum.add_float_data(ref_angular_z);
-		label_ref_datum.set_encoded(false);
+		steer_label = getClosestSteer(current_yaw_angle, closest_steer);
 		
-		// using same key as state one - consistent accessing to databases
-		label_ref_datum.SerializeToString(&label_ref_value);
-		labels_ref_txn->Put(key_str, label_ref_value);
+//		steer_datum.set_label(closest_steer);
 
-		/* LABELS with measured command */
+		steer_datum.set_label(steer_label);
 
-		std::string label_meas_value;
-		caffe::Datum label_meas_datum;
-		label_meas_datum.set_channels(labels_size);
-		label_meas_datum.set_height(1);	
-		label_meas_datum.set_width(1);
-
-		// order of loading labels is unique and decided here    
-		//label_meas_datum.add_float_data(meas_linear_x);
-		label_meas_datum.add_float_data(meas_angular_z);
-		label_meas_datum.set_encoded(false);
-		
-		// using same key as state one - consistent accessing to databases
-		label_meas_datum.SerializeToString(&label_meas_value);
-		labels_meas_txn->Put(key_str, label_meas_value);
+		steer_datum.set_encoded(false);
+		steer_datum.SerializeToString(&steer_value);	
+		steer_txn->Put(key_str, steer_value);
+				
+		LOG(INFO) << "Label data: index " << steer_label 
+				<< " index_value: " << closest_steer
+				<< " current yaw: " << current_yaw_angle;
 
 		table = fopen(check_text.c_str(), "a");
 		if( table == NULL ) {
@@ -281,33 +238,27 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		for(int i = 0; i < range_data.size(); i++) {
 		 fprintf(table, "%.4f   ", range_data[i]); 
 		}
-		 fprintf(table, "%.4f   ", distance); 
+		 fprintf(table, "%.4f   ", distance * dist_preweight); 
 		 fprintf(table, "%.4f \n  ", relative_angle); 
-		 fprintf(table, "DB STEP %d   LABELS   %.4f  %.4f    %.4f  %.4f \n ", 
-					db_writestep, ref_linear_x, ref_angular_z, meas_linear_x, meas_angular_z); 
+		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
+						current_yaw_angle, closest_steer, steer_label); 
 		 fclose(table);
 		
 		LOG_EVERY_N(WARNING, 1000) << "Stored step  " << db_writestep;
 
 		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
 
-			states_ref_txn->Commit();	
-			states_meas_txn->Commit();				
-			labels_ref_txn->Commit();
-			labels_meas_txn->Commit();
-			states_ref_txn.reset(states_ref_database->NewTransaction());
-			states_meas_txn.reset(states_meas_database->NewTransaction());			
-			labels_ref_txn.reset(labels_ref_database->NewTransaction());			
-			labels_meas_txn.reset(labels_meas_database->NewTransaction());
+			yaw_txn->Commit();			
+			yaw_txn.reset(yaw_database->NewTransaction());
+			steer_txn->Commit();			
+			steer_txn.reset(steer_database->NewTransaction());
 
       	} 
 		
-
 		// update the tails
-		prev_ref_linear_x = ref_linear_x;
-		prev_ref_angular_z = ref_angular_z;
-		prev_meas_linear_x = meas_linear_x;
-		prev_meas_angular_z = meas_angular_z;
+		prev_yaw_angle = current_yaw_angle;
+		
+		 prev_source = current_source;
 
 	     
 	  } // check available step
@@ -321,7 +272,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	  }
 
 
-	  prev_source = current_source;
+	 
 
 	  store_rate.sleep();
 	
@@ -333,14 +284,9 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	if( db_writestep % batch_size != 0) { // Last commit if needed for a safe closing
 
 		LOG(INFO) << "Closing DATABASES ";
-		states_ref_txn->Commit();	
-		states_meas_txn->Commit();		
-		labels_ref_txn->Commit();
-		labels_meas_txn->Commit();
+		yaw_txn->Commit();	
+		steer_txn->Commit();
 	}
-
-	
-	LOG(INFO) << "In databases " << states_ref_db_path << " have been stored " << db_writestep << " steps";
 
 
 	
@@ -363,15 +309,17 @@ void BuildDatabase::build_callback(const LaserScan::ConstPtr& laser_msg,
 	timestep++;
 //	ROS_INFO("Database_callback timestep: %d", timestep);
 	
-
-
 	// update measured robot position
 	tmp_source.first = odom_msg->pose.pose.position.x;
 	tmp_source.second = odom_msg->pose.pose.position.y;
-	current_orientation = odom_msg->pose.pose.orientation.z;
+
 
 	if ( point_distance(current_source, tmp_source) > pos_update_threshold ) 
 		current_source = tmp_source;
+
+	tf::Pose pose;
+     tf::poseMsgToTF(odom_msg->pose.pose, pose);
+     current_yaw_angle = tf::getYaw(pose.getRotation());
 
 	meas_linear_x = odom_msg->twist.twist.linear.x;
 	meas_angular_z = odom_msg->twist.twist.angular.z;
@@ -494,10 +442,68 @@ int  saturate(float neg_lim, float pos_lim, float& value)
 
  }
 
-int getClosestAng( float values, std::vector<float>& ang_classes ) {
+
+void BuildDatabase::initializeSteer()
+
+{
+
+	CHECK_EQ(360 % yaw_resolution, 0) << "Please set a yaw resolution that is a divider of 360 degrees";
+
+	float yaw_res_rad = ( yaw_resolution * M_PI ) / 180;
+
+	float add_allowed = 0;
+	steer_angles.push_back(add_allowed);
+	LOG(INFO) << "Allowed steer angles: " << add_allowed;
+
+	int counter_plus = 1;
+
+	while( counter_plus <= ( M_PI / yaw_res_rad ) + 1 ) {
+		
+		add_allowed += yaw_res_rad;
+		steer_angles.push_back(add_allowed);
+		
+		LOG(INFO) << "Allowed steer angle: " << add_allowed;
+		counter_plus++;
+	}
+
+	add_allowed = 0;
+	int counter_minus = 0;
+	while( counter_minus < ( M_PI / yaw_res_rad ) - 1 ) {
+		
+		add_allowed -= yaw_res_rad;
+		steer_angles.push_back(add_allowed);
+		
+		LOG(INFO) << "Allowed steer angle: " << add_allowed;
+		counter_minus++;
+	}
+
+	LOG(INFO) << "A total of " << (counter_plus + counter_minus) << " steering angles have been set";
 
 
+}
 
+
+int BuildDatabase::getClosestSteer( float yaw_angle, float& closest ) {
+
+	int closest_index = steer_angles.size();
+	float min_dist = FLT_MAX;
+	
+	for(int i = 0; i < steer_angles.size(); i++) {
+		
+		float temp_dist = fabs(yaw_angle - steer_angles[i]);
+		if( temp_dist < min_dist ) {
+			min_dist = temp_dist;
+			closest_index = i;
+		}
+
+	}
+
+	
+	CHECK_LT(closest_index, steer_angles.size()) << "Closest steer not found!";
+	closest = steer_angles[closest_index];
+
+	return closest_index;
+		
 }
 
 

@@ -1,0 +1,62 @@
+Log file created at: 2018/02/26 22:24:20
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0226 22:24:20.349855 12970 build_database.cpp:437] Allowed steer angles: 0
+I0226 22:24:20.350002 12970 build_database.cpp:446] Allowed steer angles: 0.523599
+I0226 22:24:20.350009 12970 build_database.cpp:446] Allowed steer angles: 1.0472
+I0226 22:24:20.350013 12970 build_database.cpp:446] Allowed steer angles: 1.5708
+I0226 22:24:20.350018 12970 build_database.cpp:446] Allowed steer angles: 2.0944
+I0226 22:24:20.350021 12970 build_database.cpp:446] Allowed steer angles: 2.61799
+I0226 22:24:20.350024 12970 build_database.cpp:446] Allowed steer angles: 3.14159
+I0226 22:24:20.350028 12970 build_database.cpp:446] Allowed steer angles: 3.66519
+I0226 22:24:20.350033 12970 build_database.cpp:446] Allowed steer angles: 4.18879
+I0226 22:24:20.350035 12970 build_database.cpp:446] Allowed steer angles: 4.71239
+I0226 22:24:20.350039 12970 build_database.cpp:446] Allowed steer angles: 5.23599
+I0226 22:24:20.350042 12970 build_database.cpp:446] Allowed steer angles: 5.75959
+I0226 22:24:20.350049 12970 build_database.cpp:450] A total of 12 steering angles have been set
+I0226 22:24:20.662372 12970 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/state-yaw_db-2-26-22-24_lmdb
+I0226 22:24:20.662451 12970 build_database.cpp:145] DATASET INITIALIZED: sequence length: 27
+I0226 22:24:20.662462 12970 build_database.cpp:248] target reached
+I0226 22:24:28.712975 12970 build_database.cpp:381] Updating target pose
+I0226 22:24:51.261502 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 2.68959
+W0226 22:24:51.261579 12970 build_database.cpp:227] Stored step  0
+I0226 22:26:32.868176 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.7419
+I0226 22:26:33.245126 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.58858
+I0226 22:26:33.514869 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.58013
+I0226 22:26:33.921205 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.58047
+I0226 22:26:34.259203 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.58023
+I0226 22:26:34.595788 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.58022
+I0226 22:26:34.969449 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -1.5802
+I0226 22:26:35.787569 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.00838
+I0226 22:26:36.058771 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.10666
+I0226 22:26:36.433128 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.10531
+I0226 22:26:36.771775 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.10553
+I0226 22:26:38.990458 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 2.34281
+I0226 22:26:39.373112 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 2.20112
+I0226 22:26:39.745709 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 2.20404
+I0226 22:26:40.665341 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.5826
+I0226 22:26:41.038055 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.4006
+I0226 22:26:41.409761 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38246
+I0226 22:26:41.744662 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38298
+I0226 22:26:42.048449 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38284
+I0226 22:26:42.422368 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38294
+I0226 22:26:42.759814 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38296
+I0226 22:26:43.134624 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38299
+I0226 22:26:43.473282 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38303
+I0226 22:26:43.846365 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 1.38306
+I0226 22:26:45.432461 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: 2.49068
+I0226 22:26:46.445202 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -3.06353
+I0226 22:26:46.848795 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.7748
+I0226 22:26:47.187240 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67484
+I0226 22:26:47.525892 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67779
+I0226 22:26:47.898828 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67822
+I0226 22:26:48.236482 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67824
+I0226 22:26:48.613390 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67823
+I0226 22:26:48.985579 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67824
+I0226 22:26:49.326145 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67826
+I0226 22:26:49.597507 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67827
+I0226 22:26:49.901607 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67828
+I0226 22:26:50.273723 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.67829
+I0226 22:26:50.578383 12970 build_database.cpp:203] Label data: index 11 index_value: 5.75959 current yaw: -2.6783
+I0226 22:26:50.734369 12970 build_database.cpp:264] Closing DATABASES 
+I0226 22:26:50.736305 12970 build_database.cpp:270] In databases /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/state-yaw_db-2-26-22-24_lmdb have been stored 39 steps

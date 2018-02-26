@@ -1,0 +1,20 @@
+Log file created at: 2018/02/26 22:33:40
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0226 22:33:40.496845 13754 build_database.cpp:437] Allowed steer angles: 0
+I0226 22:33:40.497243 13754 build_database.cpp:446] Allowed steer angles: 0.523599
+I0226 22:33:40.497252 13754 build_database.cpp:446] Allowed steer angles: 1.0472
+I0226 22:33:40.497256 13754 build_database.cpp:446] Allowed steer angles: 1.5708
+I0226 22:33:40.497261 13754 build_database.cpp:446] Allowed steer angles: 2.0944
+I0226 22:33:40.497264 13754 build_database.cpp:446] Allowed steer angles: 2.61799
+I0226 22:33:40.497267 13754 build_database.cpp:457] Allowed steer angles: -0.523599
+I0226 22:33:40.497270 13754 build_database.cpp:457] Allowed steer angles: -1.0472
+I0226 22:33:40.497274 13754 build_database.cpp:457] Allowed steer angles: -1.5708
+I0226 22:33:40.497278 13754 build_database.cpp:457] Allowed steer angles: -2.0944
+I0226 22:33:40.497282 13754 build_database.cpp:457] Allowed steer angles: -2.61799
+I0226 22:33:40.497284 13754 build_database.cpp:457] Allowed steer angles: -3.14159
+I0226 22:33:40.497287 13754 build_database.cpp:461] A total of 12 steering angles have been set
+I0226 22:33:40.763079 13754 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/state-yaw_db-2-26-22-33_lmdb
+I0226 22:33:40.763167 13754 build_database.cpp:145] DATASET INITIALIZED: sequence length: 27
+I0226 22:33:40.763180 13754 build_database.cpp:248] target reached
+I0226 22:35:14.528337 13754 build_database.cpp:270] In databases /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/state-yaw_db-2-26-22-33_lmdb have been stored 0 steps
