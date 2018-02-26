@@ -64,10 +64,13 @@ neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o
  /usr/local/caffe/include/caffe/blob.hpp
  /usr/local/caffe/include/caffe/caffe.hpp
  /usr/local/caffe/include/caffe/common.hpp
+ /usr/local/caffe/include/caffe/data_transformer.hpp
  /usr/local/caffe/include/caffe/filler.hpp
  /usr/local/caffe/include/caffe/internal_thread.hpp
  /usr/local/caffe/include/caffe/layer.hpp
  /usr/local/caffe/include/caffe/layer_factory.hpp
+ /usr/local/caffe/include/caffe/layers/base_data_layer.hpp
+ /usr/local/caffe/include/caffe/layers/data_layer.hpp
  /usr/local/caffe/include/caffe/net.hpp
  /usr/local/caffe/include/caffe/parallel.hpp
  /usr/local/caffe/include/caffe/solver.hpp
@@ -76,6 +79,7 @@ neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o
  /usr/local/caffe/include/caffe/util/benchmark.hpp
  /usr/local/caffe/include/caffe/util/blocking_queue.hpp
  /usr/local/caffe/include/caffe/util/cudnn.hpp
+ /usr/local/caffe/include/caffe/util/db.hpp
  /usr/local/caffe/include/caffe/util/device_alternate.hpp
  /usr/local/caffe/include/caffe/util/format.hpp
  /usr/local/caffe/include/caffe/util/io.hpp

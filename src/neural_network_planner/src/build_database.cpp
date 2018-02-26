@@ -63,8 +63,10 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param("crowdy", crowdy, false); 
 	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
 	private_nh.param("saturate_vel", saturate_vel, true);
-	private_nh.param("command_tail", command_tail, true);
+	private_nh.param("command_feedback", command_feedback, true);
 	private_nh.param<float>("dist_preweight", dist_preweight, 4);
+	private_nh.param("feedback_type", tail_type, std::string(""));
+	private_nh.param("output_size", out_size, 1); 
 	
 
 	FLAGS_log_dir = logs_path;
@@ -82,7 +84,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	// related neural network input size selected for this build_database run 
 
-	if ( command_tail )
+	if ( command_feedback )
 		state_sequence_size = averaged_ranges_size + 3;
 	else
 		state_sequence_size = averaged_ranges_size + 2;
@@ -188,7 +190,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		float distance = hypot( x_rel, y_rel);
 		float relative_angle = fabs(atan2( y_rel , x_rel ) - current_orientation);
 		
-		
 		/* STATE with reference command tail */
 
 		std::string state_ref_value;
@@ -205,7 +206,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		state_ref_datum.add_float_data(distance * dist_preweight);
 		state_ref_datum.add_float_data(relative_angle);
 
-		if( command_tail ) {
+		if( command_feedback ) {
 			state_ref_datum.add_float_data(prev_ref_linear_x);
 			state_ref_datum.add_float_data(prev_ref_angular_z);
 		}
@@ -229,7 +230,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		state_meas_datum.add_float_data(distance * dist_preweight);
 		state_meas_datum.add_float_data(relative_angle);
 
-		if( command_tail ) {
+		if( command_feedback ) {
 			//state_meas_datum.add_float_data(prev_meas_linear_x);
 			state_meas_datum.add_float_data(prev_meas_angular_z);
 		}
@@ -492,6 +493,12 @@ int  saturate(float neg_lim, float pos_lim, float& value)
 		return 0;
 
  }
+
+int getClosestAng( float values, std::vector<float>& ang_classes ) {
+
+
+
+}
 
 
 

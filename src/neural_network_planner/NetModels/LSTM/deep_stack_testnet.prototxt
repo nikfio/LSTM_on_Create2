@@ -1,4 +1,4 @@
-name: "LSTM_stack-1-16"
+name: "LSTM_stack-1-32"
 
 layer {
   name: "data"
@@ -49,7 +49,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 16
+    num_output: 32
     weight_filler {
       type: "xavier"
     }
@@ -67,7 +67,7 @@ layer {
   bottom: "clip"
   top: "lstm2"
   recurrent_param {
-    num_output: 16
+    num_output: 32
     weight_filler {
       type: "xavier"
     }

@@ -1,8 +1,8 @@
 # example of online deployment parameters set up
 
-trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_deep-stack-2-16-27-onlyang_iter_80000.caffemodel
+trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/LSTM_deep-stack-2-32-16-28_iter_100000.caffemodel
 
-online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-drop_online.prototxt
+online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_online.prototxt
 
 GPU: false
 
@@ -17,7 +17,15 @@ target_tolerance: 0.5
 averaged_ranges_size: 24
 
 # whether or not net has trained with command tail as input
-command_tail: true
+command_feedback: true
+
+# if command_feedback is true the type of the feedback {measured, reference}
+feedback_type: reference 
+
+# output size:
+# - 1 means just angular vel is generated
+# - 2 means both angular and translational vel are generated
+output_size: 2
 
 # if true publish state ranges as lines, false means only points 
 show_lines: true

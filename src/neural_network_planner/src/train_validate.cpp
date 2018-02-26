@@ -4,7 +4,7 @@
 #include <neural_network_planner/train_validate.h>
 
 // caffe related
-
+#include "caffe/layers/data_layer.hpp"
 #include "glog/logging.h"
 
 #include <boost/lexical_cast.hpp>
@@ -22,7 +22,6 @@ using std::string;
 
 using boost::lexical_cast;
 
-const int labels_size = 1;
 
 namespace neural_network_planner {
 
@@ -43,7 +42,9 @@ namespace neural_network_planner {
 		private_nh.param("averaged_ranges_size", averaged_ranges_size, 22 );
 		private_nh.param("validation_test_frequency", val_freq, 2 );
 		private_nh.param("logs_path", logs_path, std::string(""));
-		private_nh.param("command_tail", command_tail, true);
+		private_nh.param("command_feedback", command_feedback, true);
+		private_nh.param("feedback_type", tail_type, std::string(""));
+		private_nh.param("output_size", out_size, 1); 
 
 		FLAGS_log_dir = logs_path;
 		FLAGS_alsologtostderr = 1;
@@ -72,7 +73,8 @@ namespace neural_network_planner {
 		CHECK(net->has_blob("data"));	
 		CHECK(net->has_blob("labels"));	
 		CHECK(net->has_blob("loss"));
-		CHECK(net->has_blob("out"));		
+		CHECK(net->has_blob("out"));
+		CHECK(net->has_layer("data"));		
 
 		blobData = net->blob_by_name("data");
 		blobClip = net->blob_by_name("clip");
@@ -104,17 +106,18 @@ namespace neural_network_planner {
 		validate_batch_num = validate_set_size / validate_batch_size;
 
 		// input state size checks
-		if( command_tail ) 
+		if( command_feedback && out_size == 1 ) 
 			state_sequence_size = averaged_ranges_size + 3;
+		else if( command_feedback && out_size == 2 ) 
+			state_sequence_size = averaged_ranges_size + 4;
 		else
 			state_sequence_size = averaged_ranges_size + 2;
 					
 		CHECK_EQ( state_sequence_size, blobData->shape(1) ) << "train net: supposed input sequence size check failed";
 		CHECK_EQ( state_sequence_size, test_blobData->shape(1) ) << "validate net: supposed input sequence size check failed";
 
-		cout << blobData->shape(1) << endl;
-
 		// output size checks
+		CHECK_EQ(out_size, blobOut->shape(1) ) << " supposed output size and net loaded output must equal";
 		CHECK_EQ(blobOut->shape(1), blobLabel->shape(1)) << "train net: output size and labels size must match"; 
 		CHECK_EQ(test_blobOut->shape(1), test_blobLabel->shape(1)) << "test net: output size and labels size must match";
 		
@@ -158,17 +161,26 @@ namespace neural_network_planner {
 			exit(1);
 		}
 
+	
+
 		print_check = fprintf(plot, "TEST: %s DATE: %d %d %d:%d \n" 
 				    " PARAMETERS: \n TRAIN_SIZE = %d \n VALID_SIZE = %d \n"
 				    " train_batch_size = %d \n iter_size = %d \n batch_updates = %d \n "
 				    " base_learning_rate = %.5f \n"
-				    " weight_decay = %f \n loss_data = [ \n",
+				    " weight_decay = %f \n "
+				    " input_size = %d \n "
+				    " command_feedback = %d \n "
+				    " tail_type = %s \n "
+				    " loss_data = [ \n ",
 				     net->name().c_str(), local->tm_mon+1, 
 				     local->tm_mday, local->tm_hour, local->tm_min,
 				     train_set_size, validate_set_size, 
 				     train_batch_size, iter_size, batch_updates, 
 				     solver->param().base_lr(),
-				     solver->param().weight_decay());
+				     solver->param().weight_decay(),
+					state_sequence_size,
+					command_feedback,
+					tail_type.c_str());
 	
 		if(print_check <= 0) {
 		   printf("File: writetofile() failed\n");

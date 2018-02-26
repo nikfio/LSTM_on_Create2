@@ -1,0 +1,133 @@
+name: "LSTM_stack-2-32"
+
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-24-END/states_reftail_db-2-25-3-16_lmdb"
+    batch_size: 64
+    backend: LMDB
+  }
+
+}
+
+
+layer {
+  name: "label"
+  type: "Data"
+  top: "labels"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-24-END/labels_ref_db-2-25-3-16_twist_lmdb"
+    batch_size: 64
+    backend: LMDB
+  }
+
+ 
+}
+
+
+
+layer {
+	name: "clip"
+	type: "Input"
+	top:  "clip"
+	input_param {
+		shape {
+			dim: 64
+			dim: 28		
+		}
+	
+	}
+	
+}
+
+
+
+
+layer {
+  name: "lstm1"
+  type: "LSTM"
+  bottom: "data"
+  bottom: "clip"
+  top: "lstm1"
+  recurrent_param {
+    num_output: 32
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "lstm2"
+  type: "LSTM"
+  bottom: "lstm1"
+  bottom: "clip"
+  top: "lstm2"
+  recurrent_param {
+    num_output: 32
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "fc1"
+  type: "InnerProduct"
+  bottom: "lstm2"
+  top: "fc1"
+  param { lr_mult: 1 decay_mult: 1 }
+  param { lr_mult: 2 decay_mult: 0 }
+  inner_product_param {
+    num_output: 16
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+  
+}
+
+
+layer {
+  name: "out"
+  type: "InnerProduct"
+  bottom: "fc1"
+  top: "out"
+
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+layer {
+  name: "euclideanLoss"
+  type: "EuclideanLoss"
+  bottom: "out"
+  bottom: "labels"
+  top: "loss"  
+}
+
+

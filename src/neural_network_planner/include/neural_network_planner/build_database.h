@@ -60,6 +60,9 @@ private:
 	std::string backend, logs_path, base_path;	
 
 	std::string scan_topic, goal_topic, odom_topic, command_topic;
+	std::string tail_type;
+
+	int out_size;
 
 	message_filters::Subscriber<sensor_msgs::LaserScan> laserscan_sub_;
 	message_filters::Subscriber<nav_msgs::Odometry> odom_sub_;
@@ -95,7 +98,7 @@ private:
 
 
 	bool show_lines, command_measured, goal_received, crowdy;
-	bool saturate_vel, command_tail;
+	bool saturate_vel, command_feedback;
 
 	ros::Time cmdvel_time;
 

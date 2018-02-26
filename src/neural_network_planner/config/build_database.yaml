@@ -17,7 +17,16 @@ base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 
 averaged_ranges_size: 24
 
-command_tail: true
+# whether or not net has trained with command tail as input
+command_feedback: true
+
+# if command_feedback is true the type of the feedback {measured, reference}
+feedback_type: measured 
+
+# output size:
+# - 1 means just angular vel is generated
+# - 2 means both angular and translational vel are generated
+output_size: 2
 
 dist_preweight: 10
 

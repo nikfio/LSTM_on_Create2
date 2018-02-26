@@ -28,7 +28,7 @@ using std::string;
 
 using boost::lexical_cast;
 
-const int labels_size = 1;
+
 
 namespace neural_network_planner {
 
@@ -51,7 +51,9 @@ namespace neural_network_planner {
 	private_nh.param("logs_path", logs_path, std::string(""));
 	private_nh.param<float>("control_rate", control_rate, 5);
 	private_nh.param<float>("cruise_linear_vel", cruise_linear_vel, 0.3);
-	private_nh.param("command_tail", command_tail, true);
+	private_nh.param("command_feedback", command_feedback, true);
+	private_nh.param<int>("output_size", out_size, 1);
+	private_nh.param("feedback_type", tail_type, std::string(""));
 
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
@@ -88,14 +90,16 @@ namespace neural_network_planner {
 	blobOut = online_net->blob_by_name("out");
 
 	// input state size checks
-		if( command_tail ) 
-			state_sequence_size = averaged_ranges_size + 3;
-		else
-			state_sequence_size = averaged_ranges_size + 2;
+	if( command_feedback && out_size == 1 ) 
+		state_sequence_size = averaged_ranges_size + 3;
+	else if( command_feedback && out_size == 2 ) 
+		state_sequence_size = averaged_ranges_size + 4;
+	else
+		state_sequence_size = averaged_ranges_size + 2;
 
 	CHECK_EQ(state_sequence_size, blobData->shape(1) ) << "net: supposed input sequence size check failed";
 
-	CHECK_EQ(labels_size, blobOut->shape(1) );
+	CHECK_EQ(out_size, blobOut->shape(1) ) << " supposed output size and net loaded output must equal";
 
 	time_t now = time(0);
 	tm *local = localtime(&now);
@@ -123,6 +127,14 @@ namespace neural_network_planner {
 	if( show_lines ) {
 		marker_pub_ = nh.advertise<Marker>("range_lines", 1);
 	}
+
+	bool measured;
+	if( tail_type == "measured" ) 
+		measured = true;
+	else if ( tail_type == "reference" )
+		measured = false;
+	else 
+		LOG(FATAL) << "command feedback type not valid {measured, reference}";
 
 	goal_received = false;
 
@@ -166,9 +178,24 @@ namespace neural_network_planner {
 		blobData->mutable_cpu_data()[range_data.size() + 1] =
 					 fabs(atan2( y_rel , x_rel ) - current_orientation);
 
-		if( command_tail ) {
-			blobData->mutable_cpu_data()[range_data.size() + 2] = prev_meas_angular_z;
- 		}
+		if(out_size == 1) {
+			if( command_feedback && measured ) {
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_meas_angular_z;
+	 		}
+			else if( command_feedback && !measured ) {
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_ref_angular_z;
+	 		}
+		}
+		else if(out_size == 2) {
+			if( command_feedback && measured ) {
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_meas_linear_x;
+				blobData->mutable_cpu_data()[range_data.size() + 3] = prev_meas_angular_z;
+	 		}
+			else if( command_feedback && !measured ) {
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_ref_linear_x;
+				blobData->mutable_cpu_data()[range_data.size() + 3] = prev_ref_angular_z;
+	 		}
+		}
 
 
 //		for(int i = 0; i < state_sequence_size; i++) {
@@ -179,8 +206,18 @@ namespace neural_network_planner {
 	
 		geometry_msgs::Twist cmd_out;
 
-		float linear = cruise_linear_vel;
-		float angular = blobOut->mutable_cpu_data()[0];
+		float linear;
+		float angular;
+
+		if(out_size == 1) {
+			linear = cruise_linear_vel;
+			angular = blobOut->mutable_cpu_data()[0];
+		}
+		else if(out_size == 2) {
+			linear = blobOut->mutable_cpu_data()[0];
+			angular = blobOut->mutable_cpu_data()[1];
+		}
+
 
 		LOG(INFO) << "Linear: " <<  linear << " Angular: " << angular;
 

@@ -25,6 +25,15 @@ folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner
 averaged_ranges_size: 24
 
 # whether or not dataset has command tail as input
-command_tail: true
+command_feedback: true
+
+# if command_feedback is true the type of the feedback {measured, reference}
+feedback_type: measured 
+
+# output size:
+# - 1 means just angular vel is generated
+# - 2 means both angular and translational vel are generated
+output_size: 2
+
 
 logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 
