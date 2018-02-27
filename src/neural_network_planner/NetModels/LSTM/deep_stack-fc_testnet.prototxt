@@ -1,28 +1,18 @@
-name: "LSTM_stack-1-32"
+name: "LSTM_stack-1-64"
 
 layer {
   name: "data"
   type: "Data"
   top: "data"
+  top: "label"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-24-END/states_reftail_db-2-25-4-11_lmdb"
-    batch_size: 64
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-SIM-yaw/yaw_db-2-27-1-32_lmdb"
+    batch_size: 128
     backend: LMDB
   }
  
 }
 
-layer {
-  name: "label"
-  type: "Data"
-  top: "labels"
-  data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-24-END/labels_ref_db-2-25-4-11_twist_lmdb"
-    batch_size: 64
-    backend: LMDB
-  }
-
-}
 
 
 layer {
@@ -31,8 +21,8 @@ layer {
 	top:  "clip"
 	input_param {
 		shape {
-			dim: 64
-			dim: 28	
+			dim: 128
+			dim: 27
 		}
 	
 	}
@@ -49,7 +39,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 32
+    num_output: 64
     weight_filler {
       type: "xavier"
     }
@@ -67,7 +57,7 @@ layer {
   bottom: "clip"
   top: "lstm2"
   recurrent_param {
-    num_output: 32
+    num_output: 64
     weight_filler {
       type: "xavier"
     }
@@ -78,11 +68,27 @@ layer {
 }
 
 
+layer {
+  name: "lstm3"
+  type: "LSTM"
+  bottom: "lstm2"
+  bottom: "clip"
+  top: "lstm3"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
 
 layer {
   name: "fc1"
   type: "InnerProduct"
-  bottom: "lstm2"
+  bottom: "lstm3"
   top: "fc1"
   param { lr_mult: 1 decay_mult: 1 }
   param { lr_mult: 2 decay_mult: 0 }
@@ -107,7 +113,7 @@ layer {
   top: "out"
 
   inner_product_param {
-    num_output: 2
+    num_output: 1
     weight_filler {
       type: "gaussian"
       std: 0.1
@@ -123,7 +129,7 @@ layer {
   name: "euclideanLoss"
   type: "EuclideanLoss"
   bottom: "out"
-  bottom: "labels"
+  bottom: "label"
   top: "loss"  
 }
 

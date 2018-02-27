@@ -67,15 +67,12 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param<float>("step_resolution", step_resolution, 0.10); 
 	private_nh.param("yaw_resolution", yaw_resolution, 10); 
 	
-
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
 	FLAGS_minloglevel = 0;
 
+	initializeSteer(steer_angles, yaw_resolution);
 	
-	initializeSteer();
-	
-
 	prev_target = std::pair<float, float>(0,0);
 	current_source = std::pair<float,float>(0,0);
 	prev_source = std::pair<float,float>(0,0);
@@ -210,13 +207,15 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		steer_datum.add_float_data(relative_angle);
 
 		if( steer_feedback ) {
-			steer_datum.add_float_data(prev_yaw_angle);
+
+			steer_datum.add_float_data(prev_closest_steer);
+				
 		}
 
 		int steer_label;
 		float closest_steer = 0;
 		
-		steer_label = getClosestSteer(current_yaw_angle, closest_steer);
+		steer_label = getClosestSteer(steer_angles, current_yaw_angle, closest_steer);
 		
 //		steer_datum.set_label(closest_steer);
 
@@ -257,13 +256,15 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		
 		// update the tails
 		prev_yaw_angle = current_yaw_angle;
+		prev_closest_steer = closest_steer;	
+			
 		
-		 prev_source = current_source;
 
 	     
 	  } // check available step
 	  
 
+	  prev_source = current_source;
 
 	  if ( point_distance(current_source, current_target) <= target_tolerance ) {
 		 // current pos has achieved target within tolerance
@@ -443,7 +444,7 @@ int  saturate(float neg_lim, float pos_lim, float& value)
  }
 
 
-void BuildDatabase::initializeSteer()
+void initializeSteer(vector<float>& steer_angles, int yaw_resolution)
 
 {
 
@@ -453,7 +454,7 @@ void BuildDatabase::initializeSteer()
 
 	float add_allowed = 0;
 	steer_angles.push_back(add_allowed);
-	LOG(INFO) << "Allowed steer angles: " << add_allowed;
+	//LOG(INFO) << "Allowed steer angles: " << add_allowed;
 
 	int counter_plus = 1;
 
@@ -462,7 +463,7 @@ void BuildDatabase::initializeSteer()
 		add_allowed += yaw_res_rad;
 		steer_angles.push_back(add_allowed);
 		
-		LOG(INFO) << "Allowed steer angle: " << add_allowed;
+		//LOG(INFO) << "Allowed steer angle: " << add_allowed;
 		counter_plus++;
 	}
 
@@ -473,7 +474,7 @@ void BuildDatabase::initializeSteer()
 		add_allowed -= yaw_res_rad;
 		steer_angles.push_back(add_allowed);
 		
-		LOG(INFO) << "Allowed steer angle: " << add_allowed;
+		//LOG(INFO) << "Allowed steer angle: " << add_allowed;
 		counter_minus++;
 	}
 
@@ -483,7 +484,7 @@ void BuildDatabase::initializeSteer()
 }
 
 
-int BuildDatabase::getClosestSteer( float yaw_angle, float& closest ) {
+int getClosestSteer(vector<float>& steer_angles, float yaw_angle, float& closest ) {
 
 	int closest_index = steer_angles.size();
 	float min_dist = FLT_MAX;

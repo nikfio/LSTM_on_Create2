@@ -2,9 +2,9 @@
 # it is always better to write absolute paths of files needed
 # you never know from which location you launch the process
 
-train_set_size: 50017
+train_set_size: 45036
 
-validate_set_size: 20372
+validate_set_size: 15042
 
 resume: false
 
@@ -25,15 +25,10 @@ folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner
 averaged_ranges_size: 24
 
 # whether or not dataset has command tail as input
-command_feedback: true
+steer_feedback: true
 
-# if command_feedback is true the type of the feedback {measured, reference}
-feedback_type: measured 
+multiclass: false
 
-# output size:
-# - 1 means just angular vel is generated
-# - 2 means both angular and translational vel are generated
-output_size: 2
-
+yaw_resolution: 30
 
 logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 

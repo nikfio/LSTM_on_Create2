@@ -30,10 +30,8 @@ using namespace geometry_msgs;
 
 
 // limits set by the driver in use
-const float linear_neg = -0.5;
-const float linear_pos = 0.5;
-const float angular_neg = -4.5;
-const float angular_pos = 4.5; 
+const float TRASL_MAX = 0.5;
+const float ROTATE_MAX = 4.5; 
 
 const float noise_level = 0.05; 
 
@@ -77,7 +75,7 @@ private:
 	int set_size, batch_size, state_sequence_size;
 	int db_writestep, timestep, database_counter;
 
-	vector<double> allowed_angles;
+	vector<float> steer_angles;
 	
 	vector<float> range_data, tail;
 
@@ -94,10 +92,8 @@ private:
 
 	float current_yaw_angle, prev_yaw_angle;
 	int yaw_resolution;
-	vector<float> steer_angles;
 	
-	bool show_lines, goal_received, steer_feedback;
-	
+	bool show_lines, goal_received, steer_feedback;	
 
 	ros::Time cmdvel_time;
 
@@ -112,17 +108,18 @@ private:
 
 	void updateCmdVel_callback(const geometry_msgs::Twist::ConstPtr& cmdvel_msg);
 
-	void initializeSteer();
-	
-	int getClosestSteer( float yaw_angle, float& closest ); 
-
 	float Step_dist();
 
 };
 
 int saturate(float neg_lim, float pos_lim, float& value);
 
-float point_distance(std::pair<float, float>& start_point, std::pair<float, float>& end_point); 
+float point_distance(std::pair<float, float>& start_point, std::pair<float, float>& end_point);
+
+void initializeSteer(vector<float>& steer_angles, int yaw_resolution);
+	
+int getClosestSteer(vector<float>& steer_angles, float yaw_angle, float& closest ); 
+ 
 
 
 

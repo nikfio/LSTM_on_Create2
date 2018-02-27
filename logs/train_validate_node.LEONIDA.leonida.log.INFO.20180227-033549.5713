@@ -1,0 +1,45 @@
+Log file created at: 2018/02/27 03:35:49
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0227 03:35:49.254281  5713 train_validate.cpp:56] GPU mode
+W0227 03:35:49.254412  5713 train_validate.cpp:66] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0227 03:35:50.798418  5713 build_database.cpp:453] Allowed steer angles: 0
+I0227 03:35:50.798436  5713 build_database.cpp:462] Allowed steer angle: 0.174533
+I0227 03:35:50.798441  5713 build_database.cpp:462] Allowed steer angle: 0.349066
+I0227 03:35:50.798445  5713 build_database.cpp:462] Allowed steer angle: 0.523599
+I0227 03:35:50.798462  5713 build_database.cpp:462] Allowed steer angle: 0.698132
+I0227 03:35:50.798466  5713 build_database.cpp:462] Allowed steer angle: 0.872665
+I0227 03:35:50.798485  5713 build_database.cpp:462] Allowed steer angle: 1.0472
+I0227 03:35:50.798487  5713 build_database.cpp:462] Allowed steer angle: 1.22173
+I0227 03:35:50.798491  5713 build_database.cpp:462] Allowed steer angle: 1.39626
+I0227 03:35:50.798496  5713 build_database.cpp:462] Allowed steer angle: 1.5708
+I0227 03:35:50.798498  5713 build_database.cpp:462] Allowed steer angle: 1.74533
+I0227 03:35:50.798502  5713 build_database.cpp:462] Allowed steer angle: 1.91986
+I0227 03:35:50.798506  5713 build_database.cpp:462] Allowed steer angle: 2.09439
+I0227 03:35:50.798508  5713 build_database.cpp:462] Allowed steer angle: 2.26893
+I0227 03:35:50.798512  5713 build_database.cpp:462] Allowed steer angle: 2.44346
+I0227 03:35:50.798516  5713 build_database.cpp:462] Allowed steer angle: 2.61799
+I0227 03:35:50.798519  5713 build_database.cpp:462] Allowed steer angle: 2.79253
+I0227 03:35:50.798523  5713 build_database.cpp:462] Allowed steer angle: 2.96706
+I0227 03:35:50.798527  5713 build_database.cpp:462] Allowed steer angle: 3.14159
+I0227 03:35:50.798529  5713 build_database.cpp:462] Allowed steer angle: 3.31613
+I0227 03:35:50.798533  5713 build_database.cpp:473] Allowed steer angle: -0.174533
+I0227 03:35:50.798537  5713 build_database.cpp:473] Allowed steer angle: -0.349066
+I0227 03:35:50.798540  5713 build_database.cpp:473] Allowed steer angle: -0.523599
+I0227 03:35:50.798543  5713 build_database.cpp:473] Allowed steer angle: -0.698132
+I0227 03:35:50.798547  5713 build_database.cpp:473] Allowed steer angle: -0.872665
+I0227 03:35:50.798550  5713 build_database.cpp:473] Allowed steer angle: -1.0472
+I0227 03:35:50.798554  5713 build_database.cpp:473] Allowed steer angle: -1.22173
+I0227 03:35:50.798557  5713 build_database.cpp:473] Allowed steer angle: -1.39626
+I0227 03:35:50.798562  5713 build_database.cpp:473] Allowed steer angle: -1.5708
+I0227 03:35:50.798564  5713 build_database.cpp:473] Allowed steer angle: -1.74533
+I0227 03:35:50.798568  5713 build_database.cpp:473] Allowed steer angle: -1.91986
+I0227 03:35:50.798571  5713 build_database.cpp:473] Allowed steer angle: -2.09439
+I0227 03:35:50.798575  5713 build_database.cpp:473] Allowed steer angle: -2.26893
+I0227 03:35:50.798578  5713 build_database.cpp:473] Allowed steer angle: -2.44346
+I0227 03:35:50.798583  5713 build_database.cpp:473] Allowed steer angle: -2.61799
+I0227 03:35:50.798585  5713 build_database.cpp:473] Allowed steer angle: -2.79253
+I0227 03:35:50.798589  5713 build_database.cpp:473] Allowed steer angle: -2.96706
+I0227 03:35:50.798593  5713 build_database.cpp:473] Allowed steer angle: -3.14159
+I0227 03:35:50.798596  5713 build_database.cpp:477] A total of 38 steering angles have been set
+F0227 03:35:50.798606  5713 train_validate.cpp:129] Check failed: blobOut->shape(1) == steer_angles.size() (12 vs. 38) 

@@ -1,0 +1,4 @@
+Log file created at: 2018/02/27 03:47:28
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0227 03:47:28.961450  6638 insert_splits.cpp:29] Unknown bottom blob 'label' (layer 'euclideanLoss', bottom index 1)

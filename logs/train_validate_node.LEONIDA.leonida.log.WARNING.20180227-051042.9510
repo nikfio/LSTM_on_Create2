@@ -1,0 +1,6 @@
+Log file created at: 2018/02/27 05:10:42
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0227 05:10:42.578497  9510 train_validate.cpp:66] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0227 05:10:42.856899  9510 net.cpp:956] Unknown blob name accuracy
+W0227 05:10:42.856926  9510 net.cpp:956] Unknown blob name accuracy

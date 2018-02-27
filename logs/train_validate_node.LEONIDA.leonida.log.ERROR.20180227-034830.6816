@@ -1,0 +1,4 @@
+Log file created at: 2018/02/27 03:48:30
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0227 03:48:30.827338  6816 recurrent_layer.cpp:26] Check failed: N_ == bottom[1]->shape(1) (27 vs. 28) 

@@ -127,7 +127,7 @@ target_link_libraries(TestReadDB ${catkin_LIBRARIES} ${LevelDB_LIBRARIES} ${LMDB
 
 add_library(train_validate src/train_validate.cpp)
 
-target_link_libraries(train_validate ${catkin_LIBRARIES} ${BOOST_LIBRARIES} ${CAFFE_LIBRARY} ${LevelDB_LIBRARIES})
+target_link_libraries(train_validate build_database ${catkin_LIBRARIES} ${BOOST_LIBRARIES} ${CAFFE_LIBRARY} ${LevelDB_LIBRARIES})
 
 add_executable(train_validate_node src/train_validate_node.cpp)
 

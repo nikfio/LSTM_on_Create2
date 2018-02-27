@@ -1,0 +1,29 @@
+Log file created at: 2018/02/27 03:36:45
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0227 03:36:45.600677  5809 train_validate.cpp:56] GPU mode
+W0227 03:36:45.601125  5809 train_validate.cpp:66] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0227 03:36:50.996770  5809 build_database.cpp:453] Allowed steer angles: 0
+I0227 03:36:50.996789  5809 build_database.cpp:462] Allowed steer angle: 0.523599
+I0227 03:36:50.996796  5809 build_database.cpp:462] Allowed steer angle: 1.0472
+I0227 03:36:50.996800  5809 build_database.cpp:462] Allowed steer angle: 1.5708
+I0227 03:36:50.996804  5809 build_database.cpp:462] Allowed steer angle: 2.0944
+I0227 03:36:50.996809  5809 build_database.cpp:462] Allowed steer angle: 2.61799
+I0227 03:36:50.996811  5809 build_database.cpp:462] Allowed steer angle: 3.14159
+I0227 03:36:50.996814  5809 build_database.cpp:473] Allowed steer angle: -0.523599
+I0227 03:36:50.996819  5809 build_database.cpp:473] Allowed steer angle: -1.0472
+I0227 03:36:50.996822  5809 build_database.cpp:473] Allowed steer angle: -1.5708
+I0227 03:36:50.996826  5809 build_database.cpp:473] Allowed steer angle: -2.0944
+I0227 03:36:50.996829  5809 build_database.cpp:473] Allowed steer angle: -2.61799
+I0227 03:36:50.996834  5809 build_database.cpp:477] A total of 12 steering angles have been set
+I0227 03:36:50.996839  5809 train_validate.cpp:144] Selected start a new training
+I0227 03:36:50.996860  5809 train_validate.cpp:156] Net loaded: LSTM_stack-2-32
+I0227 03:36:50.996865  5809 train_validate.cpp:157] TRAIN INFO: set size: 45036 batch size: 64
+I0227 03:36:50.996867  5809 train_validate.cpp:158] VALIDATE INFO: set size: 15042
+I0227 03:36:50.996870  5809 train_validate.cpp:159] Forward - backward per batch (gradients accumulated): 1
+I0227 03:36:50.996873  5809 train_validate.cpp:160] Number of updates per batch: 1
+W0227 03:37:07.248206  5809 train_validate.cpp:303] TRAIN EPOCH: 2 AVERAGE LOSS: 3.1123  AVERAGE ACCURACY: 151.438
+W0227 03:37:23.201140  5809 train_validate.cpp:303] TRAIN EPOCH: 3 AVERAGE LOSS: 3.60387  AVERAGE ACCURACY: 142.219
+W0227 03:37:27.501718  5809 train_validate.cpp:388] VALIDATION TEST: 1  AVERAGE LOSS: 4.80081  AVERAGE ACCURACY: 0
+W0227 03:37:43.607584  5809 train_validate.cpp:303] TRAIN EPOCH: 4 AVERAGE LOSS: 2.91652  AVERAGE ACCURACY: 181.422
+W0227 03:37:59.556231  5809 train_validate.cpp:303] TRAIN EPOCH: 5 AVERAGE LOSS: 3.07262  AVERAGE ACCURACY: 184.625

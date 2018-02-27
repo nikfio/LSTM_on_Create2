@@ -2,6 +2,7 @@
 
 // ROS related
 #include <neural_network_planner/train_validate.h>
+#include <neural_network_planner/build_database.h>
 
 // caffe related
 #include "caffe/layers/data_layer.hpp"
@@ -43,7 +44,9 @@ namespace neural_network_planner {
 		private_nh.param("validation_test_frequency", val_freq, 2 );
 		private_nh.param("logs_path", logs_path, std::string(""));
 		private_nh.param("steer_feedback", steer_feedback, true);
-
+		private_nh.param("multiclass", multiclass, true);
+		private_nh.param("yaw_resolution", yaw_resolution, 10); 
+		
 		FLAGS_log_dir = logs_path;
 		FLAGS_alsologtostderr = 1;
 		FLAGS_minloglevel = 0;
@@ -55,6 +58,8 @@ namespace neural_network_planner {
 	    		caffe::Caffe::set_mode(caffe::Caffe::CPU);
 			LOG(INFO) << "CPU mode";
 	  	}
+
+		
 		
 		// initializing the neural network - parsing the solver config file
 		FLAGS_minloglevel = 1;
@@ -69,30 +74,39 @@ namespace neural_network_planner {
 
 		// basic checking for minimal functioning
 		CHECK(net->has_blob("data"));	
-		CHECK(net->has_blob("labels"));	
+		CHECK(net->has_blob("label"));	
 		CHECK(net->has_blob("loss"));
 		CHECK(net->has_blob("out"));
-		CHECK(net->has_layer("data"));		
+		CHECK(net->has_layer("data"));	
+		if( multiclass ) {
+			CHECK(net->has_blob("argmax"));
+			CHECK(net->has_blob("accuracy"));
+		}	
 
 		blobData = net->blob_by_name("data");
 		blobClip = net->blob_by_name("clip");
-		blobLabel = net->blob_by_name("labels");
+		blobLabel = net->blob_by_name("label");
 		blobLoss = net->blob_by_name("loss");
 		blobOut  = net->blob_by_name("out");
+		blobAccu = net->blob_by_name("accuracy");		
 		
 		test_net = solver->test_nets()[0];
 
 		// basic checking for minimal functioning
 		CHECK(test_net->has_blob("data"));	
-		CHECK(test_net->has_blob("labels"));	
-		CHECK(test_net->has_blob("loss"));			
-		CHECK(test_net->has_blob("out"));		
+		CHECK(test_net->has_blob("label"));	
+		CHECK(test_net->has_blob("out"));	
+		if( multiclass ) {
+			CHECK(test_net->has_blob("argmax"));	
+			CHECK(test_net->has_blob("accuracy"));
+		}
 	
 		test_blobData = test_net->blob_by_name("data");
 		test_blobClip = test_net->blob_by_name("clip");
-		test_blobLabel = test_net->blob_by_name("labels");
+		test_blobLabel = test_net->blob_by_name("label");
 		test_blobLoss = test_net->blob_by_name("loss");
 		test_blobOut  = test_net->blob_by_name("out");
+		test_blobAccu = net->blob_by_name("accuracy");
 
 		train_batch_size = blobData->shape(0);
 		validate_batch_size = test_blobData->shape(0);
@@ -109,10 +123,12 @@ namespace neural_network_planner {
 		CHECK_EQ( state_sequence_size, blobData->shape(1) ) << "train net: supposed input sequence size check failed";
 		CHECK_EQ( state_sequence_size, test_blobData->shape(1) ) << "validate net: supposed input sequence size check failed";
 
-		// output size checks
-		CHECK_EQ(out_size, blobOut->shape(1) ) << " supposed output size and net loaded output must equal";
-		CHECK_EQ(blobOut->shape(1), blobLabel->shape(1)) << "train net: output size and labels size must match"; 
-		CHECK_EQ(test_blobOut->shape(1), test_blobLabel->shape(1)) << "test net: output size and labels size must match";
+		if( multiclass ) {
+			initializeSteer(steer_angles, yaw_resolution);
+			CHECK_EQ(blobOut->shape(1), steer_angles.size());
+		}
+		
+		
 		
 		solver_param.set_iter_size(iter_size);
 	
@@ -211,21 +227,28 @@ namespace neural_network_planner {
 
 		int SHOW_EPOCH_LOG = 1;
 		int validation_test = 0;
-		int epoch = 1;		
+		int epoch = 1;	
 
-		float Test_loss = 0.0f;
+		
 
 		while( ros::ok() && epoch < epochs ) { // training process
 		
 			TRAIN = true;
 
 			float Train_loss = 0.0f;	
+			float Train_accu = 0.0f;
+
+			float Test_loss = 0.0f;
+			float Test_accu = 0.0f;	
 		
 			for(int k = 1; k < train_batch_num; k++) { // training batch 
 
 				solver->Step(batch_updates);
 
 				Train_loss += blobLoss->mutable_cpu_data()[0];
+				if( multiclass )
+					Train_accu += blobAccu->mutable_cpu_data()[0];
+
 
 //				char answer;
 //				cout << "TRAINING: Want to check batch output? (y/n)" << endl;
@@ -273,12 +296,14 @@ namespace neural_network_planner {
 			}
 		
 			Train_loss /= train_batch_num;
+			Train_accu /= train_batch_num;
 
 			epoch++;
  
 			if ( SHOW_EPOCH_LOG ) {
 				LOG(WARNING) << "TRAIN EPOCH: " << epoch 
-	 				        << " AVERAGE LOSS: " << Train_loss;
+	 				        << " AVERAGE LOSS: " << Train_loss	
+						   << "  AVERAGE ACCURACY: "  << Train_accu;
 			}
 		
 			plot = fopen(matlab_plot.c_str(), "a");
@@ -286,7 +311,7 @@ namespace neural_network_planner {
 				cout << "Plot file opening failed.\n";
 				exit(1);
 			}
-			fprintf(plot, "    %.4f   ", Train_loss); 
+			fprintf(plot, "    %.4f   %.4f  ", Train_loss, Train_accu); 
 			fclose(plot);
 
 			if( epoch % val_freq == 0 ) {
@@ -295,7 +320,8 @@ namespace neural_network_planner {
 		
 				validation_test++;
 
-				Test_loss = 0;				
+				Test_loss = 0.0f;
+				Test_accu = 0.0f;
 
 				UpdateTestNet();
 			
@@ -303,7 +329,9 @@ namespace neural_network_planner {
 
 					test_net->Forward();	
 		
-					Test_loss += test_blobLoss->mutable_cpu_data()[0];			
+					Test_loss += test_blobLoss->mutable_cpu_data()[0];	
+					if( multiclass )
+						Test_accu += blobAccu->mutable_cpu_data()[0];		
 
 //					char answer;
 //					cout << "VALIDATING: Want to check batch output? (y/n)" << endl;
@@ -356,9 +384,13 @@ namespace neural_network_planner {
 			
 
 			Test_loss /=  validate_batch_num;
+			Test_accu /=  validate_batch_num;
 		
 			LOG(WARNING) << "VALIDATION TEST: " << validation_test 
-				        << "  AVERAGE LOSS: "  << Test_loss;
+				        << "  AVERAGE LOSS: "  << Test_loss
+					   << "  AVERAGE ACCURACY: "  << Test_accu;
+
+					
 
 			}
 			
@@ -367,7 +399,7 @@ namespace neural_network_planner {
 				cout << "Plot file opening failed.\n";
 				exit(1);
 			}
-			fprintf(plot, "    %.4f  ; \n", Test_loss); 
+			fprintf(plot, "    %.4f   %.4f ; \n", Test_loss, Test_accu); 
 			fclose(plot);
 
 

@@ -15,7 +15,10 @@
 #include <boost/thread.hpp>
 #include <string>
 
-
+/* if next yaw is within this limit cruise translational velocity is set
+ * otherwise translational velocity is the minimum set
+ */
+const float CRUISE_ANGLE = 0.61056;
 
 
 namespace neural_network_planner {
@@ -42,7 +45,6 @@ namespace neural_network_planner {
      boost::shared_ptr<caffe::Solver<float> > solver;
      boost::shared_ptr<caffe::Net<float> > online_net;
 
-
 	boost::shared_ptr<caffe::Blob<float> > blobData;
 	boost::shared_ptr<caffe::Blob<float> > blobClip;
 	boost::shared_ptr<caffe::Blob<float> > blobLabel;
@@ -50,16 +52,21 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > blobOut;
 	boost::shared_ptr<caffe::Blob<float> > blobArgmax;
 
-	bool GPU, show_lines, goal_received, crowdy, command_feedback;
+	bool GPU, show_lines, goal_received, steer_feedback, multiclass;
 
 	float target_tolerance, minimal_step_dist, pos_update_threshold;
 
-	float control_rate, cruise_linear_vel;
+	float control_rate, cruise_vel, min_cruise_vel;
+	
+	float yaw_resolution, rotate_vel_res, min_rotate_vel, max_rotate_vel;
+
+	float yaw_measured;
+	float prev_closest_steer, prev_yaw_ref;
 
 	int out_size;
-	float meas_linear_x, meas_angular_z, current_orientation;
+	float meas_linear_x, meas_angular_z;
 	float prev_ref_linear_x, prev_meas_linear_x;
-	float prev_ref_angular_z, prev_meas_angular_z;
+	float prev_ref_angular_x, prev_meas_angular_x;
 
 	int time_sequence, averaged_ranges_size, state_sequence_size;
 	std::pair<float, float> current_source;
@@ -87,7 +94,6 @@ namespace neural_network_planner {
 	ros::Publisher vel_command_pub_;
 	LaserScan state_ranges;
 
-
 	float Step_dist();
 
 	void updateTarget_callback(const MoveBaseActionGoal::ConstPtr& actiongoal_msg);
@@ -97,6 +103,19 @@ namespace neural_network_planner {
 
 	void PublishZeroVelocity();
 
+	inline float computeNewXPosition(float xi, float vx, float vy, float theta, float dt){
+        return xi + (vx * cos(theta) + vy * cos(M_PI_2 + theta)) * dt;
+     }
+
+	inline float computeNewYPosition(float yi, float vx, float vy, float theta, float dt){
+        return yi + (vx * sin(theta) + vy * sin(M_PI_2 + theta)) * dt;
+     }
+
+	inline float computeNewThetaPosition(float thetai, float vth, float dt){
+        return thetai + vth * dt;
+     }
+
+	bool ComputeNewVelocity(float yaw_ref, float yaw_measured, geometry_msgs::Twist& drive_cmds);
 
   };	
 

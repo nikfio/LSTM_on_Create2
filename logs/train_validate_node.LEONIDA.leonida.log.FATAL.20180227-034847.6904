@@ -1,0 +1,4 @@
+Log file created at: 2018/02/27 03:48:47
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0227 03:48:47.666568  6904 train_validate.cpp:82] Check failed: net->has_blob("argmax") 
