@@ -3870,8 +3870,8 @@ clean: neural_network_planner/CMakeFiles/train_validate.dir/clean
 # Target rules for target neural_network_planner/CMakeFiles/train_validate_node.dir
 
 # All Build rule for target.
-neural_network_planner/CMakeFiles/train_validate_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
 neural_network_planner/CMakeFiles/train_validate_node.dir/all: neural_network_planner/CMakeFiles/train_validate.dir/all
+neural_network_planner/CMakeFiles/train_validate_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
 	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/depend
 	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  22

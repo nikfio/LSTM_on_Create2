@@ -48,7 +48,9 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > blobLabel;
 	boost::shared_ptr<caffe::Blob<float> > blobLoss;
 	boost::shared_ptr<caffe::Blob<float> > blobOut;
+	boost::shared_ptr<caffe::Blob<float> > blobArgmax;
 	boost::shared_ptr<caffe::Blob<float> > blobAccu;
+	boost::shared_ptr<caffe::Blob<float> > blobSoftmax;
 
 
 	boost::shared_ptr<caffe::Blob<float> > test_blobData;
@@ -57,15 +59,17 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > test_blobLoss;
 	boost::shared_ptr<caffe::Blob<float> > test_blobOut;
      boost::shared_ptr<caffe::Blob<float> > test_blobAccu;
+	boost::shared_ptr<caffe::Blob<float> > test_blobArgmax;
+	boost::shared_ptr<caffe::Blob<float> > test_blobSoftmax;
 
 	std::string solver_conf, trained, folder_path, logs_path;
-	std::string tail_type;
+
 	bool solver_mode, TRAIN, GPU, resume, steer_feedback;
-	bool multiclass;
+	bool multiclass, online_training;
 
 	std::vector<float> steer_angles;
 
-	int yaw_resolution;
+	int yaw_resolution, batch_size;
 
 	int batch_updates, iter_size, val_freq;
 	int train_batch_size, train_set_size, train_batch_num; 	

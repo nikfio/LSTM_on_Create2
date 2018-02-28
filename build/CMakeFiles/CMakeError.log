@@ -1,21 +1,21 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec3012285282/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3012285282.dir/build.make CMakeFiles/cmTryCompileExec3012285282.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec1686792761/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1686792761.dir/build.make CMakeFiles/cmTryCompileExec1686792761.dir/build
 make[1]: Entering directory `/home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp'
 /usr/bin/cmake -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec3012285282.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3012285282.dir/CheckSymbolExists.c.o   -c /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTryCompileExec3012285282
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3012285282.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTryCompileExec3012285282.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3012285282 -rdynamic 
-CMakeFiles/cmTryCompileExec3012285282.dir/CheckSymbolExists.c.o: In function `main':
+Building C object CMakeFiles/cmTryCompileExec1686792761.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1686792761.dir/CheckSymbolExists.c.o   -c /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec1686792761
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1686792761.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1686792761.dir/CheckSymbolExists.c.o  -o cmTryCompileExec1686792761 -rdynamic 
+CMakeFiles/cmTryCompileExec1686792761.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec1686792761] Error 1
 make[1]: Leaving directory `/home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec3012285282] Error 1
-make: *** [cmTryCompileExec3012285282/fast] Error 2
+make: *** [cmTryCompileExec1686792761/fast] Error 2
 
 File /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -35,19 +35,19 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec45654207/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec45654207.dir/build.make CMakeFiles/cmTryCompileExec45654207.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec141606633/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec141606633.dir/build.make CMakeFiles/cmTryCompileExec141606633.dir/build
 make[1]: Entering directory `/home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp'
 /usr/bin/cmake -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec45654207.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec45654207.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
-Linking C executable cmTryCompileExec45654207
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec45654207.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec45654207.dir/CheckFunctionExists.c.o  -o cmTryCompileExec45654207 -rdynamic -lpthreads 
+Building C object CMakeFiles/cmTryCompileExec141606633.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec141606633.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec141606633
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec141606633.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec141606633.dir/CheckFunctionExists.c.o  -o cmTryCompileExec141606633 -rdynamic -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec141606633] Error 1
 make[1]: Leaving directory `/home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec45654207] Error 1
-make: *** [cmTryCompileExec45654207/fast] Error 2
+make: *** [cmTryCompileExec141606633/fast] Error 2
 
 

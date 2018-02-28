@@ -1,12 +1,12 @@
 # example of online deployment parameters set up
 
-trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/LSTM_deep-stack-2-32-16-28_iter_100000.caffemodel
+trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-regression-3-64-16-27_iter_550000.caffemodel
 
 online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_online.prototxt
 
 GPU: false
 
-control_rate: 25 # Hertz
+control_rate: 10 # Hertz
 
 pos_update_threshold: 0.01 # meters
 
@@ -16,16 +16,23 @@ target_tolerance: 0.5
 
 averaged_ranges_size: 24
 
-# whether or not net has trained with command tail as input
-command_feedback: true
+# if it is a classification net
+multiclass: false
 
-# if command_feedback is true the type of the feedback {measured, reference}
-feedback_type: reference 
+# classes yaw resolution
+yaw_resolution: 30
 
-# output size:
-# - 1 means just angular vel is generated
-# - 2 means both angular and translational vel are generated
-output_size: 2
+# add the previous action to the input state
+steer_feedback: true
+
+# translational velocity limits
+cruise_vel: 0.3
+min_cruise_vel: 0.1
+
+# rotational velocity limits
+min_rotate_vel: -1 
+max_rotate_vel: 1
+rotate_vel_res: 0.05
 
 # if true publish state ranges as lines, false means only points 
 show_lines: true

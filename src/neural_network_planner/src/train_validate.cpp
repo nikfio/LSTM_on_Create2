@@ -23,7 +23,6 @@ using std::string;
 
 using boost::lexical_cast;
 
-
 namespace neural_network_planner {
 
 	TrainValidateRNN::TrainValidateRNN(string& process_name) : private_nh("~")
@@ -46,6 +45,9 @@ namespace neural_network_planner {
 		private_nh.param("steer_feedback", steer_feedback, true);
 		private_nh.param("multiclass", multiclass, true);
 		private_nh.param("yaw_resolution", yaw_resolution, 10); 
+		private_nh.param("online_training", online_training, true); 
+		private_nh.param("batch_size", batch_size, 24); 
+		
 		
 		FLAGS_log_dir = logs_path;
 		FLAGS_alsologtostderr = 1;
@@ -88,7 +90,9 @@ namespace neural_network_planner {
 		blobLabel = net->blob_by_name("label");
 		blobLoss = net->blob_by_name("loss");
 		blobOut  = net->blob_by_name("out");
-		blobAccu = net->blob_by_name("accuracy");		
+		blobAccu = net->blob_by_name("accuracy");	
+		blobArgmax  = net->blob_by_name("argmax");
+		blobSoftmax  = net->blob_by_name("softmax");				
 		
 		test_net = solver->test_nets()[0];
 
@@ -107,6 +111,8 @@ namespace neural_network_planner {
 		test_blobLoss = test_net->blob_by_name("loss");
 		test_blobOut  = test_net->blob_by_name("out");
 		test_blobAccu = net->blob_by_name("accuracy");
+		test_blobArgmax  = test_net->blob_by_name("argmax");	
+		test_blobSoftmax  = test_net->blob_by_name("softmax");			
 
 		train_batch_size = blobData->shape(0);
 		validate_batch_size = test_blobData->shape(0);
@@ -127,6 +133,8 @@ namespace neural_network_planner {
 			initializeSteer(steer_angles, yaw_resolution);
 			CHECK_EQ(blobOut->shape(1), steer_angles.size());
 		}
+		else
+			CHECK_EQ(blobOut->shape(1), blobLabel->shape(1));
 		
 		
 		
@@ -229,8 +237,6 @@ namespace neural_network_planner {
 		int validation_test = 0;
 		int epoch = 1;	
 
-		
-
 		while( ros::ok() && epoch < epochs ) { // training process
 		
 			TRAIN = true;
@@ -250,48 +256,50 @@ namespace neural_network_planner {
 					Train_accu += blobAccu->mutable_cpu_data()[0];
 
 
-//				char answer;
-//				cout << "TRAINING: Want to check batch output? (y/n)" << endl;
-//				cin >> answer;
-//				if ( answer == 'y' ) {
+				char answer;
+				cout << "TRAINING: Want to check batch output? (y/n)" << endl;
+				cin >> answer;
+				if ( answer == 'y' ) {
 
-//				for(int i = 0; i < train_batch_size; i++) {  
+				for(int i = 0; i < train_batch_size; i++) {  
 
-//					printf("Batch %d  sample %d  State input sequence: ", k, i );
-//					for(int j = 0; j < state_sequence_size; j++) {
-//						printf(" %.4f  ",  blobData->mutable_cpu_data()[i * state_sequence_size + j]);
-//					}
-//					getchar();
-//					cout << endl;
+					printf("Batch %d  sample %d  State input sequence: ", k, i );
+					for(int j = 0; j < state_sequence_size; j++) {
+						printf(" %.4f  ",  blobData->mutable_cpu_data()[i * state_sequence_size + j]);
+					}
+					getchar();
+					cout << endl;
 
-//					printf("Batch %d  sample %d  NET OUTS: ", k, i);   
-//					for(int l=0; l < blobOut->channels(); l++) { 
-//		
-//						printf(" %.4f   ", blobOut->mutable_cpu_data()[i * blobOut->channels() + l]);
-//			
-//					}
-//					cout << endl;
+					printf("Batch %d  sample %d  NET OUTS: ", k, i);   
+					for(int l=0; l < blobOut->channels(); l++) { 
+		
+						printf(" %.4f   ", blobSoftmax->mutable_cpu_data()[i * blobOut->channels() + l]);
+			
+					}
+					cout << endl;
+					if( multiclass )
+						printf("ARGMAX: %.3f \n", blobArgmax->cpu_data()[0]);
 
-//					printf("Batch %d  sample %d  LABELS OUTS: ", k, i); 
-//					for(int l=0; l < blobLabel->channels(); l++) {  
-//		
-//						printf(" %.4f  ", blobLabel->mutable_cpu_data()[i * blobLabel->channels() + l]);
-//			
-//					}
-//					cout << endl;
+					printf("Batch %d  sample %d  LABELS OUTS: ", k, i); 
+					for(int l=0; l < blobLabel->channels(); l++) {  
+		
+						printf(" %.4f  ", blobLabel->mutable_cpu_data()[i * blobLabel->channels() + l]);
+			
+					}
+					cout << endl;
 
-//					printf("Batch %d  sample %d  Loss: %.5f \n", k, i, blobLoss->mutable_cpu_data()[0] );
-//		
-//					cout << "Wanna pass forward? (y/n)" << endl;
-//					cin >> answer;
+					printf("Batch %d  sample %d  Loss: %.5f \n", k, i, blobLoss->mutable_cpu_data()[0] );
+		
+					cout << "Wanna pass forward? (y/n)" << endl;
+					cin >> answer;
 
-//					if(answer == 'y')
-//						break;
+					if(answer == 'y')
+						break;
 
-//				}
-//					
+				}
+					
 
-//				}
+				}
 
 			}
 		
@@ -333,48 +341,52 @@ namespace neural_network_planner {
 					if( multiclass )
 						Test_accu += blobAccu->mutable_cpu_data()[0];		
 
-//					char answer;
-//					cout << "VALIDATING: Want to check batch output? (y/n)" << endl;
-//					cin >> answer;
-//					if ( answer == 'y' ) {
+					char answer;
+					cout << "VALIDATING: Want to check batch output? (y/n)" << endl;
+					cin >> answer;
+					if ( answer == 'y' ) {
 
-//						for(int i = 0; i < validate_batch_size; i++) {  
+						for(int i = 0; i < validate_batch_size; i++) {  
 
-//						printf("Batch %d  sample %d  State input sequence: ", k, i );
-//						for(int j = 0; j < state_sequence_size; j++) {
-//							printf(" %.4f  ",  test_blobData->mutable_cpu_data()[i * state_sequence_size + j]);
-//						}
-//						getchar();
-//						cout << endl;
+						printf("Batch %d  sample %d  State input sequence: ", k, i );
+						for(int j = 0; j < state_sequence_size; j++) {
+							printf(" %.4f  ",  test_blobData->mutable_cpu_data()[i * state_sequence_size + j]);
+						}
+						getchar();
+						cout << endl;
 
-//						printf("Batch %d  sample %d  NET OUTS: ", k, i);   
-//						for(int l=0; l < blobOut->channels(); l++) { 
-//		
-//							printf(" %.4f   ", test_blobOut->mutable_cpu_data()[i * test_blobOut->channels() + l]);
-//			
-//						}
-//						cout << endl;
+						printf("Batch %d  sample %d  NET OUTS: ", k, i);   
+						for(int l=0; l < blobOut->channels(); l++) { 
+		
+							printf(" %.4f   ", test_blobSoftmax->mutable_cpu_data()[i * test_blobOut->channels() + l]);
+			
+						}
+						cout << endl;
+						
+						if( multiclass )
+							printf("ARGMAX: %.3f \n", test_blobArgmax->mutable_cpu_data()[0]);
 
-//						printf("Batch %d  sample %d  LABELS OUTS: ", k, i); 
-//						for(int l=0; l < blobLabel->channels(); l++) {  
-//		
-//							printf(" %.4f  ", test_blobLabel->mutable_cpu_data()[i * test_blobLabel->channels() + l]);
-//			
-//						}
-//						cout << endl;
 
-//						printf("Batch %d  sample %d   Test Loss: %.5f \n", k, i, test_blobLoss->mutable_cpu_data()[0] );
-//		
-//						cout << "Wanna pass forward? (y/n)" << endl;
-//						cin >> answer;
+						printf("Batch %d  sample %d  LABELS OUTS: ", k, i); 
+						for(int l=0; l < blobLabel->channels(); l++) {  
+		
+							printf(" %.4f  ", test_blobLabel->mutable_cpu_data()[i * test_blobLabel->channels() + l]);
+			
+						}
+						cout << endl;
 
-//						if(answer == 'y')
-//							break;
+						printf("Batch %d  sample %d   Test Loss: %.5f \n", k, i, test_blobLoss->mutable_cpu_data()[0] );
+		
+						cout << "Wanna pass forward? (y/n)" << endl;
+						cin >> answer;
 
-//				     }
-//					
+						if(answer == 'y')
+							break;
 
-//					}
+				     }
+					
+
+					}
 
 
 			

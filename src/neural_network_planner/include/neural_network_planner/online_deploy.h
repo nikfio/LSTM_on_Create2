@@ -51,6 +51,7 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > blobLoss;
 	boost::shared_ptr<caffe::Blob<float> > blobOut;
 	boost::shared_ptr<caffe::Blob<float> > blobArgmax;
+	boost::shared_ptr<caffe::Blob<float> > blobSoftmax;
 
 	bool GPU, show_lines, goal_received, steer_feedback, multiclass;
 
@@ -58,15 +59,15 @@ namespace neural_network_planner {
 
 	float control_rate, cruise_vel, min_cruise_vel;
 	
-	float yaw_resolution, rotate_vel_res, min_rotate_vel, max_rotate_vel;
-
-	float yaw_measured;
+	float rotate_vel_res, min_rotate_vel, max_rotate_vel;
+	int yaw_resolution;
+	float yaw_measured, prev_yaw_measured;
 	float prev_closest_steer, prev_yaw_ref;
 
 	int out_size;
 	float meas_linear_x, meas_angular_z;
 	float prev_ref_linear_x, prev_meas_linear_x;
-	float prev_ref_angular_x, prev_meas_angular_x;
+	float prev_ref_angular_z, prev_meas_angular_z;
 
 	int time_sequence, averaged_ranges_size, state_sequence_size;
 	std::pair<float, float> current_source;
@@ -77,6 +78,8 @@ namespace neural_network_planner {
 	std::pair<float, float> tmp_source;
 
 	std::vector<float> range_data;
+	
+	std::vector<float> steer_angles;	
 
 	std::string trained, online_model, logs_path;	
 
@@ -103,19 +106,19 @@ namespace neural_network_planner {
 
 	void PublishZeroVelocity();
 
-	inline float computeNewXPosition(float xi, float vx, float vy, float theta, float dt){
+	inline float ComputeNewXPosition(float xi, float vx, float vy, float theta, float dt){
         return xi + (vx * cos(theta) + vy * cos(M_PI_2 + theta)) * dt;
      }
 
-	inline float computeNewYPosition(float yi, float vx, float vy, float theta, float dt){
+	inline float ComputeNewYPosition(float yi, float vx, float vy, float theta, float dt){
         return yi + (vx * sin(theta) + vy * sin(M_PI_2 + theta)) * dt;
      }
 
-	inline float computeNewThetaPosition(float thetai, float vth, float dt){
+	inline float ComputeNewThetaPosition(float thetai, float vth, float dt){
         return thetai + vth * dt;
      }
 
-	bool ComputeNewVelocity(float yaw_ref, float yaw_measured, geometry_msgs::Twist& drive_cmds);
+	bool ComputeNewCommands(float yaw_ref, float yaw_measured, geometry_msgs::Twist& drive_cmds);
 
   };	
 

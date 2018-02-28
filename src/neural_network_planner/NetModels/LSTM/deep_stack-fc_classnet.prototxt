@@ -135,7 +135,7 @@ layer{
 layer{
   name: "argmax"
   type: "ArgMax"
-  bottom: "softmax"
+  bottom: "out"
   top: "argmax"
 }
   

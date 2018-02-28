@@ -90,7 +90,7 @@ private:
 	float meas_linear_x, meas_angular_z;
 	float ref_linear_x, ref_angular_z;
 
-	float current_yaw_angle, prev_yaw_angle;
+	float yaw_measured, prev_yaw_measured, prev_closest_steer;
 	int yaw_resolution;
 	
 	bool show_lines, goal_received, steer_feedback;	

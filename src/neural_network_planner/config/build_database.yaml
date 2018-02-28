@@ -17,7 +17,7 @@ target_tolerance: 0.15
 # better give absolute paths
 base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 
-averaged_ranges_size: 24
+averaged_ranges_size: 12
 
 # whether or not net has trained with command tail as input
 steer_feedback: true

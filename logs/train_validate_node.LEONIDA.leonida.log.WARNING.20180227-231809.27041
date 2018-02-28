@@ -1,0 +1,5 @@
+Log file created at: 2018/02/27 23:18:09
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0227 23:18:09.666405 27041 train_validate.cpp:65] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+F0227 23:18:10.312000 27041 blob.hpp:122] Check failed: axis_index < num_axes() (1 vs. 1) axis 1 out of range for 1-D Blob with shape 128 (128)

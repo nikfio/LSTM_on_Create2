@@ -63,7 +63,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
 	private_nh.param("steer_feedback", steer_feedback, true);
 	private_nh.param<float>("dist_preweight", dist_preweight, 1);
-	private_nh.param<float>("angle_preweight", dist_preweight, 1);
+	private_nh.param<float>("angle_preweight", angle_preweight, 1);
 	private_nh.param<float>("step_resolution", step_resolution, 0.10); 
 	private_nh.param("yaw_resolution", yaw_resolution, 10); 
 	
@@ -79,7 +79,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
 
-	current_yaw_angle = prev_yaw_angle = 0;
+	yaw_measured = prev_yaw_measured = 0;
 
 	// related neural network input size selected for this build_database run 
 
@@ -154,12 +154,8 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	while( ros::ok() && db_writestep < set_size) {
 
-//	  LOG(INFO) << "Condition seq:  " << meas_linear_x << "  " 
-//			  << meas_angular_z << "  " << goal_received << "  " 
-//			  << Step_dist() << endl;
-
 	  if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level )
-			 && goal_received ) { 
+			 && goal_received && Step_dist() > step_resolution) { 
 
 		float x_rel = current_target.first - current_source.first;
 		float y_rel = current_target.second - current_source.second;	 
@@ -179,13 +175,13 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		}		
 
 		yaw_datum.add_float_data(distance * dist_preweight);
-		yaw_datum.add_float_data(relative_angle);
+		yaw_datum.add_float_data(relative_angle * angle_preweight);
 
 		if( steer_feedback ) {
-			yaw_datum.add_float_data(prev_yaw_angle);
+			yaw_datum.add_float_data(prev_yaw_measured);
 		}
 
-		yaw_datum.set_label(current_yaw_angle);
+		yaw_datum.set_label(yaw_measured);
 
 		yaw_datum.set_encoded(false);
 		yaw_datum.SerializeToString(&yaw_value);	
@@ -204,7 +200,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		}		
 
 		steer_datum.add_float_data(distance * dist_preweight);
-		steer_datum.add_float_data(relative_angle);
+		steer_datum.add_float_data(relative_angle * angle_preweight);
 
 		if( steer_feedback ) {
 
@@ -215,7 +211,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		int steer_label;
 		float closest_steer = 0;
 		
-		steer_label = getClosestSteer(steer_angles, current_yaw_angle, closest_steer);
+		steer_label = getClosestSteer(steer_angles, yaw_measured, closest_steer);
 		
 //		steer_datum.set_label(closest_steer);
 
@@ -227,7 +223,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 				
 		LOG(INFO) << "Label data: index " << steer_label 
 				<< " index_value: " << closest_steer
-				<< " current yaw: " << current_yaw_angle;
+				<< " current yaw: " << yaw_measured;
 
 		table = fopen(check_text.c_str(), "a");
 		if( table == NULL ) {
@@ -240,7 +236,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		 fprintf(table, "%.4f   ", distance * dist_preweight); 
 		 fprintf(table, "%.4f \n  ", relative_angle); 
 		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
-						current_yaw_angle, closest_steer, steer_label); 
+						yaw_measured, closest_steer, steer_label); 
 		 fclose(table);
 		
 		LOG_EVERY_N(WARNING, 1000) << "Stored step  " << db_writestep;
@@ -255,12 +251,9 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
       	} 
 		
 		// update the tails
-		prev_yaw_angle = current_yaw_angle;
+		prev_yaw_measured = yaw_measured;
 		prev_closest_steer = closest_steer;	
 			
-		
-
-	     
 	  } // check available step
 	  
 
@@ -271,9 +264,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		LOG(INFO) << "target reached";
 		goal_received = false;
 	  }
-
-
-	 
 
 	  store_rate.sleep();
 	
@@ -320,7 +310,7 @@ void BuildDatabase::build_callback(const LaserScan::ConstPtr& laser_msg,
 
 	tf::Pose pose;
      tf::poseMsgToTF(odom_msg->pose.pose, pose);
-     current_yaw_angle = tf::getYaw(pose.getRotation());
+     yaw_measured = tf::getYaw(pose.getRotation());
 
 	meas_linear_x = odom_msg->twist.twist.linear.x;
 	meas_angular_z = odom_msg->twist.twist.angular.z;
@@ -484,14 +474,14 @@ void initializeSteer(vector<float>& steer_angles, int yaw_resolution)
 }
 
 
-int getClosestSteer(vector<float>& steer_angles, float yaw_angle, float& closest ) {
+int getClosestSteer(vector<float>& steer_angles, float yaw_measured, float& closest ) {
 
 	int closest_index = steer_angles.size();
 	float min_dist = FLT_MAX;
 	
 	for(int i = 0; i < steer_angles.size(); i++) {
 		
-		float temp_dist = fabs(yaw_angle - steer_angles[i]);
+		float temp_dist = fabs(yaw_measured - steer_angles[i]);
 		if( temp_dist < min_dist ) {
 			min_dist = temp_dist;
 			closest_index = i;

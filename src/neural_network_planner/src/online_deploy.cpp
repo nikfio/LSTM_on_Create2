@@ -28,7 +28,7 @@ using std::string;
 
 using boost::lexical_cast;
 
-
+const int labels_size = 1;
 
 namespace neural_network_planner {
 
@@ -51,17 +51,16 @@ namespace neural_network_planner {
 	private_nh.param<float>("control_rate", control_rate, 5);
 	private_nh.param<float>("cruise_vel", cruise_vel, 0.4);
 	private_nh.param<float>("min_cruise_vel", min_cruise_vel, 0.2);
-	private_nh.param("steer_feedback", command_feedback, true);
+	private_nh.param("steer_feedback", steer_feedback, true);
 	private_nh.param("multiclass", multiclass, true);
 	private_nh.param("yaw_resolution", yaw_resolution, 10); 
 	private_nh.param<float>("rotate_vel_res", rotate_vel_res, 0.1);
 	private_nh.param<float>("min_rotate_vel", min_rotate_vel, 0.1);
 	private_nh.param<float>("max_rotate_vel", max_rotate_vel, 1);
 	
- 	CHECK_EQ( (max_rotate_vel - min_rotate_vel) % rotate_vel_res, 0);
 
 	CHECK_LE( max_rotate_vel, ROTATE_MAX ) << " max_rotate_vel limit exceeded"; 
-	CHECK_LE( cruise_trasl_vel, TRASL_MAX ) << " cruise_trasl_vel limit exceeded";
+	CHECK_LE( cruise_vel, TRASL_MAX ) << " cruise_trasl_vel limit exceeded";
 
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
@@ -71,7 +70,7 @@ namespace neural_network_planner {
 	current_source = std::pair<float,float>(0,0);
 	prev_source = std::pair<float,float>(0,0);
 	
-	prev_closest_steer = prev_yaw_ref =  0
+	prev_closest_steer = prev_yaw_ref =  0;
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
 
@@ -94,12 +93,13 @@ namespace neural_network_planner {
 	CHECK(online_net->has_blob("data"));	
 	CHECK(online_net->has_blob("out"));
 	if( multiclass ) {
-		CHECK(net->has_blob("argmax"));
+		CHECK(online_net->has_blob("argmax"));
 	}		
 						
 	blobData = online_net->blob_by_name("data");
 	blobClip = online_net->blob_by_name("clip");
 	blobOut = online_net->blob_by_name("out");
+	blobSoftmax = online_net->blob_by_name("softmax");
 	blobArgmax = online_net->blob_by_name("argmax");
 
 	// input state size checks
@@ -114,6 +114,9 @@ namespace neural_network_planner {
 		initializeSteer(steer_angles, yaw_resolution);
 		CHECK_EQ(blobOut->shape(1), steer_angles.size());
 	}
+	else
+		CHECK_EQ(blobOut->shape(1), labels_size);
+		
 
 	time_t now = time(0);
 	tm *local = localtime(&now);
@@ -178,65 +181,80 @@ namespace neural_network_planner {
 			blobData->mutable_cpu_data()[i] = range_data[i];
 		}	
 	
-		blobData->mutable_cpu_data()[range_data.size()] = hypot( x_rel, y_rel);
+		blobData->mutable_cpu_data()[range_data.size()] = hypot( x_rel, y_rel) * 50;
 		blobData->mutable_cpu_data()[range_data.size() + 1] = atan2( y_rel , x_rel );
 
 		if( steer_feedback ) {
 
 			if ( multiclass ) 
-				blobData->mutable_cpu_data()[range_data.size() + 1] = prev_closest_steer;
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_closest_steer;
 			else
-				blobData->mutable_cpu_data()[range_data.size() + 1] = prev_yaw_ref;
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_yaw_ref;
 	
 		}
 
-//		for(int i = 0; i < state_sequence_size; i++) {
-//			cout << blobData->mutable_cpu_data()[i] << "  ";
-//		}
-
 		online_net->Forward();
 	
+//		char answer;
+//		cout << "ONLINE: Want to check forward output? (y/n)" << endl;
+//		cin >> answer;
+//		if ( answer == 'y' ) {
+//			
+//			printf("Online step: %d Data input: ", online_step );
+//			for(int j = 0; j < state_sequence_size; j++) {
+//				printf(" %.4f  ",  blobData->mutable_cpu_data()[j]);
+//			}
+//			cout << endl;
+
+//			printf("NET OUTS: " );   
+//			for(int l=0; l < blobOut->channels(); l++) { 
+//		
+//					printf(" %.4f   ", blobOut->mutable_cpu_data()[l]);
+//			
+//			}
+//			cout << endl;
+
+//			if( multiclass ) {
+//				printf("ARGMAX: %.3f ", blobArgmax->cpu_data()[0]);
+//			}
+//					
+
+//		}
+
 		int steer_label;
 		float closest_steer = 0, yaw_ref = 0;
 
 		if( multiclass ) {
 			steer_label = blobArgmax->mutable_cpu_data()[0];
 			closest_steer = steer_angles[steer_label];
-			LOG_IF(INFO) << "Out index: " <<  steer_label
-						     << " closest: " << closest_steer
-							<< " measured: " << yaw_measured; 
-			if( saturate(max_rotate_vel, -max_rotate_vel , closest_steer) ) {
-				LOG(INFO) << "Angular velocity command saturating";
-			}
+			LOG(INFO) << "Out index: " <<  steer_label
+				     << " closest: " << closest_steer
+					<< " measured: " << yaw_measured; 
 
 		}
 		else {
 			yaw_ref = blobOut->mutable_cpu_data()[0];
-			LOG_IF(INFO, !multiclass) << " Ref yaw: " << yaw_ref
-							      << " measured: " << yaw_measured;
-
-			if( saturate(max_rotate_vel, -max_rotate_vel, yaw_out) ) {
-				LOG(INFO) << "Angular velocity command saturating";
-			}
+			LOG(INFO) << " Ref yaw: " << yaw_ref
+			          << " measured: " << yaw_measured;
 		
 		}
-		
-		geometry_msgs::Twist cmd_out;
+
+		geometry_msgs::Twist drive_cmds;
 
 		bool got_command;
 
 		if ( multiclass )
-			got_command = ComputeNewVelocities(closest_steer, yaw_measured, 
-										geometry_msgs::Twist drive_cmds);
+			got_command = ComputeNewCommands(closest_steer, yaw_measured, drive_cmds);
 		else
-			got_command = ComputeNewVelocities(yaw_ref, yaw_measured, 
-										geometry_msgs::Twist drive_cmds);
+			got_command = ComputeNewCommands(yaw_ref, yaw_measured, drive_cmds);
 
 		if( got_command ) {
 	
 			LOG(INFO) << "Vel commands: Trasl: " << drive_cmds.linear.x
 					<< " Rot: " << drive_cmds.angular.z;
-			vel_command_pub_.publish(cmd_out);
+			getchar();
+			getchar();
+			vel_command_pub_.publish(drive_cmds);
 	
 		}
 		else {
@@ -245,8 +263,8 @@ namespace neural_network_planner {
 
 		online_step++;
 
-		prev_ref_angular_z = angular;
-		prev_ref_linear_x = linear;
+		prev_ref_angular_z = drive_cmds.angular.z;
+		prev_ref_linear_x = drive_cmds.linear.x;
 		prev_meas_angular_z = meas_angular_z; 
 		prev_meas_linear_x = meas_linear_x; 	
 
@@ -309,13 +327,17 @@ void OnlineDeploy::build_callback(const LaserScan::ConstPtr& laser_msg,
 	// update measured robot position
 	tmp_source.first = odom_msg->pose.pose.position.x;
 	tmp_source.second = odom_msg->pose.pose.position.y;
-	current_orientation = odom_msg->pose.pose.orientation.z;
+
 
 	if ( point_distance(current_source, tmp_source) > pos_update_threshold ) 
 		current_source = tmp_source;
 
 	meas_linear_x = odom_msg->twist.twist.linear.x;
 	meas_angular_z = odom_msg->twist.twist.angular.z;
+
+	tf::Pose pose;
+     tf::poseMsgToTF(odom_msg->pose.pose, pose);
+     yaw_measured = tf::getYaw(pose.getRotation());
 
 	vector<float> ranges = laser_msg->ranges;
 	
@@ -406,17 +428,17 @@ void OnlineDeploy::PublishZeroVelocity() {
  * to the refrence in a control loop cycle time
  */
 
-bool OnlineDeploy::ComputeNewVelocity(float yaw_ref, float yaw_measured, 
+bool OnlineDeploy::ComputeNewCommands(float yaw_ref, float yaw_measured, 
 								geometry_msgs::Twist& drive_cmds) { 
 
 	float min_rad_distance = M_PI_2;
 	float closest_rot_vel = 0;
 	float control_dt = 1 / control_rate;
 
-	for( float vth_i = min_rotational_vel;
-		vth_i < max_rotational_vel; vth_i += rotate_vel_res) {
+	for( float vth_i = min_rotate_vel;
+		vth_i < max_rotate_vel; vth_i += rotate_vel_res) {
 
-		yaw_i = ComputeNewTheta(yaw_measured, vth_i, control_dt);
+		float yaw_i = ComputeNewThetaPosition(yaw_measured, vth_i, control_dt);
 		float dist_i = fabs( yaw_ref - yaw_i );
 		
 		if ( dist_i < min_rad_distance ) {

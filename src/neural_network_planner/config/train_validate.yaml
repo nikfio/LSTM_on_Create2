@@ -6,13 +6,13 @@ train_set_size: 45036
 
 validate_set_size: 15042
 
-resume: false
+resume: true
 
 validation_test_frequency: 3
 
 solver_config: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
 
-trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack_iter.caffemodel
+trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-multiclass-3-64-16-27_iter_500000.caffemodel
 
 GPU: true
 
@@ -27,7 +27,7 @@ averaged_ranges_size: 24
 # whether or not dataset has command tail as input
 steer_feedback: true
 
-multiclass: false
+multiclass: true
 
 yaw_resolution: 30
 

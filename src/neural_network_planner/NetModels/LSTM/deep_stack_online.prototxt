@@ -60,11 +60,27 @@ layer {
 }
 
 
+layer {
+  name: "lstm3"
+  type: "LSTM"
+  bottom: "lstm2"
+  bottom: "clip"
+  top: "lstm3"
+  recurrent_param {
+    num_output: 64
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
 
 layer {
   name: "out"
   type: "InnerProduct"
-  bottom: "lstm2"
+  bottom: "lstm3"
   top: "out"
 
   inner_product_param {
