@@ -94,13 +94,11 @@ private:
 	float prev_closest_steer, prev_real_steer;
 	int steer_resolution, min_steer_angle, max_steer_angle;
 	
-	bool show_lines, goal_received, steer_feedback;	
+	bool goal_received, steer_feedback;	
 
 	ros::Time cmdvel_time;
 
-	ros::NodeHandle db_nh;
-
-	visualization_msgs::Marker line_list;	
+	ros::NodeHandle db_nh;	
 
 	void build_callback(const LaserScan::ConstPtr& laser_msg, 
 					const Odometry::ConstPtr& odom_msg);

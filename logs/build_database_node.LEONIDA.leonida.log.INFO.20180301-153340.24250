@@ -1,0 +1,59 @@
+Log file created at: 2018/03/01 15:33:40
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 15:33:40.779405 24250 build_database.cpp:572] A total of 7 steering angles have been set
+I0301 15:33:41.010839 24250 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-15-33_lmdb
+I0301 15:33:41.010968 24250 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-3-1-15-33_lmdb
+I0301 15:33:41.011029 24250 build_database.cpp:146] DATASET INITIALIZED: sequence length: 15
+I0301 15:33:54.604738 24250 build_database.cpp:490] Updating target pose
+I0301 15:33:55.107815 24250 build_database.cpp:242] Label data: index 3 index_value: 0.785398 current yaw: 0.91134
+W0301 15:33:55.107892 24250 build_database.cpp:266] Stored step  0 label index 3
+I0301 15:33:55.616405 24250 build_database.cpp:338] Label data: index 1 index_value: 0.261799 current yaw: 1.29639
+W0301 15:33:55.616473 24250 build_database.cpp:365] Stored step  1 label index 1
+I0301 15:33:56.121980 24250 build_database.cpp:242] Label data: index 2 index_value: 0.523599 current yaw: 1.74847
+W0301 15:33:56.122073 24250 build_database.cpp:266] Stored step  2 label index 2
+I0301 15:33:56.623813 24250 build_database.cpp:338] Label data: index 2 index_value: 0.523599 current yaw: 2.17611
+W0301 15:33:56.623875 24250 build_database.cpp:365] Stored step  3 label index 2
+I0301 15:33:57.123754 24250 build_database.cpp:242] Label data: index 1 index_value: 0.261799 current yaw: 2.50164
+W0301 15:33:57.123814 24250 build_database.cpp:266] Stored step  4 label index 1
+I0301 15:33:57.624181 24250 build_database.cpp:338] Label data: index 1 index_value: 0.261799 current yaw: 2.63543
+W0301 15:33:57.624284 24250 build_database.cpp:365] Stored step  5 label index 1
+I0301 15:33:58.124713 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.7325
+W0301 15:33:58.124799 24250 build_database.cpp:266] Stored step  6 label index 0
+I0301 15:33:58.625434 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.79623
+W0301 15:33:58.625512 24250 build_database.cpp:365] Stored step  7 label index 0
+I0301 15:33:59.125661 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.82106
+W0301 15:33:59.125762 24250 build_database.cpp:266] Stored step  8 label index 0
+I0301 15:33:59.625978 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.87021
+W0301 15:33:59.626042 24250 build_database.cpp:365] Stored step  9 label index 0
+I0301 15:34:00.125650 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.8625
+W0301 15:34:00.125725 24250 build_database.cpp:266] Stored step  10 label index 0
+I0301 15:34:00.626252 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.85274
+W0301 15:34:00.626313 24250 build_database.cpp:365] Stored step  11 label index 0
+I0301 15:34:01.126682 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.84681
+W0301 15:34:01.126765 24250 build_database.cpp:266] Stored step  12 label index 0
+I0301 15:34:01.625811 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.86515
+W0301 15:34:01.625867 24250 build_database.cpp:365] Stored step  13 label index 0
+I0301 15:34:02.127300 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.81824
+W0301 15:34:02.127368 24250 build_database.cpp:266] Stored step  14 label index 0
+I0301 15:34:02.627040 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.78542
+W0301 15:34:02.627112 24250 build_database.cpp:365] Stored step  15 label index 0
+I0301 15:34:03.127501 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.7367
+W0301 15:34:03.127562 24250 build_database.cpp:266] Stored step  16 label index 0
+I0301 15:34:03.627810 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.71752
+W0301 15:34:03.627892 24250 build_database.cpp:365] Stored step  17 label index 0
+I0301 15:34:04.128381 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.67474
+W0301 15:34:04.128445 24250 build_database.cpp:266] Stored step  18 label index 0
+I0301 15:34:04.628690 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.6803
+W0301 15:34:04.628763 24250 build_database.cpp:365] Stored step  19 label index 0
+I0301 15:34:05.129484 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.69045
+W0301 15:34:05.129545 24250 build_database.cpp:266] Stored step  20 label index 0
+I0301 15:34:05.630029 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.66254
+W0301 15:34:05.630118 24250 build_database.cpp:365] Stored step  21 label index 0
+I0301 15:34:06.129710 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.68862
+W0301 15:34:06.129799 24250 build_database.cpp:266] Stored step  22 label index 0
+I0301 15:34:06.630817 24250 build_database.cpp:338] Label data: index 0 index_value: 0 current yaw: 2.70308
+W0301 15:34:06.630897 24250 build_database.cpp:365] Stored step  23 label index 0
+I0301 15:34:07.130964 24250 build_database.cpp:242] Label data: index 0 index_value: 0 current yaw: 2.70383
+W0301 15:34:07.131028 24250 build_database.cpp:266] Stored step  24 label index 0
+I0301 15:42:38.158171 24250 build_database.cpp:406] Closing DATABASES 

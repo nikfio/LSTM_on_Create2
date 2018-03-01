@@ -1,0 +1,36 @@
+Log file created at: 2018/03/01 15:42:59
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0301 15:42:59.002449 24719 build_database.cpp:265] Stored step  0 label index 3
+W0301 15:42:59.504492 24719 build_database.cpp:365] Stored step  1 label index 6
+W0301 15:43:00.009178 24719 build_database.cpp:265] Stored step  2 label index 2
+W0301 15:43:00.511310 24719 build_database.cpp:365] Stored step  3 label index 1
+W0301 15:43:01.012325 24719 build_database.cpp:265] Stored step  4 label index 1
+W0301 15:43:01.512459 24719 build_database.cpp:365] Stored step  5 label index 0
+W0301 15:43:02.015449 24719 build_database.cpp:265] Stored step  6 label index 0
+W0301 15:43:02.516970 24719 build_database.cpp:365] Stored step  7 label index 0
+W0301 15:43:03.017455 24719 build_database.cpp:265] Stored step  8 label index 4
+W0301 15:43:03.517108 24719 build_database.cpp:365] Stored step  9 label index 4
+W0301 15:43:04.019086 24719 build_database.cpp:265] Stored step  10 label index 4
+W0301 15:43:04.520606 24719 build_database.cpp:365] Stored step  11 label index 0
+W0301 15:43:05.022675 24719 build_database.cpp:265] Stored step  12 label index 0
+W0301 15:43:05.525533 24719 build_database.cpp:365] Stored step  13 label index 0
+W0301 15:43:06.030444 24719 build_database.cpp:265] Stored step  14 label index 2
+W0301 15:43:06.535748 24719 build_database.cpp:365] Stored step  15 label index 2
+W0301 15:43:07.037677 24719 build_database.cpp:265] Stored step  16 label index 2
+W0301 15:43:07.538952 24719 build_database.cpp:365] Stored step  17 label index 1
+W0301 15:43:08.040099 24719 build_database.cpp:265] Stored step  18 label index 0
+W0301 15:43:08.540568 24719 build_database.cpp:365] Stored step  19 label index 0
+W0301 15:43:09.041034 24719 build_database.cpp:265] Stored step  20 label index 0
+W0301 15:43:09.541465 24719 build_database.cpp:365] Stored step  21 label index 0
+W0301 15:43:10.043390 24719 build_database.cpp:265] Stored step  22 label index 0
+W0301 15:43:10.544668 24719 build_database.cpp:365] Stored step  23 label index 0
+W0301 15:43:11.046854 24719 build_database.cpp:265] Stored step  24 label index 0
+W0301 15:43:11.549057 24719 build_database.cpp:365] Stored step  25 label index 0
+W0301 15:43:12.055040 24719 build_database.cpp:265] Stored step  26 label index 0
+W0301 15:43:12.556471 24719 build_database.cpp:365] Stored step  27 label index 0
+W0301 15:43:13.061729 24719 build_database.cpp:265] Stored step  28 label index 0
+W0301 15:43:13.563606 24719 build_database.cpp:365] Stored step  29 label index 0
+W0301 15:43:14.070098 24719 build_database.cpp:265] Stored step  30 label index 0
+W0301 15:43:14.571976 24719 build_database.cpp:365] Stored step  31 label index 0
+W0301 15:43:15.075114 24719 build_database.cpp:265] Stored step  32 label index 0

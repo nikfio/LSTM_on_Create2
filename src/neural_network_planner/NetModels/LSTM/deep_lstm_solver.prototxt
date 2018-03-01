@@ -1,5 +1,5 @@
-  net: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_classnet.prototxt"
-  test_net: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_testclassnet.prototxt"
+  net: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_net.prototxt"
+  test_net: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_testnet.prototxt"
   iter_size: 1
   test_iter: 0
   test_interval: 100000000
@@ -11,6 +11,6 @@
   display: 2
   max_iter: 100000
   snapshot: 30
-  snapshot_prefix: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-regression-3-64-16-27"
+  snapshot_prefix: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-multiclass-1-16-15-7"
   solver_type: ADADELTA
   solver_mode: GPU

@@ -1,0 +1,24 @@
+Log file created at: 2018/03/01 16:10:28
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0301 16:10:28.893616 26674 build_database.cpp:266] Stored step  0 label odd 12
+W0301 16:10:29.398248 26674 build_database.cpp:359] Stored step  1 label even 0
+W0301 16:10:29.892325 26674 build_database.cpp:266] Stored step  2 label odd 0
+W0301 16:10:30.398633 26674 build_database.cpp:359] Stored step  3 label even 0
+W0301 16:10:39.896625 26674 build_database.cpp:266] Stored step  4 label odd 0
+W0301 16:10:40.402231 26674 build_database.cpp:359] Stored step  5 label even 0
+W0301 16:10:40.896314 26674 build_database.cpp:266] Stored step  6 label odd 0
+W0301 16:10:41.401729 26674 build_database.cpp:359] Stored step  7 label even 0
+W0301 16:10:42.896649 26674 build_database.cpp:266] Stored step  8 label odd 2
+W0301 16:10:43.393541 26674 build_database.cpp:359] Stored step  9 label even 0
+W0301 16:10:43.899049 26674 build_database.cpp:266] Stored step  10 label odd 0
+W0301 16:10:44.395442 26674 build_database.cpp:359] Stored step  11 label even 0
+W0301 16:10:44.899271 26674 build_database.cpp:266] Stored step  12 label odd 0
+W0301 16:10:45.394479 26674 build_database.cpp:359] Stored step  13 label even 0
+W0301 16:10:45.899332 26674 build_database.cpp:266] Stored step  14 label odd 0
+W0301 16:10:46.395965 26674 build_database.cpp:359] Stored step  15 label even 7
+W0301 16:10:46.900809 26674 build_database.cpp:266] Stored step  16 label odd 8
+W0301 16:10:47.396280 26674 build_database.cpp:359] Stored step  17 label even 6
+W0301 16:10:47.895217 26674 build_database.cpp:266] Stored step  18 label odd 7
+W0301 16:10:48.401978 26674 build_database.cpp:359] Stored step  19 label even 0
+W0301 16:10:48.896512 26674 build_database.cpp:266] Stored step  20 label odd 0

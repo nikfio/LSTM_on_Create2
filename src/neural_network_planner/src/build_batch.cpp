@@ -1,6 +1,6 @@
 /* Functions to build the batch for online training */
 
-#include <neural_network_planner/train_validate.h>
+#include <neural_network_planner/train_online.h>
 #include <neural_network_planner/build_database.h>
 
 using namespace sensor_msgs;
@@ -16,7 +16,7 @@ namespace neural_network_planner {
 
 
 
-void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg, 
+void TrainOnline::build_callback(const LaserScan::ConstPtr& laser_msg, 
 							const Odometry::ConstPtr& odom_msg)
 {
 	
@@ -85,7 +85,7 @@ void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg,
 }
 
 
-void TrainValidateRNN::updateTarget_callback( const MoveBaseActionGoal::ConstPtr& actiongoal_msg) {
+void TrainOnline::updateTarget_callback( const MoveBaseActionGoal::ConstPtr& actiongoal_msg) {
 
 //	LOG(INFO) << "Updating target pose";
 	current_target.first = actiongoal_msg->goal.target_pose.pose.position.x;
@@ -94,7 +94,7 @@ void TrainValidateRNN::updateTarget_callback( const MoveBaseActionGoal::ConstPtr
 
 }
 
-float TrainValidateRNN::Step_dist() {
+float TrainOnline::Step_dist() {
 
 	return hypot(current_source.second - prev_source.second, current_source.first - prev_source.first);
 

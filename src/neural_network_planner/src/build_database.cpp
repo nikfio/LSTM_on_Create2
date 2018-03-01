@@ -77,6 +77,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	range_data = vector<float>(averaged_ranges_size, 0);
 
 	yaw_measured = prev_yaw_measured = 0;
+	prev_closest_steer = prev_real_steer = 0;
 
 	// related neural network input size selected for this build_database run 
 
@@ -102,9 +103,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	goal_sub_ = nh.subscribe<MoveBaseActionGoal>(goal_topic , 1, boost::bind(&BuildDatabase::updateTarget_callback, this, _1));
 
 	net_ranges_pub_ = nh.advertise<LaserScan>("state_ranges", 1);
-	if( show_lines ) {
-		marker_pub_ = nh.advertise<Marker>("range_lines", 1);
-	}
+	
 
 	time_t init = time(0);
 	tm *init_tm = localtime(&init);	
@@ -131,22 +130,22 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 				         + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
 				         + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_" + backend;
 
-//	int print_check;
-//	FILE * table = fopen(check_text.c_str(), "w");
-//	if( table == NULL ) {
-//		cout << "Plot file opening failed.\n";
-//		exit(1);
-//	}
-//	fprintf(table, "scale: DIST %.3f  ANGLE  %.3f \n", dist_scale, yaw_scale);
+	int print_check;
+	FILE * table = fopen(check_text.c_str(), "w");
+	if( table == NULL ) {
+		cout << "Plot file opening failed.\n";
+		exit(1);
+	}
+	fprintf(table, "scale: DIST %.3f  ANGLE  %.3f \n", dist_scale, yaw_scale);
 
-//	fclose(table);
+	fclose(table);
 
 
 	goal_received = false;
 
 	LOG(INFO) << "DATASET INITIALIZED: sequence length: " << state_sequence_size;
 
-	FLAGS_minloglevel = 1;
+	FLAGS_minloglevel = 0;
 
 	ros::Rate store_rate(sampling_rate);
 
@@ -176,14 +175,17 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	steer_datum_odd.set_height(1);
 	steer_datum_odd.set_width(1);
 
-     float *state_data = new float[state_sequence_size];
+     float state_data[state_sequence_size];
+
+
+	for(int i = 0; i < state_sequence_size; i++) 
+		state_data[i]=0;
 
 	while( ros::ok() && db_writestep < set_size) {
 
 	  if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level )
 			 && goal_received ) { 
 
-		
 	     if(state_even) { // even state data cycle = odd label data cycle 
 	
 		float x_rel = current_target.first - current_source.first;
@@ -191,6 +193,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 		float distance = hypot( x_rel, y_rel);
 		float relative_angle = atan2( y_rel , x_rel );
+		
 		
 		/* storing the state data in even datum */ 				
 		for(int i = 0; i < range_data.size(); i++) {
@@ -201,7 +204,6 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		state_data[range_data.size()] = distance * dist_scale;
 		state_data[range_data.size()+1] = relative_angle ;
 		state_data[range_data.size()+2] = yaw_measured * yaw_scale;
-		
 
 		if( steer_feedback ) {
 			state_data[range_data.size()+3] =  prev_real_steer;
@@ -237,29 +239,30 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		steer_datum_odd.SerializeToString(&steer_value_odd);	
 		steer_txn->Put(key_str, steer_value_odd);
 				
-		LOG(INFO) << "Label data: index " << steer_label 
-				<< " index_value: " << closest_steer
-				<< " current yaw: " << yaw_measured;
+//		LOG(INFO) << "Label data: index " << steer_label 
+//				<< " index_value: " << closest_steer
+//				<< " current yaw: " << yaw_measured;
 
-//		table = fopen(check_text.c_str(), "a");
-//		if( table == NULL ) {
-//			cout << "Plot file opening failed.\n";
-//			exit(1);
-//		}
-//		for(int i = 0; i < range_data.size(); i++) {
-//		 fprintf(table, "%.4f   ", steer_datum_even.float_data(i)); 
-//		}
-//		 fprintf(table, "%.4f   ", steer_datum_even.float_data(range_data.size())); 
-//		 fprintf(table, "%.4f  ", steer_datum_even.float_data(range_data.size()+1)); 
-//		 fprintf(table, "%.4f \n  ", steer_datum_even.float_data(range_data.size()+2)); 
+		table = fopen(check_text.c_str(), "a");
+		if( table == NULL ) {
+			cout << "Plot file opening failed.\n";
+			exit(1);
+		}
 
-//		 fprintf(table, "%s \n  ", steer_datum_odd.data().c_str()); 		
-//		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
-//						yaw_measured, closest_steer, steer_label); 
-//		 fclose(table);
+		fprintf(table, "DB STEP %d calculated STATE: ", db_writestep);
+		for(int i = 0; i < range_data.size(); i++) {
+		 fprintf(table, "%.4f   ", state_data[i]); 
+		}
+		 fprintf(table, "%.4f   ", state_data[range_data.size()]); 
+		 fprintf(table, "%.4f  ", state_data[range_data.size() + 1]); 
+		 fprintf(table, "%.4f \n  ", state_data[range_data.size() + 2]); 
+
+		 fprintf(table, "DB STEP %d calculated   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
+						yaw_measured, closest_steer, steer_label); 
+		 fclose(table);
 
 	     
-		LOG_EVERY_N(WARNING, 1) << "Stored step  " << db_writestep << " label index " << steer_label;
+		LOG_EVERY_N(WARNING, 1) << "Stored step  " << db_writestep << " label odd " << steer_label;
 
 		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
 
@@ -333,30 +336,26 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 //				<< " index_value: " << closest_steer
 //				<< " current yaw: " << yaw_measured;
 
-//		table = fopen(check_text.c_str(), "a");
-//		if( table == NULL ) {
-//			cout << "Plot file opening failed.\n";
-//			exit(1);
-//		}
-//		for(int i = 0; i < range_data.size(); i++) {
-//		 fprintf(table, "%.4f   ", range_data[i]); 
-//		}
+		table = fopen(check_text.c_str(), "a");
+		if( table == NULL ) {
+			cout << "Plot file opening failed.\n";
+			exit(1);
+		}
+		
+		fprintf(table, "DB STEP %d calculated STATE: ", db_writestep);
+		for(int i = 0; i < range_data.size(); i++) {
+		 fprintf(table, "%.4f   ", state_data[i]); 
+		}
+	
+		 fprintf(table, "%.4f   ", state_data[range_data.size()]); 
+		 fprintf(table, "%.4f  ", state_data[range_data.size() + 1]); 
+		 fprintf(table, "%.4f \n  ", state_data[range_data.size() + 2]); 
+		
+		 fprintf(table, "DB STEP %d calculated  LABEL   %.4f  %.4f  %d \n ", db_writestep, 
+						yaw_measured, closest_steer, steer_label); 
+		 fclose(table);
 
-//		 fprintf(table, "%.4f   ", distance * dist_scale); 
-//		 fprintf(table, "%.4f   ", relative_angle); 
-//		 fprintf(table, "%.4f  \n  ", yaw_measured * yaw_scale); 
-
-//		 fprintf(table, "%s \n  ", steer_datum_even.data().c_str()); 		
-//		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
-//						yaw_measured, closest_steer, steer_label); 
-//		 fclose(table);
-
-//		for(int i = 0; i < range_data.size(); i++) {
-//			cout << state_data[i] << "  ";
-//		}	 
-//		cout << endl;
-	     
-		LOG_EVERY_N(WARNING, 1) << "Stored step  " << db_writestep  << " label index " << steer_label;
+		LOG_EVERY_N(WARNING, 1) << "Stored step  " << db_writestep  << " label even " << steer_label;
 
 		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
 
@@ -393,7 +392,7 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	 }
 
-	delete state_data;
+//	delete state_data;
 	
 	if( db_writestep % batch_size != 0) { // Last commit if needed for a safe closing
 
@@ -460,8 +459,8 @@ void BuildDatabase::build_callback(const LaserScan::ConstPtr& laser_msg,
 
 	for(int i = 0; i < current_ranges.size(); i++) {
 		range_data[i] = current_ranges[i];
+		
 	}
-	
 		
 	float start_angle = (float) (laser_msg->angle_max - laser_msg->angle_min) / (averaged_ranges_size*2);
  
@@ -469,38 +468,11 @@ void BuildDatabase::build_callback(const LaserScan::ConstPtr& laser_msg,
 	state_ranges.angle_max = laser_msg->angle_max;
 	state_ranges.range_min = laser_msg->range_min;
 	state_ranges.range_max = laser_msg->range_max;
-	state_ranges.header.stamp = line_list.header.stamp = ros::Time::now();
+	state_ranges.header.stamp = ros::Time::now();
 	state_ranges.ranges = range_data;
 	state_ranges.angle_increment = (state_ranges.angle_max - state_ranges.angle_min) / averaged_ranges_size;
 	state_ranges.header.frame_id = "hokuyo_link";
-	line_list.header.frame_id = "/odom";
-	line_list.action = visualization_msgs::Marker::ADD;
-	line_list.pose.orientation.w = 1.0;
-	line_list.id = 0;
-	line_list.type = visualization_msgs::Marker::LINE_LIST;
-	line_list.color.r = 1.0;
-     line_list.color.a = 1.0;
 
-	geometry_msgs::Point p_source;
-	p_source.x = tmp_source.first;
-	p_source.y = tmp_source.second;
-
-	if( show_lines ) {
-
-		for(int i = 0; i < current_ranges.size(); i++) {
-
-			geometry_msgs::Point p;
-			p.x = p_source.x + current_ranges[i] * cos(state_ranges.angle_min + state_ranges.angle_increment * i);
-			p.y = p_source.y + current_ranges[i] * sin(state_ranges.angle_min + state_ranges.angle_increment * i);
-			p.z = 0.025;
-
-			line_list.points.push_back(p);
-			line_list.points.push_back(p_source);
-
-		}
-		
-		marker_pub_.publish(line_list);
-	}
 
 	net_ranges_pub_.publish(state_ranges);	
 

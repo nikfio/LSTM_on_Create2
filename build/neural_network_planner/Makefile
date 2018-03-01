@@ -290,32 +290,60 @@ online_deploy_node/fast:
 .PHONY : online_deploy_node/fast
 
 # Convenience name for target.
-neural_network_planner/CMakeFiles/train_validate.dir/rule:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_validate.dir/rule
-.PHONY : neural_network_planner/CMakeFiles/train_validate.dir/rule
+neural_network_planner/CMakeFiles/train_database.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_database.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/train_database.dir/rule
 
 # Convenience name for target.
-train_validate: neural_network_planner/CMakeFiles/train_validate.dir/rule
-.PHONY : train_validate
+train_database: neural_network_planner/CMakeFiles/train_database.dir/rule
+.PHONY : train_database
 
 # fast build rule for target.
-train_validate/fast:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/build
-.PHONY : train_validate/fast
+train_database/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/build
+.PHONY : train_database/fast
 
 # Convenience name for target.
-neural_network_planner/CMakeFiles/train_validate_node.dir/rule:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_validate_node.dir/rule
-.PHONY : neural_network_planner/CMakeFiles/train_validate_node.dir/rule
+neural_network_planner/CMakeFiles/train_database_node.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_database_node.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/train_database_node.dir/rule
 
 # Convenience name for target.
-train_validate_node: neural_network_planner/CMakeFiles/train_validate_node.dir/rule
-.PHONY : train_validate_node
+train_database_node: neural_network_planner/CMakeFiles/train_database_node.dir/rule
+.PHONY : train_database_node
 
 # fast build rule for target.
-train_validate_node/fast:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/build
-.PHONY : train_validate_node/fast
+train_database_node/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/build
+.PHONY : train_database_node/fast
+
+# Convenience name for target.
+neural_network_planner/CMakeFiles/train_online.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_online.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/train_online.dir/rule
+
+# Convenience name for target.
+train_online: neural_network_planner/CMakeFiles/train_online.dir/rule
+.PHONY : train_online
+
+# fast build rule for target.
+train_online/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/build
+.PHONY : train_online/fast
+
+# Convenience name for target.
+neural_network_planner/CMakeFiles/train_online_node.dir/rule:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_online_node.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/train_online_node.dir/rule
+
+# Convenience name for target.
+train_online_node: neural_network_planner/CMakeFiles/train_online_node.dir/rule
+.PHONY : train_online_node
+
+# fast build rule for target.
+train_online_node/fast:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/build
+.PHONY : train_online_node/fast
 
 src/TestReadDB.o: src/TestReadDB.cpp.o
 .PHONY : src/TestReadDB.o
@@ -346,7 +374,8 @@ src/build_batch.o: src/build_batch.cpp.o
 
 # target to build an object file
 src/build_batch.cpp.o:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/src/build_batch.cpp.o
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/src/build_batch.cpp.o
 .PHONY : src/build_batch.cpp.o
 
 src/build_batch.i: src/build_batch.cpp.i
@@ -354,7 +383,8 @@ src/build_batch.i: src/build_batch.cpp.i
 
 # target to preprocess a source file
 src/build_batch.cpp.i:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.i
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/src/build_batch.cpp.i
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/src/build_batch.cpp.i
 .PHONY : src/build_batch.cpp.i
 
 src/build_batch.s: src/build_batch.cpp.s
@@ -362,7 +392,8 @@ src/build_batch.s: src/build_batch.cpp.s
 
 # target to generate assembly for a file
 src/build_batch.cpp.s:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.s
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/src/build_batch.cpp.s
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/src/build_batch.cpp.s
 .PHONY : src/build_batch.cpp.s
 
 src/build_database.o: src/build_database.cpp.o
@@ -485,53 +516,101 @@ src/online_deploy_node.cpp.s:
 	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/online_deploy_node.dir/build.make neural_network_planner/CMakeFiles/online_deploy_node.dir/src/online_deploy_node.cpp.s
 .PHONY : src/online_deploy_node.cpp.s
 
-src/train_validate.o: src/train_validate.cpp.o
-.PHONY : src/train_validate.o
+src/train_database.o: src/train_database.cpp.o
+.PHONY : src/train_database.o
 
 # target to build an object file
-src/train_validate.cpp.o:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o
-.PHONY : src/train_validate.cpp.o
+src/train_database.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/src/train_database.cpp.o
+.PHONY : src/train_database.cpp.o
 
-src/train_validate.i: src/train_validate.cpp.i
-.PHONY : src/train_validate.i
+src/train_database.i: src/train_database.cpp.i
+.PHONY : src/train_database.i
 
 # target to preprocess a source file
-src/train_validate.cpp.i:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.i
-.PHONY : src/train_validate.cpp.i
+src/train_database.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/src/train_database.cpp.i
+.PHONY : src/train_database.cpp.i
 
-src/train_validate.s: src/train_validate.cpp.s
-.PHONY : src/train_validate.s
+src/train_database.s: src/train_database.cpp.s
+.PHONY : src/train_database.s
 
 # target to generate assembly for a file
-src/train_validate.cpp.s:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.s
-.PHONY : src/train_validate.cpp.s
+src/train_database.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/src/train_database.cpp.s
+.PHONY : src/train_database.cpp.s
 
-src/train_validate_node.o: src/train_validate_node.cpp.o
-.PHONY : src/train_validate_node.o
+src/train_database_node.o: src/train_database_node.cpp.o
+.PHONY : src/train_database_node.o
 
 # target to build an object file
-src/train_validate_node.cpp.o:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/src/train_validate_node.cpp.o
-.PHONY : src/train_validate_node.cpp.o
+src/train_database_node.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/src/train_database_node.cpp.o
+.PHONY : src/train_database_node.cpp.o
 
-src/train_validate_node.i: src/train_validate_node.cpp.i
-.PHONY : src/train_validate_node.i
+src/train_database_node.i: src/train_database_node.cpp.i
+.PHONY : src/train_database_node.i
 
 # target to preprocess a source file
-src/train_validate_node.cpp.i:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/src/train_validate_node.cpp.i
-.PHONY : src/train_validate_node.cpp.i
+src/train_database_node.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/src/train_database_node.cpp.i
+.PHONY : src/train_database_node.cpp.i
 
-src/train_validate_node.s: src/train_validate_node.cpp.s
-.PHONY : src/train_validate_node.s
+src/train_database_node.s: src/train_database_node.cpp.s
+.PHONY : src/train_database_node.s
 
 # target to generate assembly for a file
-src/train_validate_node.cpp.s:
-	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/src/train_validate_node.cpp.s
-.PHONY : src/train_validate_node.cpp.s
+src/train_database_node.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/src/train_database_node.cpp.s
+.PHONY : src/train_database_node.cpp.s
+
+src/train_online.o: src/train_online.cpp.o
+.PHONY : src/train_online.o
+
+# target to build an object file
+src/train_online.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/src/train_online.cpp.o
+.PHONY : src/train_online.cpp.o
+
+src/train_online.i: src/train_online.cpp.i
+.PHONY : src/train_online.i
+
+# target to preprocess a source file
+src/train_online.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/src/train_online.cpp.i
+.PHONY : src/train_online.cpp.i
+
+src/train_online.s: src/train_online.cpp.s
+.PHONY : src/train_online.s
+
+# target to generate assembly for a file
+src/train_online.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/src/train_online.cpp.s
+.PHONY : src/train_online.cpp.s
+
+src/train_online_node.o: src/train_online_node.cpp.o
+.PHONY : src/train_online_node.o
+
+# target to build an object file
+src/train_online_node.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/src/train_online_node.cpp.o
+.PHONY : src/train_online_node.cpp.o
+
+src/train_online_node.i: src/train_online_node.cpp.i
+.PHONY : src/train_online_node.i
+
+# target to preprocess a source file
+src/train_online_node.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/src/train_online_node.cpp.i
+.PHONY : src/train_online_node.cpp.i
+
+src/train_online_node.s: src/train_online_node.cpp.s
+.PHONY : src/train_online_node.s
+
+# target to generate assembly for a file
+src/train_online_node.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/src/train_online_node.cpp.s
+.PHONY : src/train_online_node.cpp.s
 
 # Help Target
 help:
@@ -556,8 +635,10 @@ help:
 	@echo "... online_deploy_node"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... train_validate"
-	@echo "... train_validate_node"
+	@echo "... train_database"
+	@echo "... train_database_node"
+	@echo "... train_online"
+	@echo "... train_online_node"
 	@echo "... src/TestReadDB.o"
 	@echo "... src/TestReadDB.i"
 	@echo "... src/TestReadDB.s"
@@ -579,12 +660,18 @@ help:
 	@echo "... src/online_deploy_node.o"
 	@echo "... src/online_deploy_node.i"
 	@echo "... src/online_deploy_node.s"
-	@echo "... src/train_validate.o"
-	@echo "... src/train_validate.i"
-	@echo "... src/train_validate.s"
-	@echo "... src/train_validate_node.o"
-	@echo "... src/train_validate_node.i"
-	@echo "... src/train_validate_node.s"
+	@echo "... src/train_database.o"
+	@echo "... src/train_database.i"
+	@echo "... src/train_database.s"
+	@echo "... src/train_database_node.o"
+	@echo "... src/train_database_node.i"
+	@echo "... src/train_database_node.s"
+	@echo "... src/train_online.o"
+	@echo "... src/train_online.i"
+	@echo "... src/train_online.s"
+	@echo "... src/train_online_node.o"
+	@echo "... src/train_online_node.i"
+	@echo "... src/train_online_node.s"
 .PHONY : help
 
 

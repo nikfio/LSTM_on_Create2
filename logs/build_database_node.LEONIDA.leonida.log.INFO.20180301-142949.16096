@@ -1,0 +1,4 @@
+Log file created at: 2018/03/01 14:29:49
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 14:29:49.899109 16096 build_database.cpp:595] A total of 7 steering angles have been set

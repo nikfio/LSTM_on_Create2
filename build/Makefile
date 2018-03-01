@@ -1645,30 +1645,56 @@ online_deploy_node/fast:
 .PHONY : online_deploy_node/fast
 
 #=============================================================================
-# Target rules for targets named train_validate
+# Target rules for targets named train_database
 
 # Build rule for target.
-train_validate: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 train_validate
-.PHONY : train_validate
+train_database: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 train_database
+.PHONY : train_database
 
 # fast build rule for target.
-train_validate/fast:
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/build
-.PHONY : train_validate/fast
+train_database/fast:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/build
+.PHONY : train_database/fast
 
 #=============================================================================
-# Target rules for targets named train_validate_node
+# Target rules for targets named train_database_node
 
 # Build rule for target.
-train_validate_node: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 train_validate_node
-.PHONY : train_validate_node
+train_database_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 train_database_node
+.PHONY : train_database_node
 
 # fast build rule for target.
-train_validate_node/fast:
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/build
-.PHONY : train_validate_node/fast
+train_database_node/fast:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/build
+.PHONY : train_database_node/fast
+
+#=============================================================================
+# Target rules for targets named train_online
+
+# Build rule for target.
+train_online: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 train_online
+.PHONY : train_online
+
+# fast build rule for target.
+train_online/fast:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/build
+.PHONY : train_online/fast
+
+#=============================================================================
+# Target rules for targets named train_online_node
+
+# Build rule for target.
+train_online_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 train_online_node
+.PHONY : train_online_node
+
+# fast build rule for target.
+train_online_node/fast:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/build
+.PHONY : train_online_node/fast
 
 #=============================================================================
 # Target rules for targets named move_base_mod
@@ -1824,8 +1850,10 @@ help:
 	@echo "... move_base_msgs_generate_messages_py"
 	@echo "... online_deploy"
 	@echo "... online_deploy_node"
-	@echo "... train_validate"
-	@echo "... train_validate_node"
+	@echo "... train_database"
+	@echo "... train_database_node"
+	@echo "... train_online"
+	@echo "... train_online_node"
 	@echo "... move_base_mod"
 	@echo "... move_base_mod_node"
 .PHONY : help

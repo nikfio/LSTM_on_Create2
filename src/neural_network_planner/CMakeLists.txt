@@ -125,13 +125,21 @@ add_executable(TestReadDB src/TestReadDB.cpp)
 
 target_link_libraries(TestReadDB ${catkin_LIBRARIES} ${LevelDB_LIBRARIES} ${LMDB_LIBRARIES})
 
-add_library(train_validate src/train_validate.cpp src/build_batch.cpp)
+add_library(train_database src/train_database.cpp src/build_batch.cpp)
 
-target_link_libraries(train_validate build_database ${catkin_LIBRARIES} ${BOOST_LIBRARIES} ${CAFFE_LIBRARY} ${LevelDB_LIBRARIES})
+target_link_libraries(train_database build_database ${catkin_LIBRARIES} ${BOOST_LIBRARIES} ${CAFFE_LIBRARY} ${LevelDB_LIBRARIES})
 
-add_executable(train_validate_node src/train_validate_node.cpp)
+add_executable(train_database_node src/train_database_node.cpp)
 
-target_link_libraries(train_validate_node train_validate)
+target_link_libraries(train_database_node train_database)
+
+add_library(train_online src/train_online.cpp src/build_batch.cpp)
+
+target_link_libraries(train_online build_database ${catkin_LIBRARIES} ${BOOST_LIBRARIES} ${CAFFE_LIBRARY} ${LevelDB_LIBRARIES})
+
+add_executable(train_online_node src/train_online_node.cpp)
+
+target_link_libraries(train_online_node train_online)
 
 add_executable(goal_generator src/goal_generator.cpp)
 
@@ -150,7 +158,7 @@ target_link_libraries(online_deploy_node online_deploy)
 #############
 
 
-install(TARGETS build_database build_database_node TestReadDB train_validate_node online_deploy_node
+install(TARGETS build_database build_database_node TestReadDB train_online_node online_deploy_node
    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

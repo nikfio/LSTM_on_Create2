@@ -1,6 +1,6 @@
 
 // ROS related
-#include <neural_network_planner/train_validate.h>
+#include <neural_network_planner/train_online.h>
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 

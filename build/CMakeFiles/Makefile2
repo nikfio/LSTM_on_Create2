@@ -3473,8 +3473,10 @@ neural_network_planner/all: neural_network_planner/CMakeFiles/build_database_nod
 neural_network_planner/all: neural_network_planner/CMakeFiles/goal_generator.dir/all
 neural_network_planner/all: neural_network_planner/CMakeFiles/online_deploy.dir/all
 neural_network_planner/all: neural_network_planner/CMakeFiles/online_deploy_node.dir/all
-neural_network_planner/all: neural_network_planner/CMakeFiles/train_validate.dir/all
-neural_network_planner/all: neural_network_planner/CMakeFiles/train_validate_node.dir/all
+neural_network_planner/all: neural_network_planner/CMakeFiles/train_database.dir/all
+neural_network_planner/all: neural_network_planner/CMakeFiles/train_database_node.dir/all
+neural_network_planner/all: neural_network_planner/CMakeFiles/train_online.dir/all
+neural_network_planner/all: neural_network_planner/CMakeFiles/train_online_node.dir/all
 .PHONY : neural_network_planner/all
 
 # Convenience name for "clean" pass in the directory.
@@ -3488,8 +3490,10 @@ neural_network_planner/clean: neural_network_planner/CMakeFiles/move_base_msgs_g
 neural_network_planner/clean: neural_network_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/clean
 neural_network_planner/clean: neural_network_planner/CMakeFiles/online_deploy.dir/clean
 neural_network_planner/clean: neural_network_planner/CMakeFiles/online_deploy_node.dir/clean
-neural_network_planner/clean: neural_network_planner/CMakeFiles/train_validate.dir/clean
-neural_network_planner/clean: neural_network_planner/CMakeFiles/train_validate_node.dir/clean
+neural_network_planner/clean: neural_network_planner/CMakeFiles/train_database.dir/clean
+neural_network_planner/clean: neural_network_planner/CMakeFiles/train_database_node.dir/clean
+neural_network_planner/clean: neural_network_planner/CMakeFiles/train_online.dir/clean
+neural_network_planner/clean: neural_network_planner/CMakeFiles/train_online_node.dir/clean
 .PHONY : neural_network_planner/clean
 
 # Convenience name for "preinstall" pass in the directory.
@@ -3832,74 +3836,145 @@ clean: neural_network_planner/CMakeFiles/online_deploy_node.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target neural_network_planner/CMakeFiles/train_validate.dir
+# Target rules for target neural_network_planner/CMakeFiles/train_database.dir
 
 # All Build rule for target.
-neural_network_planner/CMakeFiles/train_validate.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/depend
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/build
+neural_network_planner/CMakeFiles/train_database.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/depend
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  21 22
-	@echo "Built target train_validate"
-.PHONY : neural_network_planner/CMakeFiles/train_validate.dir/all
+	@echo "Built target train_database"
+.PHONY : neural_network_planner/CMakeFiles/train_database.dir/all
 
 # Include target in all.
-all: neural_network_planner/CMakeFiles/train_validate.dir/all
+all: neural_network_planner/CMakeFiles/train_database.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-neural_network_planner/CMakeFiles/train_validate.dir/rule: cmake_check_build_system
+neural_network_planner/CMakeFiles/train_database.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_validate.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_database.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
-.PHONY : neural_network_planner/CMakeFiles/train_validate.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/train_database.dir/rule
 
 # Convenience name for target.
-train_validate: neural_network_planner/CMakeFiles/train_validate.dir/rule
-.PHONY : train_validate
+train_database: neural_network_planner/CMakeFiles/train_database.dir/rule
+.PHONY : train_database
 
 # clean rule for target.
-neural_network_planner/CMakeFiles/train_validate.dir/clean:
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/clean
-.PHONY : neural_network_planner/CMakeFiles/train_validate.dir/clean
+neural_network_planner/CMakeFiles/train_database.dir/clean:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database.dir/build.make neural_network_planner/CMakeFiles/train_database.dir/clean
+.PHONY : neural_network_planner/CMakeFiles/train_database.dir/clean
 
 # clean rule for target.
-clean: neural_network_planner/CMakeFiles/train_validate.dir/clean
+clean: neural_network_planner/CMakeFiles/train_database.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target neural_network_planner/CMakeFiles/train_validate_node.dir
+# Target rules for target neural_network_planner/CMakeFiles/train_database_node.dir
 
 # All Build rule for target.
-neural_network_planner/CMakeFiles/train_validate_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
-neural_network_planner/CMakeFiles/train_validate_node.dir/all: neural_network_planner/CMakeFiles/train_validate.dir/all
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/depend
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/build
+neural_network_planner/CMakeFiles/train_database_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
+neural_network_planner/CMakeFiles/train_database_node.dir/all: neural_network_planner/CMakeFiles/train_database.dir/all
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/depend
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  23
-	@echo "Built target train_validate_node"
-.PHONY : neural_network_planner/CMakeFiles/train_validate_node.dir/all
+	@echo "Built target train_database_node"
+.PHONY : neural_network_planner/CMakeFiles/train_database_node.dir/all
 
 # Include target in all.
-all: neural_network_planner/CMakeFiles/train_validate_node.dir/all
+all: neural_network_planner/CMakeFiles/train_database_node.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-neural_network_planner/CMakeFiles/train_validate_node.dir/rule: cmake_check_build_system
+neural_network_planner/CMakeFiles/train_database_node.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_validate_node.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_database_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
-.PHONY : neural_network_planner/CMakeFiles/train_validate_node.dir/rule
+.PHONY : neural_network_planner/CMakeFiles/train_database_node.dir/rule
 
 # Convenience name for target.
-train_validate_node: neural_network_planner/CMakeFiles/train_validate_node.dir/rule
-.PHONY : train_validate_node
+train_database_node: neural_network_planner/CMakeFiles/train_database_node.dir/rule
+.PHONY : train_database_node
 
 # clean rule for target.
-neural_network_planner/CMakeFiles/train_validate_node.dir/clean:
-	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate_node.dir/build.make neural_network_planner/CMakeFiles/train_validate_node.dir/clean
-.PHONY : neural_network_planner/CMakeFiles/train_validate_node.dir/clean
+neural_network_planner/CMakeFiles/train_database_node.dir/clean:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_database_node.dir/build.make neural_network_planner/CMakeFiles/train_database_node.dir/clean
+.PHONY : neural_network_planner/CMakeFiles/train_database_node.dir/clean
 
 # clean rule for target.
-clean: neural_network_planner/CMakeFiles/train_validate_node.dir/clean
+clean: neural_network_planner/CMakeFiles/train_database_node.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target neural_network_planner/CMakeFiles/train_online.dir
+
+# All Build rule for target.
+neural_network_planner/CMakeFiles/train_online.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/depend
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  24 25
+	@echo "Built target train_online"
+.PHONY : neural_network_planner/CMakeFiles/train_online.dir/all
+
+# Include target in all.
+all: neural_network_planner/CMakeFiles/train_online.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+neural_network_planner/CMakeFiles/train_online.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_online.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
+.PHONY : neural_network_planner/CMakeFiles/train_online.dir/rule
+
+# Convenience name for target.
+train_online: neural_network_planner/CMakeFiles/train_online.dir/rule
+.PHONY : train_online
+
+# clean rule for target.
+neural_network_planner/CMakeFiles/train_online.dir/clean:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online.dir/build.make neural_network_planner/CMakeFiles/train_online.dir/clean
+.PHONY : neural_network_planner/CMakeFiles/train_online.dir/clean
+
+# clean rule for target.
+clean: neural_network_planner/CMakeFiles/train_online.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target neural_network_planner/CMakeFiles/train_online_node.dir
+
+# All Build rule for target.
+neural_network_planner/CMakeFiles/train_online_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
+neural_network_planner/CMakeFiles/train_online_node.dir/all: neural_network_planner/CMakeFiles/train_online.dir/all
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/depend
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  26
+	@echo "Built target train_online_node"
+.PHONY : neural_network_planner/CMakeFiles/train_online_node.dir/all
+
+# Include target in all.
+all: neural_network_planner/CMakeFiles/train_online_node.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+neural_network_planner/CMakeFiles/train_online_node.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/train_online_node.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
+.PHONY : neural_network_planner/CMakeFiles/train_online_node.dir/rule
+
+# Convenience name for target.
+train_online_node: neural_network_planner/CMakeFiles/train_online_node.dir/rule
+.PHONY : train_online_node
+
+# clean rule for target.
+neural_network_planner/CMakeFiles/train_online_node.dir/clean:
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/clean
+.PHONY : neural_network_planner/CMakeFiles/train_online_node.dir/clean
+
+# clean rule for target.
+clean: neural_network_planner/CMakeFiles/train_online_node.dir/clean
 .PHONY : clean
 
 #=============================================================================

@@ -23,8 +23,8 @@ steer_feedback: false
 # resolution of allowed steering angles [degrees]
 steer_resolution: 15
 
-min_steer_angle: -90
-max_steer_angle: 90
+min_steer_angle: -45
+max_steer_angle: 45
 
 # biasing the distance info
 dist_scale: 1

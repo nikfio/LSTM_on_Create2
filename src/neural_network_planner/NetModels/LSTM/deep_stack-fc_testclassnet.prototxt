@@ -1,5 +1,6 @@
 name: "LSTM_stack-2-64"
 
+
 layer {
 	name: "Input"
 	type: "Input"
@@ -8,16 +9,17 @@ layer {
 	top:  "label"
 	input_param {
 		shape {
-			dim: 32	
+			dim: 16	
 			dim: 15 
 			dim: 1 
 		}
 		shape {
-			dim: 32
+			dim: 16
 			dim: 15		
 		}
 		shape {
-			dim: 32		
+			dim: 16	
+			dim: 1	
 		}
 	}
 	
@@ -31,7 +33,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 64
+    num_output: 32
     weight_filler {
       type: "xavier"
     }
