@@ -1,0 +1,4 @@
+Log file created at: 2018/02/28 21:14:25
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0228 21:14:25.503226 11013 train_validate.cpp:146] Check failed: state_sequence_size == blobData->shape(1) (14 vs. 13) train net: supposed input sequence size check failed

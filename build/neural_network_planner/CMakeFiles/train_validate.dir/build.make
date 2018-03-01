@@ -72,14 +72,39 @@ neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o.pr
 
 neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o.provides.build: neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o
 
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o: neural_network_planner/CMakeFiles/train_validate.dir/flags.make
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/build_batch.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o"
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build/neural_network_planner && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/train_validate.dir/src/build_batch.cpp.o -c /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/build_batch.cpp
+
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/train_validate.dir/src/build_batch.cpp.i"
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build/neural_network_planner && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/build_batch.cpp > CMakeFiles/train_validate.dir/src/build_batch.cpp.i
+
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/train_validate.dir/src/build_batch.cpp.s"
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build/neural_network_planner && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/build_batch.cpp -o CMakeFiles/train_validate.dir/src/build_batch.cpp.s
+
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.requires:
+.PHONY : neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.requires
+
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.provides: neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.requires
+	$(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.provides.build
+.PHONY : neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.provides
+
+neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.provides.build: neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o
+
 # Object files for target train_validate
 train_validate_OBJECTS = \
-"CMakeFiles/train_validate.dir/src/train_validate.cpp.o"
+"CMakeFiles/train_validate.dir/src/train_validate.cpp.o" \
+"CMakeFiles/train_validate.dir/src/build_batch.cpp.o"
 
 # External object files for target train_validate
 train_validate_EXTERNAL_OBJECTS =
 
 /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.so: neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o
+/home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.so: neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o
 /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.so: neural_network_planner/CMakeFiles/train_validate.dir/build.make
 /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.so: /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libbuild_database.so
 /home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.so: /home/leonida/bin/ros-jade-roomba-packages/devel/lib/libcostmap_2d.so
@@ -165,6 +190,7 @@ neural_network_planner/CMakeFiles/train_validate.dir/build: /home/leonida/Thesis
 .PHONY : neural_network_planner/CMakeFiles/train_validate.dir/build
 
 neural_network_planner/CMakeFiles/train_validate.dir/requires: neural_network_planner/CMakeFiles/train_validate.dir/src/train_validate.cpp.o.requires
+neural_network_planner/CMakeFiles/train_validate.dir/requires: neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o.requires
 .PHONY : neural_network_planner/CMakeFiles/train_validate.dir/requires
 
 neural_network_planner/CMakeFiles/train_validate.dir/clean:

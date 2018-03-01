@@ -1,34 +1,28 @@
-name: "LSTM_stack-3-64"
+name: "LSTM_stack-3-16"
 
 layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "label"
-  data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-SIM-yaw/yaw_db-2-27-0-19_lmdb"
-    batch_size: 128
-    backend: LMDB
-  }
-
-}
-
-
-layer {
-	name: "clip"
+	name: "Input"
 	type: "Input"
+	top:  "data"
 	top:  "clip"
+	top:  "label"
 	input_param {
 		shape {
-			dim: 128
-			dim: 27		
+			dim: 16	
+			dim: 15 
+			dim: 1 
 		}
-	
+		shape {
+			dim: 16
+			dim: 15		
+		}
+		shape {
+			dim: 16	
+			dim: 1	
+		}
 	}
 	
 }
-
-
 
 
 layer {
@@ -38,7 +32,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -56,7 +50,7 @@ layer {
   bottom: "clip"
   top: "lstm2"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }
@@ -73,7 +67,7 @@ layer {
   bottom: "clip"
   top: "lstm3"
   recurrent_param {
-    num_output: 64
+    num_output: 16
     weight_filler {
       type: "xavier"
     }

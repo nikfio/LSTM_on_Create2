@@ -1,0 +1,27 @@
+Log file created at: 2018/02/28 21:59:41
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 21:59:41.572628 19470 train_validate.cpp:81] GPU mode
+W0228 21:59:41.572765 19470 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 21:59:41.619315 19470 net.cpp:956] Unknown blob name accuracy
+W0228 21:59:41.619334 19470 net.cpp:956] Unknown blob name argmax
+W0228 21:59:41.619343 19470 net.cpp:956] Unknown blob name softmax
+W0228 21:59:41.619351 19470 net.cpp:956] Unknown blob name accuracy
+W0228 21:59:41.619357 19470 net.cpp:956] Unknown blob name argmax
+W0228 21:59:41.619364 19470 net.cpp:956] Unknown blob name softmax
+I0228 21:59:41.619372 19470 train_validate.cpp:174] Selected start a new training
+I0228 21:59:41.619403 19470 train_validate.cpp:185] Net loaded: LSTM_stack-3-16
+I0228 21:59:41.619407 19470 train_validate.cpp:186] Minibatch size: 16
+I0228 21:59:41.619411 19470 train_validate.cpp:187] Forward - backward per batch (gradients accumulated): 1
+I0228 21:59:41.619415 19470 train_validate.cpp:188] Number of updates per batch: 1
+I0228 21:59:41.626173 19470 train_validate.cpp:279] TRAIN ONLINE PROCESS INITIALIZED
+I0228 21:59:47.465319 19470 build_batch.cpp:90] Updating target pose
+I0228 21:59:50.881831 19470 solver.cpp:330] Iteration 0, Testing net (#0)
+I0228 21:59:50.891764 19470 solver.cpp:218] Iteration 0 (-3.02441e-30 iter/s, 0.0105431s/2 iters), loss = 1.17598
+I0228 21:59:50.891790 19470 solver.cpp:237]     Train net output #0: loss = 1.17598 (* 1 = 1.17598 loss)
+I0228 21:59:50.891796 19470 sgd_solver.cpp:105] Iteration 0, lr = 0.001
+W0228 22:00:05.050312 19470 train_validate.cpp:452] TRAIN ITERATION: 1 AVERAGE LOSS: 1.17598  AVERAGE ACCURACY: 0
+I0228 22:00:12.869081 19470 build_batch.cpp:90] Updating target pose
+W0228 22:00:25.962636 19470 train_validate.cpp:452] TRAIN ITERATION: 2 AVERAGE LOSS: 0.0185498  AVERAGE ACCURACY: 0
+I0228 22:00:35.989114 19470 build_batch.cpp:90] Updating target pose
+W0228 22:00:39.622189 19470 train_validate.cpp:537] TEST ITERATION : 1  AVERAGE LOSS: 0.00436895  AVERAGE ACCURACY: 0

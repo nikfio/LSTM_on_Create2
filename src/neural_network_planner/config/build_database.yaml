@@ -4,15 +4,13 @@ set_size: 100000
 
 batch_size: 50
 
-sampling_rate: 20 # Hertz
-
-crowdy: false
+sampling_rate: 2 # Hertz
 
 pos_update_threshold: 0.005 # meters
 
-step_resolution: 0.15
+step_resolution: 0.10
 
-target_tolerance: 0.15
+target_tolerance: 0.35
 
 # better give absolute paths
 base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
@@ -20,14 +18,18 @@ base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 averaged_ranges_size: 12
 
 # whether or not net has trained with command tail as input
-steer_feedback: true
+steer_feedback: false
 
 # resolution of allowed steering angles [degrees]
-yaw_resolution: 30
+steer_resolution: 15
+
+min_steer_angle: -90
+max_steer_angle: 90
 
 # biasing the distance info
-dist_preweight: 50
-angle_preweight: 1
+dist_scale: 1
+
+yaw_scale: 25
 
 # database backend type {leveldb, lmdb} allowed
 database_backend: lmdb

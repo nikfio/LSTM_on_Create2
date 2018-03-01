@@ -1,5 +1,0 @@
-Log file created at: 2018/02/27 03:46:57
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0227 03:46:57.797886  6546 train_validate.cpp:66] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
-F0227 03:46:57.808744  6546 insert_splits.cpp:29] Unknown bottom blob 'labels' (layer 'euclideanLoss', bottom index 1)

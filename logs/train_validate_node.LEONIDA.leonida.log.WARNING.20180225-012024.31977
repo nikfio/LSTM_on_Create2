@@ -1,5 +1,0 @@
-Log file created at: 2018/02/25 01:20:24
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0225 01:20:24.451299 31977 train_validate.cpp:62] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
-F0225 01:20:24.512897 31977 euclidean_loss_layer.cpp:12] Check failed: bottom[0]->count(1) == bottom[1]->count(1) (2 vs. 1) Inputs must have the same dimension.

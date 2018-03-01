@@ -1,5 +1,0 @@
-Log file created at: 2018/02/27 03:52:49
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0227 03:52:49.514624  7226 train_validate.cpp:66] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
-F0227 03:52:55.337293  7226 net.cpp:686] Check failed: target_blobs[j]->shape() == source_blob->shape() Cannot share param 0 weights from layer 'lstm1'; shape mismatch.  Source param shape is 512 1 (512); target param shape is 128 1 (128)

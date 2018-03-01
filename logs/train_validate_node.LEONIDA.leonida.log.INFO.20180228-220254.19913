@@ -1,0 +1,37 @@
+Log file created at: 2018/02/28 22:02:54
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 22:02:54.451112 19913 train_validate.cpp:81] GPU mode
+W0228 22:02:54.451233 19913 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0228 22:02:54.907268 19913 build_database.cpp:467] A total of 5 steering angles have been set
+I0228 22:02:54.907301 19913 train_validate.cpp:174] Selected start a new training
+I0228 22:02:54.907341 19913 train_validate.cpp:185] Net loaded: LSTM_stack-fc-3-64
+I0228 22:02:54.907346 19913 train_validate.cpp:186] Minibatch size: 16
+I0228 22:02:54.907348 19913 train_validate.cpp:187] Forward - backward per batch (gradients accumulated): 1
+I0228 22:02:54.907351 19913 train_validate.cpp:188] Number of updates per batch: 1
+I0228 22:02:54.914440 19913 train_validate.cpp:279] TRAIN ONLINE PROCESS INITIALIZED
+I0228 22:03:34.970901 19913 build_batch.cpp:90] Updating target pose
+I0228 22:03:50.017366 19913 build_batch.cpp:90] Updating target pose
+I0228 22:04:00.082391 19913 build_batch.cpp:90] Updating target pose
+I0228 22:04:04.115998 19913 solver.cpp:330] Iteration 0, Testing net (#0)
+I0228 22:04:04.121608 19913 solver.cpp:218] Iteration 0 (-1.53658e-30 iter/s, 0.011864s/2 iters), loss = 1.67289
+I0228 22:04:04.121649 19913 solver.cpp:237]     Train net output #0: accuracy = 0.125
+I0228 22:04:04.121659 19913 solver.cpp:237]     Train net output #1: argmax = 3
+I0228 22:04:04.121664 19913 solver.cpp:237]     Train net output #2: argmax = 3
+I0228 22:04:04.121667 19913 solver.cpp:237]     Train net output #3: argmax = 1
+I0228 22:04:04.121670 19913 solver.cpp:237]     Train net output #4: argmax = 1
+I0228 22:04:04.121675 19913 solver.cpp:237]     Train net output #5: argmax = 1
+I0228 22:04:04.121678 19913 solver.cpp:237]     Train net output #6: argmax = 1
+I0228 22:04:04.121681 19913 solver.cpp:237]     Train net output #7: argmax = 4
+I0228 22:04:04.121686 19913 solver.cpp:237]     Train net output #8: argmax = 4
+I0228 22:04:04.121690 19913 solver.cpp:237]     Train net output #9: argmax = 4
+I0228 22:04:04.121695 19913 solver.cpp:237]     Train net output #10: argmax = 4
+I0228 22:04:04.121697 19913 solver.cpp:237]     Train net output #11: argmax = 4
+I0228 22:04:04.121701 19913 solver.cpp:237]     Train net output #12: argmax = 4
+I0228 22:04:04.121706 19913 solver.cpp:237]     Train net output #13: argmax = 4
+I0228 22:04:04.121708 19913 solver.cpp:237]     Train net output #14: argmax = 4
+I0228 22:04:04.121712 19913 solver.cpp:237]     Train net output #15: argmax = 3
+I0228 22:04:04.121716 19913 solver.cpp:237]     Train net output #16: argmax = 3
+I0228 22:04:04.121721 19913 solver.cpp:237]     Train net output #17: loss = 1.67289 (* 1 = 1.67289 loss)
+I0228 22:04:04.121727 19913 sgd_solver.cpp:105] Iteration 0, lr = 0.001
+W0228 22:05:36.895484 19913 train_validate.cpp:452] TRAIN ITERATION: 1 AVERAGE LOSS: 1.67289  AVERAGE ACCURACY: 0.125

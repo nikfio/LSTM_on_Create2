@@ -7,6 +7,10 @@
 #IncludeRegexTransform: 
 
 /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include/neural_network_planner/build_database.h
+message_filters/synchronizer.h
+-
+message_filters/sync_policies/approximate_time.h
+-
 message_filters/subscriber.h
 -
 sensor_msgs/LaserScan.h
@@ -38,10 +42,6 @@ ros/ros.h
 math.h
 -
 neural_network_planner/build_database.h
--
-message_filters/synchronizer.h
--
-message_filters/sync_policies/approximate_time.h
 -
 string
 -

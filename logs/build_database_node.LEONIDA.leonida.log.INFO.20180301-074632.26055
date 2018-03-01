@@ -1,0 +1,30 @@
+Log file created at: 2018/03/01 07:46:32
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 07:46:32.708449 26055 build_database.cpp:590] A total of 7 steering angles have been set
+I0301 07:46:32.962873 26055 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-7-46_lmdb
+I0301 07:46:32.963044 26055 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-3-1-7-46_lmdb
+I0301 07:46:32.963086 26055 build_database.cpp:147] DATASET INITIALIZED: sequence length: 15
+W0301 07:46:40.038287 26055 build_database.cpp:262] Stored step  0 label index 2
+W0301 07:46:40.547302 26055 build_database.cpp:358] Stored step  1 label index 1
+W0301 07:46:41.054036 26055 build_database.cpp:358] Stored step  2 label index 0
+W0301 07:46:41.560495 26055 build_database.cpp:358] Stored step  3 label index 1
+W0301 07:46:42.069492 26055 build_database.cpp:358] Stored step  4 label index 1
+W0301 07:46:42.578605 26055 build_database.cpp:358] Stored step  5 label index 1
+W0301 07:46:43.091161 26055 build_database.cpp:358] Stored step  6 label index 1
+W0301 07:46:43.596439 26055 build_database.cpp:358] Stored step  7 label index 2
+W0301 07:46:44.100054 26055 build_database.cpp:358] Stored step  8 label index 1
+W0301 07:46:44.604867 26055 build_database.cpp:358] Stored step  9 label index 1
+W0301 07:46:45.108361 26055 build_database.cpp:358] Stored step  10 label index 0
+W0301 07:46:45.611438 26055 build_database.cpp:358] Stored step  11 label index 0
+W0301 07:46:46.115254 26055 build_database.cpp:358] Stored step  12 label index 0
+W0301 07:46:46.619391 26055 build_database.cpp:358] Stored step  13 label index 0
+W0301 07:46:47.122872 26055 build_database.cpp:358] Stored step  14 label index 0
+W0301 07:46:47.626543 26055 build_database.cpp:358] Stored step  15 label index 0
+W0301 07:46:48.131678 26055 build_database.cpp:358] Stored step  16 label index 0
+W0301 07:46:48.635382 26055 build_database.cpp:358] Stored step  17 label index 0
+W0301 07:46:49.140270 26055 build_database.cpp:358] Stored step  18 label index 0
+W0301 07:46:49.645678 26055 build_database.cpp:358] Stored step  19 label index 0
+W0301 07:46:50.151767 26055 build_database.cpp:358] Stored step  20 label index 0
+W0301 07:46:50.656883 26055 build_database.cpp:358] Stored step  21 label index 0
+W0301 07:46:51.164808 26055 build_database.cpp:358] Stored step  22 label index 0

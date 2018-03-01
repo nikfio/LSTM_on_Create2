@@ -2,13 +2,17 @@
 # it is always better to write absolute paths of files needed
 # you never know from which location you launch the process
 
-train_set_size: 45036
+resume: false
 
-validate_set_size: 15042
+validation_frequency: 3
 
-resume: true
+checking_rate: 2 # Hertz
 
-validation_test_frequency: 3
+pos_update_threshold: 0.005 # meters
+
+step_resolution: 0.1
+
+target_tolerance: 0.2
 
 solver_config: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
 
@@ -16,19 +20,31 @@ trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_pla
 
 GPU: true
 
-epochs: 2000
+total_iterations: 20000
 
 time_sequence: 10
 
 folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/
 
-averaged_ranges_size: 24
-
-# whether or not dataset has command tail as input
-steer_feedback: true
+averaged_ranges_size: 12
 
 multiclass: true
 
-yaw_resolution: 30
+steer_feedback: false
+
+steer_resolution: 15
+
+min_steer_angle: -45
+max_steer_angle: 45
 
 logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 
+
+dist_scale: 1
+
+yaw_scale: 25
+
+batch_updates: 3
+
+iter_size: 3
+
+

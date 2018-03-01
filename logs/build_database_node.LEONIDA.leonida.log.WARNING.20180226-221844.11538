@@ -1,4 +1,0 @@
-Log file created at: 2018/02/26 22:18:44
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0226 22:18:44.487898 11538 build_database.cpp:227] Stored step  0

@@ -1,0 +1,6 @@
+Log file created at: 2018/02/28 19:49:58
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 19:49:58.238314  1445 train_validate.cpp:80] GPU mode
+W0228 19:49:58.238451  1445 train_validate.cpp:89] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+F0228 19:49:58.246266  1445 insert_splits.cpp:29] Unknown bottom blob 'fc1' (layer 'out', bottom index 0)

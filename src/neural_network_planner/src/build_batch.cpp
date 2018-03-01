@@ -1,39 +1,25 @@
 /* Functions to build the batch for online training */
 
 #include <neural_network_planner/train_validate.h>
-#include <neural_netowork_planner/build_database.h>
+#include <neural_network_planner/build_database.h>
 
+using namespace sensor_msgs;
+using namespace nav_msgs;
+using namespace move_base_msgs;
+using namespace message_filters; 
+using namespace geometry_msgs; 
 
+using std::cout;
+using std::endl;
 
 namespace neural_network_planner {
 
 
-void TrainValidateRNN::build_batch() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
 
 void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg, 
 							const Odometry::ConstPtr& odom_msg)
 {
 	
-	timestep++;
-//	ROS_INFO("Database_callback timestep: %d", timestep);
 	
 	// update measured robot position
 	tmp_source.first = odom_msg->pose.pose.position.x;
@@ -59,6 +45,7 @@ void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg,
 
 	float add_range;	
 		
+
 	for(int i = 0; i < range_num; i++) {
 
 		add_range += ranges[i];
@@ -71,10 +58,9 @@ void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg,
 	}		
 
 
-	CHECK_EQ(current_ranges.size(), averaged_ranges_size);
-
 	for(int i = 0; i < current_ranges.size(); i++) {
 		range_data[i] = current_ranges[i];
+
 	}
 	
 		
@@ -84,38 +70,15 @@ void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg,
 	state_ranges.angle_max = laser_msg->angle_max;
 	state_ranges.range_min = laser_msg->range_min;
 	state_ranges.range_max = laser_msg->range_max;
-	state_ranges.header.stamp = line_list.header.stamp = ros::Time::now();
+	state_ranges.header.stamp = ros::Time::now();
 	state_ranges.ranges = range_data;
 	state_ranges.angle_increment = (state_ranges.angle_max - state_ranges.angle_min) / averaged_ranges_size;
 	state_ranges.header.frame_id = "hokuyo_link";
-	line_list.header.frame_id = "/odom";
-	line_list.action = visualization_msgs::Marker::ADD;
-	line_list.pose.orientation.w = 1.0;
-	line_list.id = 0;
-	line_list.type = visualization_msgs::Marker::LINE_LIST;
-	line_list.color.r = 1.0;
-     line_list.color.a = 1.0;
+	
 
 	geometry_msgs::Point p_source;
 	p_source.x = tmp_source.first;
 	p_source.y = tmp_source.second;
-
-	if( show_lines ) {
-
-		for(int i = 0; i < current_ranges.size(); i++) {
-
-			geometry_msgs::Point p;
-			p.x = p_source.x + current_ranges[i] * cos(state_ranges.angle_min + state_ranges.angle_increment * i);
-			p.y = p_source.y + current_ranges[i] * sin(state_ranges.angle_min + state_ranges.angle_increment * i);
-			p.z = 0.025;
-
-			line_list.points.push_back(p);
-			line_list.points.push_back(p_source);
-
-		}
-		
-		marker_pub_.publish(line_list);
-	}
 
 	net_ranges_pub_.publish(state_ranges);	
 
@@ -124,10 +87,16 @@ void TrainValidateRNN::build_callback(const LaserScan::ConstPtr& laser_msg,
 
 void TrainValidateRNN::updateTarget_callback( const MoveBaseActionGoal::ConstPtr& actiongoal_msg) {
 
-	LOG(INFO) << "Updating target pose";
+//	LOG(INFO) << "Updating target pose";
 	current_target.first = actiongoal_msg->goal.target_pose.pose.position.x;
 	current_target.second = actiongoal_msg->goal.target_pose.pose.position.y;
 	goal_received = true;
+
+}
+
+float TrainValidateRNN::Step_dist() {
+
+	return hypot(current_source.second - prev_source.second, current_source.first - prev_source.first);
 
 }
 

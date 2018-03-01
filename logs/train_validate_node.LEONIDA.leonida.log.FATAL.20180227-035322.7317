@@ -1,4 +1,0 @@
-Log file created at: 2018/02/27 03:53:22
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-F0227 03:53:22.597931  7317 db_lmdb.hpp:15] Check failed: mdb_status == 0 (2 vs. 0) No such file or directory

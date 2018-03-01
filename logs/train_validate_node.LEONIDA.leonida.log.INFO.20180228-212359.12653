@@ -1,0 +1,12 @@
+Log file created at: 2018/02/28 21:23:59
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 21:23:59.650753 12653 train_validate.cpp:81] GPU mode
+W0228 21:23:59.650892 12653 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+I0228 21:24:00.083703 12653 build_database.cpp:467] A total of 5 steering angles have been set
+I0228 21:24:00.083719 12653 train_validate.cpp:174] Selected start a new training
+I0228 21:24:00.083745 12653 train_validate.cpp:185] Net loaded: LSTM_stack-fc-3-64
+I0228 21:24:00.083750 12653 train_validate.cpp:186] Minibatch size: 16
+I0228 21:24:00.083752 12653 train_validate.cpp:187] Forward - backward per batch (gradients accumulated): 1
+I0228 21:24:00.083755 12653 train_validate.cpp:188] Number of updates per batch: 1
+I0228 21:24:00.091249 12653 train_validate.cpp:279] TRAIN ONLINE PROCESS INITIALIZED

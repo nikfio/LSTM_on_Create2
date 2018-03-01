@@ -3,6 +3,8 @@
 #define _BUILD_DATABASE_H_
 
 // ROS related
+#include <message_filters/synchronizer.h>
+#include <message_filters/sync_policies/approximate_time.h>
 #include <message_filters/subscriber.h>
 #include <sensor_msgs/LaserScan.h>
 #include <nav_msgs/Odometry.h>
@@ -51,7 +53,7 @@ private:
 
 	ros::NodeHandle private_nh;
 
-	int averaged_ranges_size, scan_time_span;
+	int averaged_ranges_size;
 
 	float target_tolerance;	
 
@@ -60,12 +62,10 @@ private:
 	std::string scan_topic, goal_topic, odom_topic;
 	std::string tail_type;
 
-	int out_size;
-
 	message_filters::Subscriber<sensor_msgs::LaserScan> laserscan_sub_;
 	message_filters::Subscriber<nav_msgs::Odometry> odom_sub_;
 
-	float dist_preweight, angle_preweight;
+	float dist_scale, yaw_scale;
 
 	ros::Subscriber goal_sub_;
 	ros::Publisher net_ranges_pub_;
@@ -77,7 +77,7 @@ private:
 
 	vector<float> steer_angles;
 	
-	vector<float> range_data, tail;
+	vector<float> range_data;
 
 	std::pair<float, float> current_source;
 	std::pair<float, float> current_target;
@@ -90,8 +90,9 @@ private:
 	float meas_linear_x, meas_angular_z;
 	float ref_linear_x, ref_angular_z;
 
-	float yaw_measured, prev_yaw_measured, prev_closest_steer;
-	int yaw_resolution;
+	float yaw_measured, prev_yaw_measured;
+	float prev_closest_steer, prev_real_steer;
+	int steer_resolution, min_steer_angle, max_steer_angle;
 	
 	bool show_lines, goal_received, steer_feedback;	
 
@@ -116,7 +117,7 @@ int saturate(float neg_lim, float pos_lim, float& value);
 
 float point_distance(std::pair<float, float>& start_point, std::pair<float, float>& end_point);
 
-void initializeSteer(vector<float>& steer_angles, int yaw_resolution);
+void initializeSteer(vector<float>& steer_angles, int steer_resolution, int min_angle, int max_angle);
 	
 int getClosestSteer(vector<float>& steer_angles, float yaw_angle, float& closest ); 
  

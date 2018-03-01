@@ -1,4 +1,0 @@
-Log file created at: 2018/02/27 23:18:54
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0227 23:18:54.530316 27156 train_validate.cpp:65] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt

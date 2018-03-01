@@ -1,5 +1,0 @@
-Log file created at: 2018/02/27 03:33:15
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0227 03:33:15.726305  5310 train_validate.cpp:66] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
-F0227 03:33:21.058367  5310 train_validate.cpp:77] Check failed: net->has_blob("labels") 

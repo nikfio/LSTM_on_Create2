@@ -1,0 +1,4 @@
+Log file created at: 2018/02/28 21:26:52
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0228 21:26:52.492471 13096 blob.hpp:122] Check failed: axis_index < num_axes() (1 vs. 1) axis 1 out of range for 1-D Blob with shape 16 (16)

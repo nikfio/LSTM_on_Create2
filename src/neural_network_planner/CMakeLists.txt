@@ -125,7 +125,7 @@ add_executable(TestReadDB src/TestReadDB.cpp)
 
 target_link_libraries(TestReadDB ${catkin_LIBRARIES} ${LevelDB_LIBRARIES} ${LMDB_LIBRARIES})
 
-add_library(train_validate src/train_validate.cpp)
+add_library(train_validate src/train_validate.cpp src/build_batch.cpp)
 
 target_link_libraries(train_validate build_database ${catkin_LIBRARIES} ${BOOST_LIBRARIES} ${CAFFE_LIBRARY} ${LevelDB_LIBRARIES})
 

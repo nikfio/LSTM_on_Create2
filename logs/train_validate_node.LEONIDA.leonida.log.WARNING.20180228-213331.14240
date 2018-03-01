@@ -1,0 +1,11 @@
+Log file created at: 2018/02/28 21:33:31
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0228 21:33:31.250452 14240 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 21:33:31.298980 14240 net.cpp:956] Unknown blob name accuracy
+W0228 21:33:31.298997 14240 net.cpp:956] Unknown blob name argmax
+W0228 21:33:31.299017 14240 net.cpp:956] Unknown blob name softmax
+W0228 21:33:31.299024 14240 net.cpp:956] Unknown blob name loss
+W0228 21:33:31.299029 14240 net.cpp:956] Unknown blob name accuracy
+W0228 21:33:31.299033 14240 net.cpp:956] Unknown blob name argmax
+W0228 21:33:31.299037 14240 net.cpp:956] Unknown blob name softmax

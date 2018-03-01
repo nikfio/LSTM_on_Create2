@@ -1,0 +1,18 @@
+Log file created at: 2018/03/01 08:03:43
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 08:03:43.546919 28042 build_database.cpp:593] A total of 7 steering angles have been set
+I0301 08:03:43.788148 28042 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-8-3_lmdb
+I0301 08:03:43.788290 28042 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-3-1-8-3_lmdb
+I0301 08:03:43.788300 28042 build_database.cpp:147] DATASET INITIALIZED: sequence length: 15
+W0301 08:03:59.867774 28042 build_database.cpp:262] Stored step  0 label index 6
+W0301 08:04:00.871846 28042 build_database.cpp:359] Stored step  1 label index 0
+W0301 08:04:01.374866 28042 build_database.cpp:262] Stored step  2 label index 1
+W0301 08:04:07.405405 28042 build_database.cpp:359] Stored step  3 label index 2
+W0301 08:04:27.509204 28042 build_database.cpp:262] Stored step  4 label index 3
+W0301 08:04:29.017472 28042 build_database.cpp:359] Stored step  5 label index 3
+W0301 08:04:34.041370 28042 build_database.cpp:262] Stored step  6 label index 1
+W0301 08:04:38.566419 28042 build_database.cpp:359] Stored step  7 label index 3
+W0301 08:04:39.069205 28042 build_database.cpp:262] Stored step  8 label index 0
+W0301 08:04:39.570792 28042 build_database.cpp:359] Stored step  9 label index 0
+W0301 08:04:40.073109 28042 build_database.cpp:262] Stored step  10 label index 6

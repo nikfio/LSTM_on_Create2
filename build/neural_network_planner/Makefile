@@ -341,6 +341,30 @@ src/TestReadDB.cpp.s:
 	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/TestReadDB.dir/build.make neural_network_planner/CMakeFiles/TestReadDB.dir/src/TestReadDB.cpp.s
 .PHONY : src/TestReadDB.cpp.s
 
+src/build_batch.o: src/build_batch.cpp.o
+.PHONY : src/build_batch.o
+
+# target to build an object file
+src/build_batch.cpp.o:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.o
+.PHONY : src/build_batch.cpp.o
+
+src/build_batch.i: src/build_batch.cpp.i
+.PHONY : src/build_batch.i
+
+# target to preprocess a source file
+src/build_batch.cpp.i:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.i
+.PHONY : src/build_batch.cpp.i
+
+src/build_batch.s: src/build_batch.cpp.s
+.PHONY : src/build_batch.s
+
+# target to generate assembly for a file
+src/build_batch.cpp.s:
+	cd /home/leonida/ThesisCode/LSTM_on_Create2/build && $(MAKE) -f neural_network_planner/CMakeFiles/train_validate.dir/build.make neural_network_planner/CMakeFiles/train_validate.dir/src/build_batch.cpp.s
+.PHONY : src/build_batch.cpp.s
+
 src/build_database.o: src/build_database.cpp.o
 .PHONY : src/build_database.o
 
@@ -537,6 +561,9 @@ help:
 	@echo "... src/TestReadDB.o"
 	@echo "... src/TestReadDB.i"
 	@echo "... src/TestReadDB.s"
+	@echo "... src/build_batch.o"
+	@echo "... src/build_batch.i"
+	@echo "... src/build_batch.s"
 	@echo "... src/build_database.o"
 	@echo "... src/build_database.i"
 	@echo "... src/build_database.s"

@@ -1,0 +1,12 @@
+Log file created at: 2018/02/28 21:31:38
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0228 21:31:38.220516 13785 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 21:31:39.316051 13785 net.cpp:956] Unknown blob name accuracy
+W0228 21:31:39.316084 13785 net.cpp:956] Unknown blob name argmax
+W0228 21:31:39.316090 13785 net.cpp:956] Unknown blob name softmax
+W0228 21:31:39.316097 13785 net.cpp:956] Unknown blob name loss
+W0228 21:31:39.316102 13785 net.cpp:956] Unknown blob name accuracy
+W0228 21:31:39.316107 13785 net.cpp:956] Unknown blob name argmax
+W0228 21:31:39.316110 13785 net.cpp:956] Unknown blob name softmax
+F0228 21:31:39.316138 13785 blob.hpp:122] Check failed: axis_index < num_axes() (1 vs. 1) axis 1 out of range for 1-D Blob with shape 16 (16)

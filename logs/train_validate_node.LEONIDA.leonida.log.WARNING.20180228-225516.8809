@@ -1,0 +1,5 @@
+Log file created at: 2018/02/28 22:55:16
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0228 22:55:16.975399  8809 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+F0228 22:55:17.479538  8809 train_validate.cpp:157] Check failed: blobOut->shape(1) == steer_angles.size() (25 vs. 7) 

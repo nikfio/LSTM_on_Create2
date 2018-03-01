@@ -4,10 +4,6 @@
 #include <math.h>
 #include <neural_network_planner/build_database.h>
 
-#include <message_filters/synchronizer.h>
-#include <message_filters/sync_policies/approximate_time.h>
-
-
 #include <string>
 #include <ctime>
 #include <cmath>
@@ -59,19 +55,20 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	private_nh.param("logs_path", logs_path, std::string(""));
 	private_nh.param<float>("sampling_rate", sampling_rate, 1);
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
-	private_nh.param("show_lines", show_lines, false);
 	private_nh.param<float>("target_tolerance", target_tolerance, 0.08);
 	private_nh.param("steer_feedback", steer_feedback, true);
-	private_nh.param<float>("dist_preweight", dist_preweight, 1);
-	private_nh.param<float>("angle_preweight", angle_preweight, 1);
+	private_nh.param<float>("dist_scale", dist_scale, 1);
+	private_nh.param<float>("yaw_scale", yaw_scale, 1);
 	private_nh.param<float>("step_resolution", step_resolution, 0.10); 
-	private_nh.param("yaw_resolution", yaw_resolution, 10); 
+	private_nh.param("steer_resolution", steer_resolution, 10); 
+	private_nh.param("max_steer_angle", max_steer_angle, 90);
+	private_nh.param("min_steer_angle", min_steer_angle, -90);
 	
 	FLAGS_log_dir = logs_path;
 	FLAGS_alsologtostderr = 1;
 	FLAGS_minloglevel = 0;
 
-	initializeSteer(steer_angles, yaw_resolution);
+	initializeSteer(steer_angles, steer_resolution, min_steer_angle, max_steer_angle);
 	
 	prev_target = std::pair<float, float>(0,0);
 	current_source = std::pair<float,float>(0,0);
@@ -84,9 +81,10 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	// related neural network input size selected for this build_database run 
 
 	if ( steer_feedback )
+		state_sequence_size = averaged_ranges_size + 4;
+	else
 		state_sequence_size = averaged_ranges_size + 3;
 
-	timestep = database_counter = 0;
 	db_writestep = 0;
 
 	CHECK_EQ(set_size % batch_size, 0) << "set_size must be multiple of batch_size!";
@@ -133,15 +131,15 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 				         + "-" + lexical_cast<std::string>(init_tm->tm_mday) + "-" + lexical_cast<std::string>(init_tm->tm_hour) 
 				         + "-" + lexical_cast<std::string>(init_tm->tm_min) + "_" + backend;
 
-	int print_check;
-	FILE * table = fopen(check_text.c_str(), "w");
-	if( table == NULL ) {
-		cout << "Plot file opening failed.\n";
-		exit(1);
-	}
-	fprintf(table, "PREWEIGHTS: DIST %.3f  ANGLE  %.3f \n", dist_preweight, angle_preweight);
+//	int print_check;
+//	FILE * table = fopen(check_text.c_str(), "w");
+//	if( table == NULL ) {
+//		cout << "Plot file opening failed.\n";
+//		exit(1);
+//	}
+//	fprintf(table, "scale: DIST %.3f  ANGLE  %.3f \n", dist_scale, yaw_scale);
 
-	fclose(table);
+//	fclose(table);
 
 
 	goal_received = false;
@@ -152,94 +150,116 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
 	ros::Rate store_rate(sampling_rate);
 
+	bool state_even = true;
+	
+	caffe::Datum yaw_datum_even;
+	std::string yaw_value_even;
+	yaw_datum_even.set_channels(state_sequence_size);
+	yaw_datum_even.set_height(1);
+	yaw_datum_even.set_width(1);
+
+	caffe::Datum yaw_datum_odd;
+	std::string yaw_value_odd;
+	yaw_datum_odd.set_channels(state_sequence_size);
+	yaw_datum_odd.set_height(1);
+	yaw_datum_odd.set_width(1);
+	
+	caffe::Datum steer_datum_even;
+	std::string steer_value_even;
+	steer_datum_even.set_channels(state_sequence_size);
+	steer_datum_even.set_height(1);
+	steer_datum_even.set_width(1);
+
+	caffe::Datum steer_datum_odd;
+	std::string steer_value_odd;
+	steer_datum_odd.set_channels(state_sequence_size);
+	steer_datum_odd.set_height(1);
+	steer_datum_odd.set_width(1);
+
+     float *state_data = new float[state_sequence_size];
+
 	while( ros::ok() && db_writestep < set_size) {
 
 	  if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level )
-			 && goal_received && Step_dist() > step_resolution) { 
+			 && goal_received ) { 
 
+		
+	     if(state_even) { // even state data cycle = odd label data cycle 
+	
 		float x_rel = current_target.first - current_source.first;
 		float y_rel = current_target.second - current_source.second;	 
 
 		float distance = hypot( x_rel, y_rel);
 		float relative_angle = atan2( y_rel , x_rel );
-
-		std::string yaw_value;
-		caffe::Datum yaw_datum;
-		yaw_datum.set_channels(state_sequence_size);
-		yaw_datum.set_height(1);
-		yaw_datum.set_width(1);
 		
-		// storing the state data 				
+		/* storing the state data in even datum */ 				
 		for(int i = 0; i < range_data.size(); i++) {
-			yaw_datum.add_float_data(range_data[i]);
+			state_data[i] = range_data[i];
 		}		
 
-		yaw_datum.add_float_data(distance * dist_preweight);
-		yaw_datum.add_float_data(relative_angle * angle_preweight);
+
+		state_data[range_data.size()] = distance * dist_scale;
+		state_data[range_data.size()+1] = relative_angle ;
+		state_data[range_data.size()+2] = yaw_measured * yaw_scale;
+		
 
 		if( steer_feedback ) {
-			yaw_datum.add_float_data(prev_yaw_measured);
+			state_data[range_data.size()+3] =  prev_real_steer;
 		}
 
-		yaw_datum.set_label(yaw_measured);
-
-		yaw_datum.set_encoded(false);
-		yaw_datum.SerializeToString(&yaw_value);	
-		std::string key_str = caffe::format_int(db_writestep, 8);
-		yaw_txn->Put(key_str, yaw_value);
-
-		std::string steer_value;
-		caffe::Datum steer_datum;
-		steer_datum.set_channels(state_sequence_size);
-		steer_datum.set_height(1);
-		steer_datum.set_width(1);
-		
-		// storing the state data 				
-		for(int i = 0; i < range_data.size(); i++) {
-			steer_datum.add_float_data(range_data[i]);
-		}		
-
-		steer_datum.add_float_data(distance * dist_preweight);
-		steer_datum.add_float_data(relative_angle * angle_preweight);
+		yaw_datum_even.set_data(state_data, state_sequence_size);
 
 		if( steer_feedback ) {
 
-			steer_datum.add_float_data(prev_closest_steer);
+			state_data[range_data.size()+3] = prev_closest_steer;
 				
 		}
+
+		steer_datum_even.set_data(state_data, state_sequence_size);
+
+		/* store the label in odd datum */
+
+		yaw_datum_odd.set_label(yaw_measured - prev_yaw_measured);
+
+		yaw_datum_odd.set_encoded(false);
+		yaw_datum_odd.SerializeToString(&yaw_value_odd);	
+		std::string key_str = caffe::format_int(db_writestep, 8);
+		yaw_txn->Put(key_str, yaw_value_odd);
 
 		int steer_label;
 		float closest_steer = 0;
 		
-		steer_label = getClosestSteer(steer_angles, yaw_measured, closest_steer);
-		
-//		steer_datum.set_label(closest_steer);
+		steer_label = getClosestSteer(steer_angles, yaw_measured - prev_yaw_measured, closest_steer);
 
-		steer_datum.set_label(steer_label);
+		steer_datum_odd.set_label(steer_label);
 
-		steer_datum.set_encoded(false);
-		steer_datum.SerializeToString(&steer_value);	
-		steer_txn->Put(key_str, steer_value);
+		steer_datum_odd.set_encoded(false);
+		steer_datum_odd.SerializeToString(&steer_value_odd);	
+		steer_txn->Put(key_str, steer_value_odd);
 				
 		LOG(INFO) << "Label data: index " << steer_label 
 				<< " index_value: " << closest_steer
 				<< " current yaw: " << yaw_measured;
 
-		table = fopen(check_text.c_str(), "a");
-		if( table == NULL ) {
-			cout << "Plot file opening failed.\n";
-			exit(1);
-		}
-		for(int i = 0; i < range_data.size(); i++) {
-		 fprintf(table, "%.4f   ", range_data[i]); 
-		}
-		 fprintf(table, "%.4f   ", distance * dist_preweight); 
-		 fprintf(table, "%.4f \n  ", relative_angle); 
-		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
-						yaw_measured, closest_steer, steer_label); 
-		 fclose(table);
-		
-		LOG_EVERY_N(WARNING, 1000) << "Stored step  " << db_writestep;
+//		table = fopen(check_text.c_str(), "a");
+//		if( table == NULL ) {
+//			cout << "Plot file opening failed.\n";
+//			exit(1);
+//		}
+//		for(int i = 0; i < range_data.size(); i++) {
+//		 fprintf(table, "%.4f   ", steer_datum_even.float_data(i)); 
+//		}
+//		 fprintf(table, "%.4f   ", steer_datum_even.float_data(range_data.size())); 
+//		 fprintf(table, "%.4f  ", steer_datum_even.float_data(range_data.size()+1)); 
+//		 fprintf(table, "%.4f \n  ", steer_datum_even.float_data(range_data.size()+2)); 
+
+//		 fprintf(table, "%s \n  ", steer_datum_odd.data().c_str()); 		
+//		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
+//						yaw_measured, closest_steer, steer_label); 
+//		 fclose(table);
+
+	     
+		LOG_EVERY_N(WARNING, 1) << "Stored step  " << db_writestep << " label index " << steer_label;
 
 		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
 
@@ -250,18 +270,120 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 
       	} 
 		
-		// update the tails
+		// update previous step info
 		prev_yaw_measured = yaw_measured;
-		prev_closest_steer = closest_steer;	
-			
+		prev_source = current_source;
+		prev_closest_steer = closest_steer;
+		prev_real_steer = yaw_measured - prev_yaw_measured;	
+
+		state_even = false;
+
+	     } //end  even state data cycle = odd label data cycle 
+	     else { // odd state data cycle = even label data cycle 
+
+		float x_rel = current_target.first - current_source.first;
+		float y_rel = current_target.second - current_source.second;	 
+
+		float distance = hypot( x_rel, y_rel);
+		float relative_angle = atan2( y_rel , x_rel );
+		
+		/* storing the state data in odd datum */ 				
+		for(int i = 0; i < range_data.size(); i++) {
+			state_data[i] = range_data[i];
+		}		
+
+		state_data[range_data.size()] = distance * dist_scale;
+		state_data[range_data.size()+1] = relative_angle ;
+		state_data[range_data.size()+2] = yaw_measured * yaw_scale;
+		
+		if( steer_feedback ) {
+			state_data[range_data.size()+3] =  prev_real_steer;
+		}
+
+		yaw_datum_odd.set_data(state_data, state_sequence_size);
+
+		if( steer_feedback ) {
+
+			state_data[range_data.size()+3] =  prev_closest_steer;
+				
+		}
+
+		steer_datum_odd.set_data(state_data, state_sequence_size);
+
+		/* storing the label data in even datum */ 				
+		yaw_datum_even.set_label(yaw_measured - prev_yaw_measured);
+
+		yaw_datum_even.set_encoded(false);
+		yaw_datum_even.SerializeToString(&yaw_value_even);	
+		std::string key_str = caffe::format_int(db_writestep, 8);
+		yaw_txn->Put(key_str, yaw_value_even);
+
+		int steer_label;
+		float closest_steer = 0;
+		
+		steer_label = getClosestSteer(steer_angles, yaw_measured - prev_yaw_measured, closest_steer);
+
+		steer_datum_even.set_label(steer_label);
+
+		steer_datum_even.set_encoded(false);
+		steer_datum_even.SerializeToString(&steer_value_even);	
+		steer_txn->Put(key_str, steer_value_even);
+				
+//		LOG(INFO) << "Label data: index " << steer_label 
+//				<< " index_value: " << closest_steer
+//				<< " current yaw: " << yaw_measured;
+
+//		table = fopen(check_text.c_str(), "a");
+//		if( table == NULL ) {
+//			cout << "Plot file opening failed.\n";
+//			exit(1);
+//		}
+//		for(int i = 0; i < range_data.size(); i++) {
+//		 fprintf(table, "%.4f   ", range_data[i]); 
+//		}
+
+//		 fprintf(table, "%.4f   ", distance * dist_scale); 
+//		 fprintf(table, "%.4f   ", relative_angle); 
+//		 fprintf(table, "%.4f  \n  ", yaw_measured * yaw_scale); 
+
+//		 fprintf(table, "%s \n  ", steer_datum_even.data().c_str()); 		
+//		 fprintf(table, "DB STEP %d   LABEL   %.4f  %.4f  %d \n ", db_writestep, 
+//						yaw_measured, closest_steer, steer_label); 
+//		 fclose(table);
+
+//		for(int i = 0; i < range_data.size(); i++) {
+//			cout << state_data[i] << "  ";
+//		}	 
+//		cout << endl;
+	     
+		LOG_EVERY_N(WARNING, 1) << "Stored step  " << db_writestep  << " label index " << steer_label;
+
+		if( ++db_writestep % batch_size == 0 ) { // commit the batch to dbs
+
+			yaw_txn->Commit();			
+			yaw_txn.reset(yaw_database->NewTransaction());
+			steer_txn->Commit();			
+			steer_txn.reset(steer_database->NewTransaction());
+
+      	} 
+		
+		// update previous step info
+		prev_yaw_measured = yaw_measured;
+		prev_source = current_source;
+		prev_closest_steer = closest_steer;
+		prev_real_steer = yaw_measured - prev_yaw_measured;	
+
+		state_even = true;
+
+	  } // end odd state data cycle = even label data cycle 		
+
+
 	  } // check available step
 	  
 
-	  prev_source = current_source;
-
 	  if ( point_distance(current_source, current_target) <= target_tolerance ) {
 		 // current pos has achieved target within tolerance
-		LOG(INFO) << "target reached";
+		//LOG(INFO) << "target reached";
 		goal_received = false;
 	  }
 
@@ -269,8 +391,9 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 	
 	  ros::spinOnce();
 
-	}
+	 }
 
+	delete state_data;
 	
 	if( db_writestep % batch_size != 0) { // Last commit if needed for a safe closing
 
@@ -279,15 +402,12 @@ BuildDatabase::BuildDatabase(std::string& database_name) : private_nh("~")
 		steer_txn->Commit();
 	}
 
-
-	
 }
 
 BuildDatabase::~BuildDatabase() {
 
 
 }
-
 	
 
 /* this thread is collecting navigation data - first variant - labels are set depending
@@ -434,37 +554,39 @@ int  saturate(float neg_lim, float pos_lim, float& value)
  }
 
 
-void initializeSteer(vector<float>& steer_angles, int yaw_resolution)
+void initializeSteer(vector<float>& steer_angles, int steer_resolution, int min_angle, int max_angle)
 
 {
 
-	CHECK_EQ(360 % yaw_resolution, 0) << "Please set a yaw resolution that is a divider of 360 degrees";
+	CHECK_EQ(360 % steer_resolution, 0) << "Please set a yaw resolution that is a divider of 360 degrees";
 
-	float yaw_res_rad = ( yaw_resolution * M_PI ) / 180;
+	float yaw_res_rad = ( steer_resolution * M_PI ) / 180;
+
+	float max_angle_rad = ( max_angle * M_PI ) / 180;
+	float min_angle_rad = ( min_angle * M_PI ) / 180;
 
 	float add_allowed = 0;
 	steer_angles.push_back(add_allowed);
-	//LOG(INFO) << "Allowed steer angles: " << add_allowed;
 
 	int counter_plus = 1;
-
-	while( counter_plus <= ( M_PI / yaw_res_rad ) + 1 ) {
+	
+	while( counter_plus <= ( max_angle_rad / yaw_res_rad )  ) {
 		
 		add_allowed += yaw_res_rad;
 		steer_angles.push_back(add_allowed);
 		
-		//LOG(INFO) << "Allowed steer angle: " << add_allowed;
+//		LOG(INFO) << "Allowed steer angle: " << add_allowed;
 		counter_plus++;
 	}
 
 	add_allowed = 0;
 	int counter_minus = 0;
-	while( counter_minus < ( M_PI / yaw_res_rad ) - 1 ) {
+	while( counter_minus < abs( min_angle_rad / yaw_res_rad ) ) {
 		
 		add_allowed -= yaw_res_rad;
 		steer_angles.push_back(add_allowed);
 		
-		//LOG(INFO) << "Allowed steer angle: " << add_allowed;
+//		LOG(INFO) << "Allowed steer angle: " << add_allowed;
 		counter_minus++;
 	}
 
@@ -488,7 +610,6 @@ int getClosestSteer(vector<float>& steer_angles, float yaw_measured, float& clos
 		}
 
 	}
-
 	
 	CHECK_LT(closest_index, steer_angles.size()) << "Closest steer not found!";
 	closest = steer_angles[closest_index];

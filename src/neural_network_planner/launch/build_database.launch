@@ -4,7 +4,7 @@
 
 
 	<node pkg="neural_network_planner" type="build_database_node" respawn="false" 
-     			name="build_database_node"  output="screen" >
+     			name="build_database_node1"  output="screen" >
 
 		<rosparam file="$(find neural_network_planner)/config/build_database.yaml"
 			command="load" />

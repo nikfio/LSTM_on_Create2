@@ -1,0 +1,28 @@
+Log file created at: 2018/02/28 21:43:01
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 21:43:01.568699 18382 train_validate.cpp:81] GPU mode
+W0228 21:43:01.568819 18382 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 21:43:01.616051 18382 net.cpp:956] Unknown blob name accuracy
+W0228 21:43:01.616098 18382 net.cpp:956] Unknown blob name argmax
+W0228 21:43:01.616102 18382 net.cpp:956] Unknown blob name softmax
+W0228 21:43:01.616109 18382 net.cpp:956] Unknown blob name loss
+W0228 21:43:01.616113 18382 net.cpp:956] Unknown blob name accuracy
+W0228 21:43:01.616118 18382 net.cpp:956] Unknown blob name argmax
+W0228 21:43:01.616140 18382 net.cpp:956] Unknown blob name softmax
+I0228 21:43:01.616164 18382 train_validate.cpp:174] Selected start a new training
+I0228 21:43:01.616217 18382 train_validate.cpp:185] Net loaded: LSTM_stack-3-16
+I0228 21:43:01.616223 18382 train_validate.cpp:186] Minibatch size: 16
+I0228 21:43:01.616227 18382 train_validate.cpp:187] Forward - backward per batch (gradients accumulated): 1
+I0228 21:43:01.616232 18382 train_validate.cpp:188] Number of updates per batch: 1
+I0228 21:43:01.622949 18382 train_validate.cpp:279] TRAIN ONLINE PROCESS INITIALIZED
+I0228 21:43:18.306982 18382 build_batch.cpp:90] Updating target pose
+I0228 21:43:22.163861 18382 solver.cpp:330] Iteration 0, Testing net (#0)
+I0228 21:43:22.163993 18382 net.cpp:676] Ignoring source layer euclideanLoss
+I0228 21:43:22.175122 18382 solver.cpp:218] Iteration 0 (-3.46351e-30 iter/s, 0.0211241s/2 iters), loss = 0.00677214
+I0228 21:43:22.175156 18382 solver.cpp:237]     Train net output #0: loss = 0.00677214 (* 1 = 0.00677214 loss)
+I0228 21:43:22.175165 18382 sgd_solver.cpp:105] Iteration 0, lr = 0.001
+W0228 21:44:30.333551 18382 train_validate.cpp:452] TRAIN ITERATION: 1 AVERAGE LOSS: 0.00677214  AVERAGE ACCURACY: 0
+I0228 21:52:47.084163 18382 build_batch.cpp:90] Updating target pose
+W0228 21:52:50.916538 18382 train_validate.cpp:452] TRAIN ITERATION: 2 AVERAGE LOSS: 1.21103  AVERAGE ACCURACY: 0
+I0228 21:52:54.320720 18382 net.cpp:744] Ignoring source layer euclideanLoss

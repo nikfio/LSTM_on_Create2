@@ -111,7 +111,7 @@ namespace neural_network_planner {
 	CHECK_EQ( state_sequence_size, blobData->shape(1) ) << "train net: supposed input sequence size check failed";
 	
 	if( multiclass ) {
-		initializeSteer(steer_angles, yaw_resolution);
+		initializeSteer(steer_angles, yaw_resolution, -90, 90);
 		CHECK_EQ(blobOut->shape(1), steer_angles.size());
 	}
 	else

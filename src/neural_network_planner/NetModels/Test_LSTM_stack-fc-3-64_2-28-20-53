@@ -1,0 +1,12 @@
+TEST: LSTM_stack-fc-3-64 DATE: 2 28 20:53 
+ PARAMETERS:  
+ minibatch = 16 
+ iter_size = 1 
+ batch_updates = 1 
+  base_learning_rate = 0.00100 
+ weight_decay = 0.000100 
+  input_size = 14 
+  steer_feedback = 1 
+  loss_data = [ 
+     1.6136   0.0625      1.6486   0.0000      1.6365   0.0000 ; 
+    1.6942   0.0000  

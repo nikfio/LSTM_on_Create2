@@ -1,0 +1,18 @@
+Log file created at: 2018/02/28 21:53:55
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 21:53:55.460589 18874 train_validate.cpp:81] GPU mode
+W0228 21:53:55.460744 18874 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 21:53:55.507585 18874 net.cpp:956] Unknown blob name accuracy
+W0228 21:53:55.507603 18874 net.cpp:956] Unknown blob name argmax
+W0228 21:53:55.507609 18874 net.cpp:956] Unknown blob name softmax
+W0228 21:53:55.507616 18874 net.cpp:956] Unknown blob name loss
+W0228 21:53:55.507621 18874 net.cpp:956] Unknown blob name accuracy
+W0228 21:53:55.507624 18874 net.cpp:956] Unknown blob name argmax
+W0228 21:53:55.507628 18874 net.cpp:956] Unknown blob name softmax
+I0228 21:53:55.507637 18874 train_validate.cpp:174] Selected start a new training
+I0228 21:53:55.507665 18874 train_validate.cpp:185] Net loaded: LSTM_stack-3-16
+I0228 21:53:55.507668 18874 train_validate.cpp:186] Minibatch size: 16
+I0228 21:53:55.507670 18874 train_validate.cpp:187] Forward - backward per batch (gradients accumulated): 1
+I0228 21:53:55.507696 18874 train_validate.cpp:188] Number of updates per batch: 1
+I0228 21:53:55.514905 18874 train_validate.cpp:279] TRAIN ONLINE PROCESS INITIALIZED

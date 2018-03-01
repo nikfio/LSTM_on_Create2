@@ -1,4 +1,0 @@
-Log file created at: 2018/02/27 23:18:54
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I0227 23:18:54.530179 27156 train_validate.cpp:55] GPU mode

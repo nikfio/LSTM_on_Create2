@@ -1,4 +1,0 @@
-Log file created at: 2018/02/27 03:34:27
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-F0227 03:34:27.047180  5603 train_validate.cpp:98] Check failed: test_net->has_blob("loss") 

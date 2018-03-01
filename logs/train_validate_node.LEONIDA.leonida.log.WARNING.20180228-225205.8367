@@ -1,0 +1,9 @@
+Log file created at: 2018/02/28 22:52:05
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0228 22:52:05.214103  8367 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 22:52:29.493965  8367 train_validate.cpp:452] TRAIN ITERATION: 1 AVERAGE LOSS: 3.20174  AVERAGE ACCURACY: 0.125
+W0228 22:52:52.601130  8367 train_validate.cpp:452] TRAIN ITERATION: 2 AVERAGE LOSS: 3.21203  AVERAGE ACCURACY: 0
+W0228 22:53:18.667116  8367 train_validate.cpp:537] TEST ITERATION : 1  AVERAGE LOSS: 3.24104  AVERAGE ACCURACY: 0
+W0228 22:53:35.252012  8367 train_validate.cpp:452] TRAIN ITERATION: 4 AVERAGE LOSS: 3.21423  AVERAGE ACCURACY: 0
+W0228 22:53:55.995913  8367 train_validate.cpp:452] TRAIN ITERATION: 5 AVERAGE LOSS: 3.17478  AVERAGE ACCURACY: 0

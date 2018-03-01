@@ -1,0 +1,12 @@
+Log file created at: 2018/02/28 21:14:25
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0228 21:14:25.454618 11013 train_validate.cpp:81] GPU mode
+W0228 21:14:25.454730 11013 train_validate.cpp:90] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
+W0228 21:14:25.503178 11013 net.cpp:956] Unknown blob name accuracy
+W0228 21:14:25.503196 11013 net.cpp:956] Unknown blob name argmax
+W0228 21:14:25.503201 11013 net.cpp:956] Unknown blob name softmax
+W0228 21:14:25.503206 11013 net.cpp:956] Unknown blob name accuracy
+W0228 21:14:25.503211 11013 net.cpp:956] Unknown blob name argmax
+W0228 21:14:25.503214 11013 net.cpp:956] Unknown blob name softmax
+F0228 21:14:25.503226 11013 train_validate.cpp:146] Check failed: state_sequence_size == blobData->shape(1) (14 vs. 13) train net: supposed input sequence size check failed

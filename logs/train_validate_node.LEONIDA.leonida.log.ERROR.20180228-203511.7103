@@ -1,0 +1,4 @@
+Log file created at: 2018/02/28 20:35:11
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0228 20:35:11.045485  7103 train_validate.cpp:157] Check failed: blobOut->shape(1) == steer_angles.size() (13 vs. 5) 

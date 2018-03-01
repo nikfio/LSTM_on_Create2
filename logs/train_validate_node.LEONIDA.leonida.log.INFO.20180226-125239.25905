@@ -1,6 +1,0 @@
-Log file created at: 2018/02/26 12:52:39
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I0226 12:52:39.308686 25905 train_validate.cpp:55] GPU mode
-W0226 12:52:39.308823 25905 train_validate.cpp:63] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
-F0226 12:52:39.325311 25905 recurrent_layer.cpp:26] Check failed: N_ == bottom[1]->shape(1) (28 vs. 27) 

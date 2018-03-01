@@ -1,0 +1,5 @@
+Log file created at: 2018/03/01 09:55:55
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 09:55:55.255393  7348 build_database.cpp:593] A total of 13 steering angles have been set
+F0301 09:55:55.262960  7348 db_lmdb.cpp:13] Check failed: mkdir(source.c_str(), 0744) == 0 (-1 vs. 0) mkdir /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-9-55_lmdb failed

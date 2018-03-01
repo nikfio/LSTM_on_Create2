@@ -64,7 +64,6 @@ namespace neural_network_planner {
 	float yaw_measured, prev_yaw_measured;
 	float prev_closest_steer, prev_yaw_ref;
 
-	int out_size;
 	float meas_linear_x, meas_angular_z;
 	float prev_ref_linear_x, prev_meas_linear_x;
 	float prev_ref_angular_z, prev_meas_angular_z;

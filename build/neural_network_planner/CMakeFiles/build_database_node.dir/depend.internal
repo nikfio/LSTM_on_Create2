@@ -23,9 +23,13 @@ neural_network_planner/CMakeFiles/build_database_node.dir/src/build_database_nod
  /opt/ros/jade/include/geometry_msgs/Vector3Stamped.h
  /opt/ros/jade/include/message_filters/connection.h
  /opt/ros/jade/include/message_filters/macros.h
+ /opt/ros/jade/include/message_filters/null_types.h
  /opt/ros/jade/include/message_filters/signal1.h
+ /opt/ros/jade/include/message_filters/signal9.h
  /opt/ros/jade/include/message_filters/simple_filter.h
  /opt/ros/jade/include/message_filters/subscriber.h
+ /opt/ros/jade/include/message_filters/sync_policies/approximate_time.h
+ /opt/ros/jade/include/message_filters/synchronizer.h
  /opt/ros/jade/include/move_base_msgs/MoveBaseActionFeedback.h
  /opt/ros/jade/include/move_base_msgs/MoveBaseActionGoal.h
  /opt/ros/jade/include/move_base_msgs/MoveBaseFeedback.h

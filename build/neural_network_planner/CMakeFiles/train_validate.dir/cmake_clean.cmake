@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/train_validate.dir/src/train_validate.cpp.o"
+  "CMakeFiles/train_validate.dir/src/build_batch.cpp.o"
   "/home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.pdb"
   "/home/leonida/ThesisCode/LSTM_on_Create2/devel/lib/libtrain_validate.so"
 )

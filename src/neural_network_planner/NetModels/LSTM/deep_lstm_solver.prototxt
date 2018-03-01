@@ -3,14 +3,14 @@
   iter_size: 1
   test_iter: 0
   test_interval: 100000000
-  base_lr: 0.001
+  base_lr: 0.01
   lr_policy: "fixed"
-  weight_decay : 0.0001
+  weight_decay : 0.0005
   regularization_type: "L2"
   momentum: 0.95
-  display: 25
+  display: 2
   max_iter: 100000
-  snapshot: 50000
+  snapshot: 30
   snapshot_prefix: "/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-regression-3-64-16-27"
   solver_type: ADADELTA
   solver_mode: GPU

@@ -1,8 +1,0 @@
-Log file created at: 2018/02/25 03:11:12
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I0225 03:11:12.494765  8228 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_reftail_db-2-25-3-11_lmdb
-I0225 03:11:12.495095  8228 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/states_meastail_db-2-25-3-11_lmdb
-I0225 03:11:12.495183  8228 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_meas_db-2-25-3-11_twist_lmdb
-I0225 03:11:12.495261  8228 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/labels_ref_db-2-25-3-11_twist_lmdb
-I0225 03:11:12.495299  8228 build_database.cpp:171] DATASETS INITIALIZED: sequence length: 27

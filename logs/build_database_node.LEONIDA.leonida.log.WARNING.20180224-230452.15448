@@ -1,4 +1,0 @@
-Log file created at: 2018/02/24 23:04:52
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0224 23:04:52.213696 15448 build_database.cpp:324] target reached

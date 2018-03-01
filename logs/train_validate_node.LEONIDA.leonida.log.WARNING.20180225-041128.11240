@@ -1,5 +1,0 @@
-Log file created at: 2018/02/25 04:11:28
-Running on machine: LEONIDA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W0225 04:11:28.675355 11240 train_validate.cpp:62] Parsing solver config /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
-F0225 04:11:28.711395 11240 db_lmdb.hpp:15] Check failed: mdb_status == 0 (2 vs. 0) No such file or directory

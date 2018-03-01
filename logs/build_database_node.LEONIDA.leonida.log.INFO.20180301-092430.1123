@@ -1,0 +1,77 @@
+Log file created at: 2018/03/01 09:24:30
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 09:24:30.839694  1123 build_database.cpp:593] A total of 13 steering angles have been set
+I0301 09:24:31.035706  1123 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-9-24_lmdb
+I0301 09:24:31.035892  1123 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-3-1-9-24_lmdb
+I0301 09:24:31.035918  1123 build_database.cpp:147] DATASET INITIALIZED: sequence length: 15
+W0301 09:28:47.036384  1123 build_database.cpp:262] Stored step  0 label index 8
+W0301 09:28:47.536648  1123 build_database.cpp:359] Stored step  1 label index 0
+W0301 09:28:48.036432  1123 build_database.cpp:262] Stored step  2 label index 0
+W0301 09:28:48.536134  1123 build_database.cpp:359] Stored step  3 label index 0
+W0301 09:28:49.036811  1123 build_database.cpp:262] Stored step  4 label index 0
+W0301 09:28:50.536751  1123 build_database.cpp:359] Stored step  5 label index 7
+W0301 09:28:51.036518  1123 build_database.cpp:262] Stored step  6 label index 7
+W0301 09:28:52.036597  1123 build_database.cpp:359] Stored step  7 label index 0
+W0301 09:28:52.536762  1123 build_database.cpp:262] Stored step  8 label index 0
+W0301 09:28:53.036530  1123 build_database.cpp:359] Stored step  9 label index 7
+W0301 09:28:54.036654  1123 build_database.cpp:262] Stored step  10 label index 0
+W0301 09:28:54.536509  1123 build_database.cpp:359] Stored step  11 label index 0
+W0301 09:28:55.036643  1123 build_database.cpp:262] Stored step  12 label index 0
+W0301 09:28:55.536516  1123 build_database.cpp:359] Stored step  13 label index 0
+W0301 09:28:56.536406  1123 build_database.cpp:262] Stored step  14 label index 0
+W0301 09:28:57.036671  1123 build_database.cpp:359] Stored step  15 label index 9
+W0301 09:28:57.536643  1123 build_database.cpp:262] Stored step  16 label index 8
+W0301 09:28:58.036514  1123 build_database.cpp:359] Stored step  17 label index 0
+W0301 09:28:58.536612  1123 build_database.cpp:262] Stored step  18 label index 0
+W0301 09:28:59.036425  1123 build_database.cpp:359] Stored step  19 label index 0
+W0301 09:28:59.536419  1123 build_database.cpp:262] Stored step  20 label index 0
+W0301 09:29:00.536567  1123 build_database.cpp:359] Stored step  21 label index 1
+W0301 09:29:01.536537  1123 build_database.cpp:262] Stored step  22 label index 2
+W0301 09:29:02.036317  1123 build_database.cpp:359] Stored step  23 label index 0
+W0301 09:29:02.536806  1123 build_database.cpp:262] Stored step  24 label index 8
+W0301 09:29:03.036636  1123 build_database.cpp:359] Stored step  25 label index 8
+W0301 09:29:03.536648  1123 build_database.cpp:262] Stored step  26 label index 0
+W0301 09:29:04.036640  1123 build_database.cpp:359] Stored step  27 label index 1
+W0301 09:29:04.536454  1123 build_database.cpp:262] Stored step  28 label index 0
+W0301 09:29:05.036751  1123 build_database.cpp:359] Stored step  29 label index 0
+W0301 09:29:05.536787  1123 build_database.cpp:262] Stored step  30 label index 0
+W0301 09:29:06.036604  1123 build_database.cpp:359] Stored step  31 label index 0
+W0301 09:29:06.536593  1123 build_database.cpp:262] Stored step  32 label index 0
+W0301 09:29:07.036633  1123 build_database.cpp:359] Stored step  33 label index 0
+W0301 09:29:07.536636  1123 build_database.cpp:262] Stored step  34 label index 7
+W0301 09:29:08.036527  1123 build_database.cpp:359] Stored step  35 label index 7
+W0301 09:29:08.536537  1123 build_database.cpp:262] Stored step  36 label index 6
+W0301 09:29:09.036504  1123 build_database.cpp:359] Stored step  37 label index 0
+W0301 09:29:09.536691  1123 build_database.cpp:262] Stored step  38 label index 12
+W0301 09:29:10.036449  1123 build_database.cpp:359] Stored step  39 label index 6
+W0301 09:29:11.036685  1123 build_database.cpp:262] Stored step  40 label index 0
+W0301 09:29:11.536869  1123 build_database.cpp:359] Stored step  41 label index 0
+W0301 09:29:12.536607  1123 build_database.cpp:262] Stored step  42 label index 7
+W0301 09:29:13.036604  1123 build_database.cpp:359] Stored step  43 label index 0
+W0301 09:29:13.536517  1123 build_database.cpp:262] Stored step  44 label index 0
+W0301 09:29:14.036623  1123 build_database.cpp:359] Stored step  45 label index 0
+W0301 09:29:14.536502  1123 build_database.cpp:262] Stored step  46 label index 7
+W0301 09:29:15.036464  1123 build_database.cpp:359] Stored step  47 label index 0
+W0301 09:29:15.536576  1123 build_database.cpp:262] Stored step  48 label index 0
+W0301 09:29:16.036512  1123 build_database.cpp:359] Stored step  49 label index 0
+W0301 09:29:17.536463  1123 build_database.cpp:262] Stored step  50 label index 7
+W0301 09:29:18.536700  1123 build_database.cpp:359] Stored step  51 label index 7
+W0301 09:29:19.036594  1123 build_database.cpp:262] Stored step  52 label index 0
+W0301 09:29:19.536813  1123 build_database.cpp:359] Stored step  53 label index 7
+W0301 09:29:20.036711  1123 build_database.cpp:262] Stored step  54 label index 7
+W0301 09:29:20.536576  1123 build_database.cpp:359] Stored step  55 label index 0
+W0301 09:29:21.036705  1123 build_database.cpp:262] Stored step  56 label index 0
+W0301 09:29:21.536609  1123 build_database.cpp:359] Stored step  57 label index 1
+W0301 09:29:23.036669  1123 build_database.cpp:262] Stored step  58 label index 7
+W0301 09:29:23.536413  1123 build_database.cpp:359] Stored step  59 label index 0
+W0301 09:29:24.536608  1123 build_database.cpp:262] Stored step  60 label index 0
+W0301 09:29:25.036401  1123 build_database.cpp:359] Stored step  61 label index 0
+W0301 09:29:25.536280  1123 build_database.cpp:262] Stored step  62 label index 0
+W0301 09:29:26.036589  1123 build_database.cpp:359] Stored step  63 label index 0
+W0301 09:29:27.036696  1123 build_database.cpp:262] Stored step  64 label index 0
+W0301 09:29:32.036319  1123 build_database.cpp:359] Stored step  65 label index 12
+W0301 09:29:32.536180  1123 build_database.cpp:262] Stored step  66 label index 0
+W0301 09:29:33.036160  1123 build_database.cpp:359] Stored step  67 label index 0
+W0301 09:29:33.536167  1123 build_database.cpp:262] Stored step  68 label index 0
+W0301 09:29:34.036161  1123 build_database.cpp:359] Stored step  69 label index 0

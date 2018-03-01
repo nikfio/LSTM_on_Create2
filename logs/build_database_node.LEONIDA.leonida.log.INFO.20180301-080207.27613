@@ -1,0 +1,29 @@
+Log file created at: 2018/03/01 08:02:07
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 08:02:07.222326 27613 build_database.cpp:593] A total of 7 steering angles have been set
+I0301 08:02:07.456329 27613 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-8-2_lmdb
+I0301 08:02:07.456508 27613 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-3-1-8-2_lmdb
+I0301 08:02:07.456519 27613 build_database.cpp:147] DATASET INITIALIZED: sequence length: 15
+W0301 08:02:13.989495 27613 build_database.cpp:262] Stored step  0 label index 6
+W0301 08:02:14.492687 27613 build_database.cpp:359] Stored step  1 label index 3
+W0301 08:02:15.496667 27613 build_database.cpp:262] Stored step  2 label index 4
+W0301 08:02:15.999927 27613 build_database.cpp:359] Stored step  3 label index 0
+W0301 08:02:16.503068 27613 build_database.cpp:262] Stored step  4 label index 0
+W0301 08:02:17.005192 27613 build_database.cpp:359] Stored step  5 label index 0
+W0301 08:02:18.511679 27613 build_database.cpp:262] Stored step  6 label index 6
+W0301 08:02:19.516856 27613 build_database.cpp:359] Stored step  7 label index 1
+W0301 08:02:25.042414 27613 build_database.cpp:262] Stored step  8 label index 3
+W0301 08:02:25.543741 27613 build_database.cpp:359] Stored step  9 label index 1
+W0301 08:02:32.073730 27613 build_database.cpp:262] Stored step  10 label index 6
+W0301 08:02:36.096599 27613 build_database.cpp:359] Stored step  11 label index 3
+W0301 08:02:37.102349 27613 build_database.cpp:262] Stored step  12 label index 2
+W0301 08:02:37.604547 27613 build_database.cpp:359] Stored step  13 label index 0
+W0301 08:02:39.112383 27613 build_database.cpp:262] Stored step  14 label index 0
+W0301 08:02:56.194134 27613 build_database.cpp:359] Stored step  15 label index 3
+W0301 08:02:56.696846 27613 build_database.cpp:262] Stored step  16 label index 0
+W0301 08:02:57.200496 27613 build_database.cpp:359] Stored step  17 label index 0
+W0301 08:02:57.703008 27613 build_database.cpp:262] Stored step  18 label index 1
+W0301 08:02:58.204517 27613 build_database.cpp:359] Stored step  19 label index 1
+W0301 08:03:04.232906 27613 build_database.cpp:262] Stored step  20 label index 6
+W0301 08:03:04.734958 27613 build_database.cpp:359] Stored step  21 label index 2
