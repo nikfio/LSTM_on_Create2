@@ -2,7 +2,7 @@
 #parameters available for DWAPlannerROS, please see
 #http://www.ros.org/wiki/dwa_local_planner
 DWAPlannerROS:
-  acc_lim_th: 1.5
+  acc_lim_th: 1
   acc_lim_x: 1
   acc_lim_y: 1
 

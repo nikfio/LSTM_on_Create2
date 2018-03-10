@@ -1,0 +1,38 @@
+Log file created at: 2018/03/03 00:00:05
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0303 00:00:05.939987 28425 build_database.cpp:335] Stored step  3
+W0303 00:00:06.606396 28425 build_database.cpp:335] Stored step  4
+W0303 00:00:07.272169 28425 build_database.cpp:335] Stored step  5
+W0303 00:00:08.605834 28425 build_database.cpp:335] Stored step  9
+W0303 00:00:09.272258 28425 build_database.cpp:335] Stored step  10
+W0303 00:00:09.939199 28425 build_database.cpp:335] Stored step  11
+W0303 00:00:10.606181 28425 build_database.cpp:335] Stored step  12
+W0303 00:02:35.209584 28425 build_database.cpp:335] Stored step  13
+W0303 00:02:35.210125 28425 build_database.cpp:335] Stored step  17
+W0303 00:02:35.879429 28425 build_database.cpp:335] Stored step  21
+W0303 00:02:37.212524 28425 build_database.cpp:335] Stored step  25
+W0303 00:02:39.879115 28425 build_database.cpp:335] Stored step  29
+W0303 00:03:05.879225 28425 build_database.cpp:335] Stored step  33
+W0303 00:03:06.545729 28425 build_database.cpp:335] Stored step  34
+W0303 00:03:07.212535 28425 build_database.cpp:335] Stored step  35
+W0303 00:03:07.879164 28425 build_database.cpp:335] Stored step  39
+W0303 00:03:08.545830 28425 build_database.cpp:335] Stored step  43
+W0303 00:03:09.212499 28425 build_database.cpp:335] Stored step  44
+W0303 00:03:09.879135 28425 build_database.cpp:335] Stored step  45
+W0303 00:03:10.545734 28425 build_database.cpp:335] Stored step  46
+W0303 00:03:11.212456 28425 build_database.cpp:335] Stored step  50
+W0303 00:03:11.879101 28425 build_database.cpp:335] Stored step  54
+W0303 00:03:12.546063 28425 build_database.cpp:335] Stored step  58
+W0303 00:03:13.879241 28425 build_database.cpp:335] Stored step  62
+W0303 00:03:14.545797 28425 build_database.cpp:335] Stored step  66
+W0303 00:03:15.212388 28425 build_database.cpp:335] Stored step  67
+W0303 00:03:15.879030 28425 build_database.cpp:335] Stored step  68
+W0303 00:03:17.212733 28425 build_database.cpp:335] Stored step  72
+W0303 00:03:17.878950 28425 build_database.cpp:335] Stored step  73
+W0303 00:03:18.545778 28425 build_database.cpp:335] Stored step  74
+W0303 00:03:20.545779 28425 build_database.cpp:335] Stored step  78
+W0303 00:03:21.212764 28425 build_database.cpp:335] Stored step  82
+W0303 00:03:21.878871 28425 build_database.cpp:335] Stored step  83
+W0303 00:03:22.545871 28425 build_database.cpp:335] Stored step  84
+W0303 00:03:23.212620 28425 build_database.cpp:335] Stored step  85

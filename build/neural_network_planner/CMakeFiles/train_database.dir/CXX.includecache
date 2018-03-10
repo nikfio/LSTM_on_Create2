@@ -48,24 +48,6 @@ boost/thread.hpp
 string
 -
 
-/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/include/neural_network_planner/train_online.h
-ros/ros.h
--
-neural_network_planner/build_database.h
--
-caffe/caffe.hpp
--
-boost/thread.hpp
--
-string
--
-
-/home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/build_batch.cpp
-neural_network_planner/train_online.h
--
-neural_network_planner/build_database.h
--
-
 /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/src/train_database.cpp
 neural_network_planner/train_database.h
 -

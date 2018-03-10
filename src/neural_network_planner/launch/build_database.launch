@@ -2,7 +2,6 @@
 
 <launch>
 
-
 	<node pkg="neural_network_planner" type="build_database_node" respawn="false" 
      			name="build_database_node1"  output="screen" >
 

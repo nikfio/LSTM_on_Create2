@@ -3609,7 +3609,7 @@ clean: neural_network_planner/CMakeFiles/build_database_node.dir/clean
 # Target rules for target neural_network_planner/CMakeFiles/goal_generator.dir
 
 # All Build rule for target.
-neural_network_planner/CMakeFiles/goal_generator.dir/all:
+neural_network_planner/CMakeFiles/goal_generator.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
 	$(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/depend
 	$(MAKE) -f neural_network_planner/CMakeFiles/goal_generator.dir/build.make neural_network_planner/CMakeFiles/goal_generator.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  13
@@ -3622,7 +3622,7 @@ all: neural_network_planner/CMakeFiles/goal_generator.dir/all
 
 # Build rule for subdir invocation for target.
 neural_network_planner/CMakeFiles/goal_generator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 neural_network_planner/CMakeFiles/goal_generator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles 0
 .PHONY : neural_network_planner/CMakeFiles/goal_generator.dir/rule
@@ -3945,8 +3945,8 @@ clean: neural_network_planner/CMakeFiles/train_online.dir/clean
 # Target rules for target neural_network_planner/CMakeFiles/train_online_node.dir
 
 # All Build rule for target.
-neural_network_planner/CMakeFiles/train_online_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
 neural_network_planner/CMakeFiles/train_online_node.dir/all: neural_network_planner/CMakeFiles/train_online.dir/all
+neural_network_planner/CMakeFiles/train_online_node.dir/all: neural_network_planner/CMakeFiles/build_database.dir/all
 	$(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/depend
 	$(MAKE) -f neural_network_planner/CMakeFiles/train_online_node.dir/build.make neural_network_planner/CMakeFiles/train_online_node.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/leonida/ThesisCode/LSTM_on_Create2/build/CMakeFiles  26

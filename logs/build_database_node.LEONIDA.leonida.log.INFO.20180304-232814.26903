@@ -1,0 +1,25 @@
+Log file created at: 2018/03/04 23:28:14
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0304 23:28:14.419308 26903 build_database.cpp:551] A total of 7 steering angles have been set
+I0304 23:28:14.630162 26903 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-23-7-3-4-23-28_lmdb
+I0304 23:28:14.630304 26903 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-23-7-3-4-23-28_lmdb
+I0304 23:28:14.630363 26903 build_database.cpp:195] DATASET INITIALIZED: sequence length: 23
+I0304 23:28:46.437554 26903 build_database.cpp:471] Updating target pose
+I0304 23:28:46.437916 26903 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.00202302
+W0304 23:28:46.437975 26903 build_database.cpp:351] Stored step  1
+I0304 23:28:46.953291 26903 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.170256
+W0304 23:28:46.953385 26903 build_database.cpp:351] Stored step  2
+I0304 23:28:47.470021 26903 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.507114
+W0304 23:28:47.470098 26903 build_database.cpp:351] Stored step  7
+I0304 23:28:47.979506 26903 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.395248
+W0304 23:28:47.979583 26903 build_database.cpp:351] Stored step  12
+I0304 23:28:48.484325 26903 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.273126
+W0304 23:28:48.484385 26903 build_database.cpp:351] Stored step  17
+I0304 23:28:48.987567 26903 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.175122
+W0304 23:28:48.987675 26903 build_database.cpp:351] Stored step  18
+I0304 23:28:49.494068 26903 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0928285
+W0304 23:28:49.494149 26903 build_database.cpp:351] Stored step  19
+I0304 23:28:49.996675 26903 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.000356436
+W0304 23:28:50.000674 26903 build_database.cpp:351] Stored step  20
+W0304 23:33:58.000705 26903 build_database.cpp:390] COMMITTED: 20

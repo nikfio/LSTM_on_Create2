@@ -4,24 +4,13 @@ layer {
   name: "data"
   type: "Data"
   top: "data"
+  top: "label"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/states_db-2-21-14-36_lmdb"
-    batch_size: 16
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-3-3/steer_db-23-7-3-3-10-28_lmdb"
+    batch_size: 24
     backend: LMDB
   }
  
-}
-
-layer {
-  name: "label"
-  type: "Data"
-  top: "labels"
-  data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/LAB-21-2-new-step-condition/labels_db-2-21-14-36_twist-variant_lmdb"
-    batch_size: 16
-    backend: LMDB
-  }
-
 }
 
 
@@ -31,13 +20,15 @@ layer {
 	top:  "clip"
 	input_param {
 		shape {
-			dim: 16
-			dim: 26  		
+			dim: 24
+			dim: 23 		
 		}
 	
 	}
 	
 }
+
+
 
 layer {
   name: "fc1"
@@ -179,7 +170,7 @@ layer {
   top: "out"
 
   inner_product_param {
-    num_output: 2
+    num_output: 7
     weight_filler {
       type: "gaussian"
       std: 0.1
@@ -191,23 +182,35 @@ layer {
 }
 
 
-layer {
-  name: "out-concat"
-  type: "Concat"
+layer{
+  name: "softmax"
+  type: "Softmax"
   bottom: "out"
-  top: "out-concat"
-  
-  concat_param {
-	axis: 1
-  }
+  top: "softmax"
+}
 
+
+layer{
+  name: "argmax"
+  type: "ArgMax"
+  bottom: "softmax"
+  top: "argmax"
+}
+  
+
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "softmax"
+  bottom: "label"
+  top: "accuracy"  
 }
 
 layer {
-  name: "loss"
-  type: "EuclideanLoss"
-  bottom: "out-concat"
-  bottom: "labels"
+  name: "softmaxloss"
+  type: "SoftmaxWithLoss"
+  bottom: "out"
+  bottom: "label"
   top: "loss"  
 }
 

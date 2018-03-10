@@ -1,8 +1,8 @@
 # example of build_database_node parameters set up
 
-set_size: 100000
+set_size: 10000
 
-batch_size: 50
+batch_size: 10
 
 sampling_rate: 2 # Hertz
 
@@ -15,21 +15,27 @@ target_tolerance: 0.35
 # better give absolute paths
 base_path: /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/
 
-averaged_ranges_size: 12
+averaged_ranges_size: 8
 
 # whether or not net has trained with command tail as input
-steer_feedback: false
+steer_feedback: true
 
 # resolution of allowed steering angles [degrees]
-steer_resolution: 15
+steer_resolution: 45
 
-min_steer_angle: -45
-max_steer_angle: 45
+min_steer_angle: -90
+max_steer_angle: 90
+
+multiclass: true
 
 # biasing the distance info
 dist_scale: 1
 
-yaw_scale: 25
+yaw_scale: 1
+
+stop_straight: true
+
+multiply_sample: 2
 
 # database backend type {leveldb, lmdb} allowed
 database_backend: lmdb

@@ -53,16 +53,17 @@ namespace neural_network_planner {
 	boost::shared_ptr<caffe::Blob<float> > blobArgmax;
 	boost::shared_ptr<caffe::Blob<float> > blobSoftmax;
 
-	bool GPU, show_lines, goal_received, steer_feedback, multiclass;
+	bool GPU, goal_received, steer_feedback, multiclass;
 
 	float target_tolerance, minimal_step_dist, pos_update_threshold;
 
 	float control_rate, cruise_vel, min_cruise_vel;
 	
-	float rotate_vel_res, min_rotate_vel, max_rotate_vel;
+	float min_rotate_vel, max_rotate_vel;
+	int min_steer_angle, max_steer_angle;
 	int yaw_resolution;
 	float yaw_measured, prev_yaw_measured;
-	float prev_closest_steer, prev_yaw_ref;
+	float prev_closest_steer, prev_steer_ref;
 
 	float meas_linear_x, meas_angular_z;
 	float prev_ref_linear_x, prev_meas_linear_x;
@@ -83,9 +84,7 @@ namespace neural_network_planner {
 	std::string trained, online_model, logs_path;	
 
 	std::string scan_topic, goal_topic, odom_topic, command_topic;
-	std::string tail_type;
-
-	visualization_msgs::Marker line_list;	
+	std::string tail_type;	
 
 	message_filters::Subscriber<sensor_msgs::LaserScan> laserscan_sub_;
 	message_filters::Subscriber<nav_msgs::Odometry> odom_sub_;
@@ -105,17 +104,22 @@ namespace neural_network_planner {
 
 	void PublishZeroVelocity();
 
-	inline float ComputeNewXPosition(float xi, float vx, float vy, float theta, float dt){
+	inline float ComputeNewXPosition(float xi, float vx, float vy, float theta, float dt) {
         return xi + (vx * cos(theta) + vy * cos(M_PI_2 + theta)) * dt;
      }
 
-	inline float ComputeNewYPosition(float yi, float vx, float vy, float theta, float dt){
+	inline float ComputeNewYPosition(float yi, float vx, float vy, float theta, float dt) {
         return yi + (vx * sin(theta) + vy * sin(M_PI_2 + theta)) * dt;
      }
 
 	inline float ComputeNewThetaPosition(float thetai, float vth, float dt){
         return thetai + vth * dt;
      }
+
+	inline float ComputeNewRelativeTheta(float vth, float dt){
+        return vth * dt;
+     }
+
 
 	bool ComputeNewCommands(float yaw_ref, float yaw_measured, geometry_msgs::Twist& drive_cmds);
 

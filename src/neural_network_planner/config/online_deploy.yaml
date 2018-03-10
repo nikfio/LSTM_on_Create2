@@ -6,33 +6,33 @@ online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planne
 
 GPU: false
 
-control_rate: 10 # Hertz
+control_rate: 0.5 # Hertz
 
 pos_update_threshold: 0.01 # meters
 
-cruise_linear_vel: 0.3
+target_tolerance: 0.3
 
-target_tolerance: 0.5
+averaged_ranges_size: 20
 
-averaged_ranges_size: 24
+# if it is a multi classification net
+multiclass: true
 
-# if it is a classification net
-multiclass: false
+# classes yaw resolution [degrees]
+yaw_resolution: 15
 
-# classes yaw resolution
-yaw_resolution: 30
+min_steer_angle: -90
+max_steer_angle: 90
 
 # add the previous action to the input state
-steer_feedback: true
+steer_feedback: false
 
 # translational velocity limits
-cruise_vel: 0.3
-min_cruise_vel: 0.1
+cruise_vel: 0.2
+min_cruise_vel: 0.05
 
 # rotational velocity limits
-min_rotate_vel: -1 
+min_rotate_vel: 0.1
 max_rotate_vel: 1
-rotate_vel_res: 0.05
 
 # if true publish state ranges as lines, false means only points 
 show_lines: true

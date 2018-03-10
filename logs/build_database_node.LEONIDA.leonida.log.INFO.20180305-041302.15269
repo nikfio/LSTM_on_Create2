@@ -1,0 +1,213 @@
+Log file created at: 2018/03/05 04:13:02
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0305 04:13:02.697295 15269 build_database.cpp:559] A total of 7 steering angles have been set
+I0305 04:13:02.967355 15269 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-24-7-3-5-4-13_lmdb
+I0305 04:13:02.968876 15269 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-24-7-3-5-4-13_lmdb
+I0305 04:13:02.968953 15269 build_database.cpp:195] DATASET INITIALIZED: sequence length: 24
+I0305 04:13:07.476933 15269 build_database.cpp:479] Updating target pose
+I0305 04:13:07.477744 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.021721
+W0305 04:13:07.477816 15269 build_database.cpp:351] Stored step  1
+I0305 04:13:07.978082 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.242542
+W0305 04:13:07.978152 15269 build_database.cpp:351] Stored step  2
+I0305 04:13:08.479799 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.317113
+W0305 04:13:08.479884 15269 build_database.cpp:351] Stored step  7
+I0305 04:13:08.980996 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.177207
+W0305 04:13:08.981086 15269 build_database.cpp:351] Stored step  8
+I0305 04:13:09.481202 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.124704
+W0305 04:13:09.481281 15269 build_database.cpp:351] Stored step  9
+I0305 04:13:09.981977 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0787008
+W0305 04:13:09.985755 15269 build_database.cpp:351] Stored step  10
+I0305 04:13:11.790596 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.263995
+W0305 04:13:11.790735 15269 build_database.cpp:351] Stored step  15
+I0305 04:13:11.790755 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:13:11.790781 15269 build_database.cpp:351] Stored step  16
+I0305 04:13:12.292433 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.06378
+W0305 04:13:12.292500 15269 build_database.cpp:351] Stored step  17
+I0305 04:13:12.793417 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0654416
+W0305 04:13:12.793511 15269 build_database.cpp:351] Stored step  18
+I0305 04:13:17.098721 15269 build_database.cpp:479] Updating target pose
+I0305 04:13:17.099344 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.275641
+W0305 04:13:17.099416 15269 build_database.cpp:351] Stored step  23
+I0305 04:13:17.608306 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.309744
+W0305 04:13:17.608387 15269 build_database.cpp:351] Stored step  28
+I0305 04:13:18.115128 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.300539
+W0305 04:13:18.115198 15269 build_database.cpp:351] Stored step  33
+I0305 04:13:18.617800 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.169214
+W0305 04:13:18.617875 15269 build_database.cpp:351] Stored step  34
+I0305 04:13:19.122340 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0596843
+W0305 04:13:19.122486 15269 build_database.cpp:351] Stored step  35
+I0305 04:13:19.623368 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0348065
+W0305 04:13:19.623435 15269 build_database.cpp:351] Stored step  36
+I0305 04:13:20.242501 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.297927
+W0305 04:13:20.242570 15269 build_database.cpp:351] Stored step  41
+I0305 04:13:20.642777 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.317967
+W0305 04:13:20.642884 15269 build_database.cpp:351] Stored step  46
+I0305 04:13:21.152549 15269 build_database.cpp:314] Label for previous step:  index 3 index_value: 1.5708 real steer: 5.88829
+W0305 04:13:21.152649 15269 build_database.cpp:351] Stored step  51
+I0305 04:13:21.653846 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.238824
+W0305 04:13:21.653918 15269 build_database.cpp:351] Stored step  52
+I0305 04:13:22.154289 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0894511
+W0305 04:13:22.154376 15269 build_database.cpp:351] Stored step  53
+I0305 04:13:22.655392 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0281799
+W0305 04:13:22.655473 15269 build_database.cpp:351] Stored step  54
+I0305 04:13:28.518576 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.264052
+W0305 04:13:28.518663 15269 build_database.cpp:351] Stored step  59
+I0305 04:13:28.518700 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:13:28.522459 15269 build_database.cpp:351] Stored step  60
+I0305 04:13:29.023744 15269 build_database.cpp:479] Updating target pose
+I0305 04:13:29.024497 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0502768
+W0305 04:13:29.024569 15269 build_database.cpp:351] Stored step  61
+I0305 04:13:29.531234 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0886121
+W0305 04:13:29.531319 15269 build_database.cpp:351] Stored step  62
+I0305 04:13:30.278503 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.27818
+W0305 04:13:30.278585 15269 build_database.cpp:351] Stored step  67
+I0305 04:13:30.542249 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.142269
+W0305 04:13:30.542389 15269 build_database.cpp:351] Stored step  68
+I0305 04:13:31.048094 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.145101
+W0305 04:13:31.048174 15269 build_database.cpp:351] Stored step  69
+I0305 04:13:31.554963 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.163951
+W0305 04:13:31.558641 15269 build_database.cpp:351] Stored step  70
+I0305 04:13:49.737444 15269 build_database.cpp:479] Updating target pose
+I0305 04:13:50.270536 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.303155
+W0305 04:13:50.270607 15269 build_database.cpp:351] Stored step  75
+I0305 04:13:50.270637 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:13:50.270665 15269 build_database.cpp:351] Stored step  76
+I0305 04:13:50.765092 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.449942
+W0305 04:13:50.765187 15269 build_database.cpp:351] Stored step  81
+I0305 04:13:51.274369 15269 build_database.cpp:314] Label for previous step:  index 6 index_value: -1.5708 real steer: -5.79521
+W0305 04:13:51.274436 15269 build_database.cpp:351] Stored step  86
+I0305 04:13:51.788650 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.497398
+W0305 04:13:51.788724 15269 build_database.cpp:351] Stored step  91
+I0305 04:13:52.298985 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.461521
+W0305 04:13:52.299080 15269 build_database.cpp:351] Stored step  96
+I0305 04:13:52.804882 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.275984
+W0305 04:13:52.804977 15269 build_database.cpp:351] Stored step  101
+I0305 04:13:53.307719 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0874666
+W0305 04:13:53.307821 15269 build_database.cpp:351] Stored step  102
+I0305 04:13:53.811704 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.00264204
+W0305 04:13:53.811795 15269 build_database.cpp:351] Stored step  103
+I0305 04:13:54.314373 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.00136459
+W0305 04:13:54.314472 15269 build_database.cpp:351] Stored step  104
+I0305 04:14:01.997073 15269 build_database.cpp:479] Updating target pose
+I0305 04:14:04.355229 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.273727
+W0305 04:14:04.355305 15269 build_database.cpp:351] Stored step  109
+I0305 04:14:04.355324 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:14:04.359489 15269 build_database.cpp:351] Stored step  110
+I0305 04:14:04.862798 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.312335
+W0305 04:14:04.862875 15269 build_database.cpp:351] Stored step  115
+I0305 04:14:05.375300 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.250117
+W0305 04:14:05.375396 15269 build_database.cpp:351] Stored step  116
+I0305 04:14:05.880945 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.254463
+W0305 04:14:05.881021 15269 build_database.cpp:351] Stored step  117
+I0305 04:14:06.387153 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.189116
+W0305 04:14:06.387228 15269 build_database.cpp:351] Stored step  118
+I0305 04:14:07.547029 15269 build_database.cpp:314] Label for previous step:  index 3 index_value: 1.5708 real steer: 6.05543
+W0305 04:14:07.547104 15269 build_database.cpp:351] Stored step  123
+I0305 04:14:07.547125 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:14:07.547157 15269 build_database.cpp:351] Stored step  124
+I0305 04:14:07.902053 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0206506
+W0305 04:14:07.902133 15269 build_database.cpp:351] Stored step  125
+I0305 04:14:08.406183 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0171256
+W0305 04:14:08.406250 15269 build_database.cpp:351] Stored step  126
+I0305 04:16:42.370744 15269 build_database.cpp:479] Updating target pose
+I0305 04:16:42.550554 15269 build_database.cpp:314] Label for previous step:  index 6 index_value: -1.5708 real steer: -6.22298
+W0305 04:16:42.550637 15269 build_database.cpp:351] Stored step  131
+I0305 04:16:42.887293 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.209877
+W0305 04:16:42.887364 15269 build_database.cpp:351] Stored step  132
+I0305 04:16:43.401994 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.284968
+W0305 04:16:43.402062 15269 build_database.cpp:351] Stored step  137
+I0305 04:16:43.910513 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.171929
+W0305 04:16:43.910580 15269 build_database.cpp:351] Stored step  138
+I0305 04:16:44.417160 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0458224
+W0305 04:16:44.417253 15269 build_database.cpp:351] Stored step  139
+I0305 04:16:44.928148 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.00160098
+W0305 04:16:44.931946 15269 build_database.cpp:351] Stored step  140
+I0305 04:16:48.990551 15269 build_database.cpp:479] Updating target pose
+I0305 04:16:49.446629 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.267877
+W0305 04:16:49.446704 15269 build_database.cpp:351] Stored step  145
+I0305 04:16:49.497611 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:16:49.497675 15269 build_database.cpp:351] Stored step  146
+I0305 04:16:50.004976 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.200195
+W0305 04:16:50.005048 15269 build_database.cpp:351] Stored step  147
+I0305 04:16:50.510395 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.208695
+W0305 04:16:50.510462 15269 build_database.cpp:351] Stored step  148
+I0305 04:16:51.016669 15269 build_database.cpp:314] Label for previous step:  index 3 index_value: 1.5708 real steer: 5.96253
+W0305 04:16:51.016770 15269 build_database.cpp:351] Stored step  153
+I0305 04:16:51.522847 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.207289
+W0305 04:16:51.522928 15269 build_database.cpp:351] Stored step  154
+I0305 04:16:52.029206 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.082
+W0305 04:16:52.029279 15269 build_database.cpp:351] Stored step  155
+I0305 04:16:52.536103 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.116552
+W0305 04:16:52.536185 15269 build_database.cpp:351] Stored step  156
+I0305 04:16:53.358497 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.272925
+W0305 04:16:53.358562 15269 build_database.cpp:351] Stored step  161
+I0305 04:16:54.051617 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0739384
+W0305 04:16:54.051698 15269 build_database.cpp:351] Stored step  162
+I0305 04:16:54.556313 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0386662
+W0305 04:16:54.556377 15269 build_database.cpp:351] Stored step  163
+I0305 04:16:55.062091 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.00472927
+W0305 04:16:55.062153 15269 build_database.cpp:351] Stored step  164
+I0305 04:17:00.708386 15269 build_database.cpp:479] Updating target pose
+I0305 04:17:06.202132 15269 build_database.cpp:479] Updating target pose
+I0305 04:17:36.592257 15269 build_database.cpp:479] Updating target pose
+I0305 04:17:37.318495 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.291457
+W0305 04:17:37.318578 15269 build_database.cpp:351] Stored step  169
+I0305 04:17:37.603902 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.226004
+W0305 04:17:37.607751 15269 build_database.cpp:351] Stored step  170
+I0305 04:17:38.109902 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.481975
+W0305 04:17:38.110008 15269 build_database.cpp:351] Stored step  175
+I0305 04:17:38.613976 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.484635
+W0305 04:17:38.616314 15269 build_database.cpp:351] Stored step  180
+I0305 04:17:39.121326 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.47649
+W0305 04:17:39.121395 15269 build_database.cpp:351] Stored step  185
+I0305 04:17:39.633096 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.480656
+W0305 04:17:39.637578 15269 build_database.cpp:351] Stored step  190
+I0305 04:17:40.140107 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.217374
+W0305 04:17:40.140254 15269 build_database.cpp:351] Stored step  191
+I0305 04:17:40.643712 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.171359
+W0305 04:17:40.643779 15269 build_database.cpp:351] Stored step  192
+I0305 04:17:41.147377 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.124874
+W0305 04:17:41.147444 15269 build_database.cpp:351] Stored step  193
+I0305 04:17:44.369160 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.289222
+W0305 04:17:44.369233 15269 build_database.cpp:351] Stored step  198
+I0305 04:17:44.872689 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0415437
+W0305 04:17:44.872771 15269 build_database.cpp:351] Stored step  199
+I0305 04:17:45.377910 15269 build_database.cpp:479] Updating target pose
+I0305 04:17:45.378475 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.07585
+W0305 04:17:45.380759 15269 build_database.cpp:351] Stored step  200
+I0305 04:17:45.890610 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0745088
+W0305 04:17:45.890686 15269 build_database.cpp:351] Stored step  201
+I0305 04:17:55.052659 15269 build_database.cpp:479] Updating target pose
+I0305 04:17:56.066516 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.297489
+W0305 04:17:56.066597 15269 build_database.cpp:351] Stored step  206
+I0305 04:17:56.067891 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:17:56.067930 15269 build_database.cpp:351] Stored step  207
+I0305 04:17:56.563601 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.159178
+W0305 04:17:56.563669 15269 build_database.cpp:351] Stored step  208
+I0305 04:17:57.064604 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0497908
+W0305 04:17:57.064692 15269 build_database.cpp:351] Stored step  209
+I0305 04:17:57.900547 15269 build_database.cpp:479] Updating target pose
+I0305 04:17:58.814497 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.301207
+W0305 04:17:58.814574 15269 build_database.cpp:351] Stored step  214
+I0305 04:17:59.072541 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.253211
+W0305 04:17:59.072618 15269 build_database.cpp:351] Stored step  215
+I0305 04:17:59.576886 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.48635
+W0305 04:17:59.580840 15269 build_database.cpp:351] Stored step  220
+I0305 04:18:00.077888 15269 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.368782
+W0305 04:18:00.077960 15269 build_database.cpp:351] Stored step  225
+I0305 04:18:00.579615 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.172646
+W0305 04:18:00.579684 15269 build_database.cpp:351] Stored step  226
+I0305 04:18:01.081130 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0143013
+W0305 04:18:01.081212 15269 build_database.cpp:351] Stored step  227
+I0305 04:18:01.583829 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0268126
+W0305 04:18:01.583897 15269 build_database.cpp:351] Stored step  228
+I0305 04:18:04.191292 15269 build_database.cpp:314] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.263181
+W0305 04:18:04.191386 15269 build_database.cpp:351] Stored step  233
+I0305 04:18:04.191490 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 04:18:04.191522 15269 build_database.cpp:351] Stored step  234
+I0305 04:18:04.696041 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0465573
+W0305 04:18:04.696108 15269 build_database.cpp:351] Stored step  235
+I0305 04:18:05.199740 15269 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0603029
+W0305 04:18:05.199832 15269 build_database.cpp:351] Stored step  236
+W0305 04:18:18.334537 15269 build_database.cpp:390] COMMITTED: 220

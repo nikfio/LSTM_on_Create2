@@ -3,7 +3,7 @@
 <launch>
 
 	<node pkg="neural_network_planner" type="train_online_node" respawn="false" 
-     			name="train_validate2"  output="screen" >
+     			name="train_validate5"  output="screen" >
 
 		<rosparam file="$(find neural_network_planner)/config/train_online.yaml"
 				command="load" />

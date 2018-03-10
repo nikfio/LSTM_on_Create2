@@ -1,0 +1,7 @@
+Log file created at: 2018/03/03 09:38:36
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0303 09:38:36.158762  1834 build_database.cpp:544] A total of 13 steering angles have been set
+I0303 09:38:36.415030  1834 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-23-13-3-3-9-38_lmdb
+I0303 09:38:36.415215  1834 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-23-13-3-3-9-38_lmdb
+I0303 09:38:36.415275  1834 build_database.cpp:195] DATASET INITIALIZED: sequence length: 23

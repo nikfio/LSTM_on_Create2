@@ -29,6 +29,9 @@ using namespace geometry_msgs;
 
 using boost::lexical_cast;
 
+const int train_check = 1000000;
+const int validate_check = 10000000;
+
 namespace neural_network_planner {
 
 	TrainDatabase::TrainDatabase(string& process_name) : private_nh("~")
@@ -67,13 +70,11 @@ namespace neural_network_planner {
 
 		
 		// initializing the neural network - parsing the solver config file
-		FLAGS_minloglevel = 0;
+		FLAGS_minloglevel = 1;
 		LOG(WARNING) << "Parsing solver config " << solver_conf;
 		caffe::SolverParameter solver_param;
 		caffe::ReadProtoFromTextFileOrDie(solver_conf, &solver_param);
 		solver.reset(caffe::SolverRegistry<float>::CreateSolver(solver_param));	
-
-		FLAGS_minloglevel = 0;
 
 		net = solver->net();
 
@@ -113,9 +114,10 @@ namespace neural_network_planner {
 		test_blobLabel = test_net->blob_by_name("label");
 		test_blobLoss = test_net->blob_by_name("loss");
 		test_blobOut  = test_net->blob_by_name("out");
-		test_blobAccu = net->blob_by_name("accuracy");
+		test_blobAccu = test_net->blob_by_name("accuracy");
 		test_blobArgmax  = test_net->blob_by_name("argmax");	
-		test_blobSoftmax  = test_net->blob_by_name("softmax");		
+		test_blobSoftmax  = test_net->blob_by_name("softmax");	
+		test_lstm1 =  test_net->blob_by_name("fc1");	
 
 		train_batch_size = blobData->shape(0);
 		validate_batch_size = test_blobData->shape(0);
@@ -184,6 +186,7 @@ namespace neural_network_planner {
 				    " base_learning_rate = %.5f \n"
 				    " weight_decay = %f \n "
 				    " input_size = %d \n "
+				    " output_size = %ld \n "
 				    " steer_feedback = %d \n "
 				    " loss_data = [ \n ",
 				     net->name().c_str(), local->tm_mon+1, 
@@ -192,6 +195,7 @@ namespace neural_network_planner {
 				     solver->param().base_lr(),
 				     solver->param().weight_decay(),
 					state_sequence_size,
+					multiclass ? steer_angles.size() : 1,
 					steer_feedback );
 	
 		if(print_check <= 0) {
@@ -209,11 +213,15 @@ namespace neural_network_planner {
 		// populate training clip blob 
 		for(int i = 0; i < train_batch_size; i++) {
 
-			if( i % state_sequence_size == 0 ) {
-				blobClip->mutable_cpu_data()[i] = 0;
+			if( i == 0 ) {
+				for(int j = 0; j < state_sequence_size; j++) {
+					blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 0;
+				}
 			}
 			else {
-				blobClip->mutable_cpu_data()[i] = 1;
+				for(int j = 0; j < state_sequence_size; j++) {
+					blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 1;
+				}
 			}
 		
 		}
@@ -221,16 +229,20 @@ namespace neural_network_planner {
 		// populate validating clip blob 
 		for(int i = 0; i < validate_batch_size; i++) {
 
-			if( i % state_sequence_size == 0 ) {
-				test_blobClip->mutable_cpu_data()[i] = 0;
+			if( i == 0 ) {
+				for(int j = 0; j < state_sequence_size; j++) {
+					test_blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 0;
+				}
 			}
 			else {
-				test_blobClip->mutable_cpu_data()[i] = 1;
+				for(int j = 0; j < state_sequence_size; j++) {
+					test_blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 1;
+				}
 			}
 
 		}
 	
-		FLAGS_minloglevel = 0;
+		FLAGS_minloglevel = 1;
 			
 		LOG(INFO) << "TRAIN DATABASE PROCESS INITIALIZED";
 
@@ -251,13 +263,16 @@ namespace neural_network_planner {
 			Train_loss = 0.0f;	
 			Train_accu = 0.0f;	
 		
-			for(int k = 1; k < train_batch_num; k++) { // training batch 
+			for(int k = 1; k <= train_batch_num; k++) { // training batch 
 
 				solver->Step(batch_updates);
 
-				Train_loss += blobLoss->mutable_cpu_data()[0];
+				Train_loss += blobLoss->cpu_data()[0];
 				if( multiclass )
-					Train_accu = blobAccu->mutable_cpu_data()[0];
+					Train_accu += blobAccu->cpu_data()[0];
+
+
+				if( epoch % train_check == 0 ) {
 
 				char answer;
 				cout << "TRAINING: Want to check batch output? (y/n)" << endl;
@@ -268,7 +283,7 @@ namespace neural_network_planner {
 
 					printf("Batch %d  sample %d  State input sequence: ", k, i );
 					for(int j = 0; j < state_sequence_size; j++) {
-						printf(" %.4f  ",  blobData->mutable_cpu_data()[i * state_sequence_size + j]);
+						printf(" %.4f  ",  blobData->cpu_data()[i * state_sequence_size + j]);
 					}
 
 					cout << endl;
@@ -277,25 +292,30 @@ namespace neural_network_planner {
 					for(int l=0; l < blobOut->channels(); l++) { 
 		
 						if(multiclass) {
-							printf(" %.4f   ", blobSoftmax->mutable_cpu_data()[i * blobOut->channels() + l]);
+							printf(" %.4f   ", blobSoftmax->cpu_data()[i * blobOut->channels() + l]);
 						}	
 						else 
-							printf(" %.4f   ", blobOut->mutable_cpu_data()[i * blobOut->channels() + l]);
+							printf(" %.4f   ", blobOut->cpu_data()[i * blobOut->channels() + l]);
 					}
 			
 					cout << endl;
-					if( multiclass )
-						printf("ARGMAX: %.3f \n", blobArgmax->cpu_data()[0]);
+					
 
 					printf("Batch %d  sample %d  LABELS OUTS: ", k, i); 
 					for(int l=0; l < blobLabel->channels(); l++) {  
 		
-						printf(" %.4f  ", blobLabel->mutable_cpu_data()[i * blobLabel->channels() + l]);
+						printf(" %.4f  ", blobLabel->cpu_data()[i * blobLabel->channels() + l]);
 			
 					}
 					cout << endl;
 
-					printf("Batch %d  sample %d  Loss: %.5f \n", k, i, blobLoss->mutable_cpu_data()[0] );
+					if( multiclass ) {
+						printf("ARGMAX: %.3f \n", blobArgmax->cpu_data()[i]);
+						printf("ACCURACY: %.4f   %.4f \n", blobAccu->cpu_data()[i], Train_accu);
+						
+					}
+
+					printf("Batch %d  sample %d  Loss: %.5f \n", k, i, blobLoss->cpu_data()[0] );
 		
 					cout << "Wanna pass forward? (y/n)" << endl;
 					cin >> answer;
@@ -305,6 +325,7 @@ namespace neural_network_planner {
 
 				}
 					
+				}
 
 				}
 
@@ -339,15 +360,17 @@ namespace neural_network_planner {
 				Test_accu = 0.0f;	
 
 				UpdateTestNet();
-			
+				
 				for(int k=1; k <= validate_batch_num; k++) { // validation batch 
 
 					test_net->Forward();	
 		
-					Test_loss += test_blobLoss->mutable_cpu_data()[0]; 
+					Test_loss += test_blobLoss->cpu_data()[0]; 
 					if( multiclass )
-						Test_accu = test_blobAccu->mutable_cpu_data()[0];
+						Test_accu += test_blobAccu->cpu_data()[0];
 					
+					if( validation_test % validate_check == 0 ) {
+
 					char answer;
 					cout << "VALIDATING: Want to check batch output? (y/n)" << endl;
 					cin >> answer;
@@ -355,9 +378,10 @@ namespace neural_network_planner {
 
 						for(int i = 0; i < validate_batch_size; i++) {  
 
+
 						printf("Batch %d  sample %d  State input sequence: ", k, i );
 						for(int j = 0; j < state_sequence_size; j++) {
-							printf(" %.4f  ",  test_blobData->mutable_cpu_data()[i * state_sequence_size + j]);
+							printf(" %.4f  ",  test_blobData->cpu_data()[i * state_sequence_size + j]);
 						}
 						getchar();
 						cout << endl;
@@ -366,26 +390,27 @@ namespace neural_network_planner {
 						for(int l=0; l < blobOut->channels(); l++) { 
 		
 							if(multiclass) {
-								printf(" %.4f   ", test_blobSoftmax->mutable_cpu_data()[i * blobOut->channels() + l]);
+								printf(" %.4f   ", test_blobSoftmax->cpu_data()[i * blobOut->channels() + l]);
 							}	
 							else 
-								printf(" %.4f   ", test_blobOut->mutable_cpu_data()[i * blobOut->channels() + l]);
+								printf(" %.4f   ", test_blobOut->cpu_data()[i * blobOut->channels() + l]);
 			
 						}
 						cout << endl;
+
+						printf("Batch %d  sample %d  LABEL OUT: ", k, i); 
+						printf(" %.4f  ", test_blobLabel->cpu_data()[i]);
+			
 						
-						if( multiclass )
-							printf("ARGMAX: %.3f \n", test_blobArgmax->mutable_cpu_data()[0]);
-
-						printf("Batch %d  sample %d  LABELS OUTS: ", k, i); 
-						for(int l=0; l < blobLabel->channels(); l++) {  
-		
-							printf(" %.4f  ", test_blobLabel->mutable_cpu_data()[i * test_blobLabel->channels() + l]);
-			
-						}
 						cout << endl;
+	
+						if( multiclass ) {
+							printf("ARGMAX: %.3f \n", test_blobArgmax->cpu_data()[i]);
+							printf("ACCURACY: %.4f   %.4f \n", test_blobAccu->cpu_data()[i], Test_accu);
+							
+						}
 
-						printf("Batch %d  sample %d   Test Loss: %.5f \n", k, i, test_blobLoss->mutable_cpu_data()[0] );
+						printf("Batch %d  sample %d   Test Loss: %.5f \n", k, i, test_blobLoss->cpu_data()[0] );
 		
 						cout << "Wanna pass forward? (y/n)" << endl;
 						cin >> answer;
@@ -395,25 +420,32 @@ namespace neural_network_planner {
 
 				     }
 					
+					}
 
 					}
 											
 				}  // end validation batch
 
-			 } // end validation test 
+				
+				Test_loss /= validate_batch_num;
 
-
-      		 LOG(WARNING) << "TEST ITERATION : " << validation_test 
+				Test_accu /= validate_batch_num;
+		
+				LOG(WARNING) << "VALIDATION TEST: " << validation_test 
 				        << "  AVERAGE LOSS: "  << Test_loss
 					   << "  AVERAGE ACCURACY: "  << Test_accu;	
 
-				plot = fopen(matlab_plot.c_str(), "a");
-				if( plot == NULL ) {
-					cout << "Plot file opening failed.\n";
-					exit(1);
-				}
-				fprintf(plot, "    %.4f   %.4f ; \n", Test_loss, Test_accu); 
-				fclose(plot);		
+		
+
+			 } // end validation test 
+
+			 plot = fopen(matlab_plot.c_str(), "a");
+			 if( plot == NULL ) {
+			 	cout << "Plot file opening failed.\n";
+				exit(1);
+			 }
+			 fprintf(plot, "    %.4f   %.4f ; \n", Test_loss, Test_accu); 
+			 fclose(plot);		
 				
 		} // training process	
 		
@@ -429,7 +461,7 @@ namespace neural_network_planner {
 	{
 		caffe::NetParameter net_param;
 		net->ToProto(&net_param);
-		net_param.mutable_state()->set_phase(caffe::TEST);
+		net_param.mutable_state()->set_phase(caffe::TRAIN);
 		test_net->CopyTrainedLayersFrom(net_param);	
 	};
 

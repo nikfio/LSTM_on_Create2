@@ -1,0 +1,27 @@
+Log file created at: 2018/03/05 00:51:49
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0305 00:51:49.608489 30467 build_database.cpp:349] Stored step  5
+W0305 00:51:50.127897 30467 build_database.cpp:349] Stored step  10
+W0305 00:51:50.634016 30467 build_database.cpp:349] Stored step  15
+W0305 00:51:51.134483 30467 build_database.cpp:349] Stored step  16
+W0305 00:51:51.636595 30467 build_database.cpp:349] Stored step  17
+W0305 00:51:52.139756 30467 build_database.cpp:349] Stored step  18
+W0305 00:52:23.366582 30467 build_database.cpp:349] Stored step  23
+W0305 00:52:23.366631 30467 build_database.cpp:349] Stored step  24
+W0305 00:52:23.666010 30467 build_database.cpp:349] Stored step  29
+W0305 00:52:24.174952 30467 build_database.cpp:349] Stored step  34
+W0305 00:52:24.673266 30467 build_database.cpp:349] Stored step  39
+W0305 00:52:25.177018 30467 build_database.cpp:349] Stored step  44
+W0305 00:52:25.679064 30467 build_database.cpp:349] Stored step  49
+W0305 00:52:26.186555 30467 build_database.cpp:349] Stored step  54
+W0305 00:52:26.697705 30467 build_database.cpp:349] Stored step  59
+W0305 00:52:27.212626 30467 build_database.cpp:349] Stored step  64
+W0305 00:52:27.723670 30467 build_database.cpp:349] Stored step  69
+W0305 00:52:28.236624 30467 build_database.cpp:349] Stored step  74
+W0305 00:52:28.743391 30467 build_database.cpp:349] Stored step  79
+W0305 00:52:29.243029 30467 build_database.cpp:349] Stored step  84
+W0305 00:52:29.743930 30467 build_database.cpp:349] Stored step  85
+W0305 00:52:30.250053 30467 build_database.cpp:349] Stored step  86
+W0305 00:52:30.751798 30467 build_database.cpp:349] Stored step  87
+W0305 00:53:57.050586 30467 build_database.cpp:388] COMMITTED: 10

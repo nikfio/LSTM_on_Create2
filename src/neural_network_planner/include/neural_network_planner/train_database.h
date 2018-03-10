@@ -60,6 +60,7 @@ namespace neural_network_planner {
      boost::shared_ptr<caffe::Blob<float> > test_blobAccu;
 	boost::shared_ptr<caffe::Blob<float> > test_blobArgmax;
 	boost::shared_ptr<caffe::Blob<float> > test_blobSoftmax;
+	boost::shared_ptr<caffe::Blob<float> > test_lstm1;
 
 	std::string solver_conf, trained, folder_path, logs_path;
 

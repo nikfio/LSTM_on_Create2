@@ -1,0 +1,4 @@
+Log file created at: 2018/03/05 00:50:41
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0305 00:50:41.715625 30207 build_database.cpp:388] COMMITTED: 0

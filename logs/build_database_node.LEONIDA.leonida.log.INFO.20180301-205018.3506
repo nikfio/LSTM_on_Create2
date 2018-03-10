@@ -1,0 +1,275 @@
+Log file created at: 2018/03/01 20:50:18
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 20:50:18.847772  3506 build_database.cpp:634] A total of 7 steering angles have been set
+I0301 20:50:19.076567  3506 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-15-7-3-1-20-50_lmdb
+I0301 20:50:19.076695  3506 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-15-7-3-1-20-50_lmdb
+I0301 20:50:19.076741  3506 build_database.cpp:191] DATASET INITIALIZED: sequence length: 15
+I0301 20:50:24.692873  3506 build_database.cpp:552] Updating target pose
+I0301 20:50:24.693768  3506 build_database.cpp:242] 0
+I0301 20:50:24.693797  3506 build_database.cpp:257] 15
+W0301 20:50:24.693888  3506 build_database.cpp:321] Stored step  0 label odd 2
+W0301 20:50:25.198626  3506 build_database.cpp:426] Stored step  1 label even 5
+I0301 20:50:25.701740  3506 build_database.cpp:242] 0
+I0301 20:50:25.701757  3506 build_database.cpp:257] 15
+W0301 20:50:25.701810  3506 build_database.cpp:321] Stored step  2 label odd 5
+W0301 20:50:26.206696  3506 build_database.cpp:426] Stored step  3 label even 5
+I0301 20:50:26.710824  3506 build_database.cpp:242] 0
+I0301 20:50:26.710844  3506 build_database.cpp:257] 15
+W0301 20:50:26.710908  3506 build_database.cpp:321] Stored step  4 label odd 5
+W0301 20:50:27.212905  3506 build_database.cpp:426] Stored step  5 label even 5
+I0301 20:50:27.719944  3506 build_database.cpp:242] 0
+I0301 20:50:27.719964  3506 build_database.cpp:257] 15
+W0301 20:50:27.720023  3506 build_database.cpp:321] Stored step  6 label odd 5
+W0301 20:50:28.225431  3506 build_database.cpp:426] Stored step  7 label even 5
+I0301 20:50:28.729027  3506 build_database.cpp:242] 0
+I0301 20:50:28.729043  3506 build_database.cpp:257] 15
+W0301 20:50:28.729099  3506 build_database.cpp:321] Stored step  8 label odd 3
+W0301 20:50:29.233755  3506 build_database.cpp:426] Stored step  9 label even 4
+I0301 20:50:29.233775  3506 build_database.cpp:430] COMMIT 10
+I0301 20:50:29.737450  3506 build_database.cpp:242] 0
+I0301 20:50:29.737468  3506 build_database.cpp:257] 15
+W0301 20:50:29.737532  3506 build_database.cpp:321] Stored step  10 label odd 0
+W0301 20:50:30.240536  3506 build_database.cpp:426] Stored step  11 label even 0
+I0301 20:50:30.745278  3506 build_database.cpp:242] 0
+I0301 20:50:30.745295  3506 build_database.cpp:257] 15
+W0301 20:50:30.745359  3506 build_database.cpp:321] Stored step  12 label odd 0
+W0301 20:50:31.248953  3506 build_database.cpp:426] Stored step  13 label even 0
+I0301 20:50:31.752204  3506 build_database.cpp:242] 0
+I0301 20:50:31.752239  3506 build_database.cpp:257] 15
+W0301 20:50:31.752290  3506 build_database.cpp:321] Stored step  14 label odd 0
+W0301 20:50:32.256034  3506 build_database.cpp:426] Stored step  15 label even 0
+I0301 20:50:32.761819  3506 build_database.cpp:242] 0
+I0301 20:50:32.761854  3506 build_database.cpp:257] 15
+W0301 20:50:32.761982  3506 build_database.cpp:321] Stored step  16 label odd 0
+W0301 20:50:33.268709  3506 build_database.cpp:426] Stored step  17 label even 0
+I0301 20:50:33.774436  3506 build_database.cpp:242] 0
+I0301 20:50:33.774456  3506 build_database.cpp:257] 15
+W0301 20:50:33.774529  3506 build_database.cpp:321] Stored step  18 label odd 0
+W0301 20:50:34.278512  3506 build_database.cpp:426] Stored step  19 label even 0
+I0301 20:50:34.278537  3506 build_database.cpp:430] COMMIT 20
+I0301 20:50:34.784416  3506 build_database.cpp:242] 0
+I0301 20:50:34.784432  3506 build_database.cpp:257] 15
+W0301 20:50:34.784482  3506 build_database.cpp:321] Stored step  20 label odd 0
+W0301 20:50:35.289607  3506 build_database.cpp:426] Stored step  21 label even 0
+I0301 20:50:35.794378  3506 build_database.cpp:242] 0
+I0301 20:50:35.794397  3506 build_database.cpp:257] 15
+W0301 20:50:35.794452  3506 build_database.cpp:321] Stored step  22 label odd 0
+W0301 20:50:36.299280  3506 build_database.cpp:426] Stored step  23 label even 0
+I0301 20:50:36.804898  3506 build_database.cpp:242] 0
+I0301 20:50:36.804920  3506 build_database.cpp:257] 15
+W0301 20:50:36.804983  3506 build_database.cpp:321] Stored step  24 label odd 0
+I0301 20:50:42.377877  3506 build_database.cpp:552] Updating target pose
+W0301 20:50:42.378063  3506 build_database.cpp:426] Stored step  25 label even 0
+I0301 20:50:42.883255  3506 build_database.cpp:242] 0
+I0301 20:50:42.883289  3506 build_database.cpp:257] 15
+W0301 20:50:42.883347  3506 build_database.cpp:321] Stored step  26 label odd 6
+W0301 20:50:43.391852  3506 build_database.cpp:426] Stored step  27 label even 2
+I0301 20:50:43.900868  3506 build_database.cpp:242] 0
+I0301 20:50:43.900909  3506 build_database.cpp:257] 15
+W0301 20:50:43.900974  3506 build_database.cpp:321] Stored step  28 label odd 3
+W0301 20:50:44.407243  3506 build_database.cpp:426] Stored step  29 label even 3
+I0301 20:50:44.407263  3506 build_database.cpp:430] COMMIT 30
+I0301 20:50:44.913702  3506 build_database.cpp:242] 0
+I0301 20:50:44.913720  3506 build_database.cpp:257] 15
+W0301 20:50:44.913794  3506 build_database.cpp:321] Stored step  30 label odd 2
+W0301 20:50:45.422092  3506 build_database.cpp:426] Stored step  31 label even 2
+I0301 20:50:45.927240  3506 build_database.cpp:242] 0
+I0301 20:50:45.927256  3506 build_database.cpp:257] 15
+W0301 20:50:45.927307  3506 build_database.cpp:321] Stored step  32 label odd 1
+W0301 20:50:46.434409  3506 build_database.cpp:426] Stored step  33 label even 1
+I0301 20:50:46.940866  3506 build_database.cpp:242] 0
+I0301 20:50:46.940883  3506 build_database.cpp:257] 15
+W0301 20:50:46.940951  3506 build_database.cpp:321] Stored step  34 label odd 1
+W0301 20:50:47.445744  3506 build_database.cpp:426] Stored step  35 label even 1
+I0301 20:50:47.952013  3506 build_database.cpp:242] 0
+I0301 20:50:47.952033  3506 build_database.cpp:257] 15
+W0301 20:50:47.952086  3506 build_database.cpp:321] Stored step  36 label odd 1
+W0301 20:50:48.457636  3506 build_database.cpp:426] Stored step  37 label even 1
+I0301 20:50:48.964339  3506 build_database.cpp:242] 0
+I0301 20:50:48.964470  3506 build_database.cpp:257] 15
+W0301 20:50:48.964545  3506 build_database.cpp:321] Stored step  38 label odd 2
+W0301 20:50:49.471390  3506 build_database.cpp:426] Stored step  39 label even 2
+I0301 20:50:49.471410  3506 build_database.cpp:430] COMMIT 40
+I0301 20:50:49.974807  3506 build_database.cpp:242] 0
+I0301 20:50:49.974843  3506 build_database.cpp:257] 15
+W0301 20:50:49.974915  3506 build_database.cpp:321] Stored step  40 label odd 6
+W0301 20:50:50.477087  3506 build_database.cpp:426] Stored step  41 label even 2
+I0301 20:50:50.987102  3506 build_database.cpp:242] 0
+I0301 20:50:50.987123  3506 build_database.cpp:257] 15
+W0301 20:50:50.987170  3506 build_database.cpp:321] Stored step  42 label odd 2
+W0301 20:50:51.494123  3506 build_database.cpp:426] Stored step  43 label even 2
+I0301 20:50:51.996315  3506 build_database.cpp:242] 0
+I0301 20:50:51.996333  3506 build_database.cpp:257] 15
+W0301 20:50:51.996412  3506 build_database.cpp:321] Stored step  44 label odd 2
+W0301 20:50:52.497287  3506 build_database.cpp:426] Stored step  45 label even 1
+I0301 20:50:52.997838  3506 build_database.cpp:242] 0
+I0301 20:50:52.997854  3506 build_database.cpp:257] 15
+W0301 20:50:52.997903  3506 build_database.cpp:321] Stored step  46 label odd 1
+W0301 20:50:53.500120  3506 build_database.cpp:426] Stored step  47 label even 1
+I0301 20:50:54.003569  3506 build_database.cpp:242] 0
+I0301 20:50:54.003589  3506 build_database.cpp:257] 15
+W0301 20:50:54.003679  3506 build_database.cpp:321] Stored step  48 label odd 0
+W0301 20:50:54.505779  3506 build_database.cpp:426] Stored step  49 label even 0
+I0301 20:50:54.505879  3506 build_database.cpp:430] COMMIT 50
+I0301 20:50:55.006893  3506 build_database.cpp:242] 0
+I0301 20:50:55.006911  3506 build_database.cpp:257] 15
+W0301 20:50:55.006960  3506 build_database.cpp:321] Stored step  50 label odd 0
+W0301 20:50:55.510303  3506 build_database.cpp:426] Stored step  51 label even 0
+I0301 20:50:56.019009  3506 build_database.cpp:242] 0
+I0301 20:50:56.019028  3506 build_database.cpp:257] 15
+W0301 20:50:56.019084  3506 build_database.cpp:321] Stored step  52 label odd 0
+W0301 20:50:56.520377  3506 build_database.cpp:426] Stored step  53 label even 0
+I0301 20:50:57.021198  3506 build_database.cpp:242] 0
+I0301 20:50:57.021215  3506 build_database.cpp:257] 15
+W0301 20:50:57.021283  3506 build_database.cpp:321] Stored step  54 label odd 0
+W0301 20:50:57.521891  3506 build_database.cpp:426] Stored step  55 label even 0
+I0301 20:50:58.022253  3506 build_database.cpp:242] 0
+I0301 20:50:58.022274  3506 build_database.cpp:257] 15
+W0301 20:50:58.022321  3506 build_database.cpp:321] Stored step  56 label odd 0
+W0301 20:50:58.523864  3506 build_database.cpp:426] Stored step  57 label even 0
+I0301 20:50:59.026326  3506 build_database.cpp:242] 0
+I0301 20:50:59.026345  3506 build_database.cpp:257] 15
+W0301 20:50:59.026423  3506 build_database.cpp:321] Stored step  58 label odd 0
+I0301 20:51:08.051008  3506 build_database.cpp:552] Updating target pose
+W0301 20:51:08.051648  3506 build_database.cpp:426] Stored step  59 label even 0
+I0301 20:51:08.051693  3506 build_database.cpp:430] COMMIT 60
+I0301 20:51:08.558082  3506 build_database.cpp:242] 0
+I0301 20:51:08.558099  3506 build_database.cpp:257] 15
+W0301 20:51:08.558162  3506 build_database.cpp:321] Stored step  60 label odd 4
+W0301 20:51:09.063567  3506 build_database.cpp:426] Stored step  61 label even 4
+I0301 20:51:09.574422  3506 build_database.cpp:242] 0
+I0301 20:51:09.574440  3506 build_database.cpp:257] 15
+W0301 20:51:09.574534  3506 build_database.cpp:321] Stored step  62 label odd 0
+W0301 20:51:10.076476  3506 build_database.cpp:426] Stored step  63 label even 0
+I0301 20:51:10.577966  3506 build_database.cpp:242] 0
+I0301 20:51:10.577985  3506 build_database.cpp:257] 15
+W0301 20:51:10.578044  3506 build_database.cpp:321] Stored step  64 label odd 0
+I0301 20:51:11.078786  3506 build_database.cpp:552] Updating target pose
+W0301 20:51:11.079226  3506 build_database.cpp:426] Stored step  65 label even 0
+I0301 20:51:11.580588  3506 build_database.cpp:242] 0
+I0301 20:51:11.580636  3506 build_database.cpp:257] 15
+W0301 20:51:11.580703  3506 build_database.cpp:321] Stored step  66 label odd 0
+W0301 20:51:12.081429  3506 build_database.cpp:426] Stored step  67 label even 1
+I0301 20:51:12.589182  3506 build_database.cpp:242] 0
+I0301 20:51:12.589200  3506 build_database.cpp:257] 15
+W0301 20:51:12.589251  3506 build_database.cpp:321] Stored step  68 label odd 2
+W0301 20:51:13.095088  3506 build_database.cpp:426] Stored step  69 label even 2
+I0301 20:51:13.095171  3506 build_database.cpp:430] COMMIT 70
+I0301 20:51:13.598862  3506 build_database.cpp:242] 0
+I0301 20:51:13.598878  3506 build_database.cpp:257] 15
+W0301 20:51:13.598942  3506 build_database.cpp:321] Stored step  70 label odd 2
+W0301 20:51:14.101256  3506 build_database.cpp:426] Stored step  71 label even 2
+I0301 20:51:14.604514  3506 build_database.cpp:242] 0
+I0301 20:51:14.604531  3506 build_database.cpp:257] 15
+W0301 20:51:14.604583  3506 build_database.cpp:321] Stored step  72 label odd 1
+W0301 20:51:15.108101  3506 build_database.cpp:426] Stored step  73 label even 0
+I0301 20:51:15.610610  3506 build_database.cpp:242] 0
+I0301 20:51:15.610625  3506 build_database.cpp:257] 15
+W0301 20:51:15.610680  3506 build_database.cpp:321] Stored step  74 label odd 0
+W0301 20:51:16.114678  3506 build_database.cpp:426] Stored step  75 label even 0
+I0301 20:51:16.618154  3506 build_database.cpp:242] 0
+I0301 20:51:16.618170  3506 build_database.cpp:257] 15
+W0301 20:51:16.618255  3506 build_database.cpp:321] Stored step  76 label odd 0
+W0301 20:51:17.121876  3506 build_database.cpp:426] Stored step  77 label even 0
+I0301 20:51:17.626746  3506 build_database.cpp:242] 0
+I0301 20:51:17.626768  3506 build_database.cpp:257] 15
+W0301 20:51:17.626827  3506 build_database.cpp:321] Stored step  78 label odd 0
+W0301 20:51:18.129307  3506 build_database.cpp:426] Stored step  79 label even 0
+I0301 20:51:18.129351  3506 build_database.cpp:430] COMMIT 80
+I0301 20:51:18.634826  3506 build_database.cpp:552] Updating target pose
+I0301 20:51:18.634933  3506 build_database.cpp:242] 0
+I0301 20:51:18.634940  3506 build_database.cpp:257] 15
+W0301 20:51:18.634989  3506 build_database.cpp:321] Stored step  80 label odd 0
+W0301 20:51:19.138075  3506 build_database.cpp:426] Stored step  81 label even 0
+I0301 20:51:19.642081  3506 build_database.cpp:242] 0
+I0301 20:51:19.642099  3506 build_database.cpp:257] 15
+W0301 20:51:19.642148  3506 build_database.cpp:321] Stored step  82 label odd 1
+W0301 20:51:20.146733  3506 build_database.cpp:426] Stored step  83 label even 2
+I0301 20:51:20.655098  3506 build_database.cpp:242] 0
+I0301 20:51:20.655113  3506 build_database.cpp:257] 15
+W0301 20:51:20.655210  3506 build_database.cpp:321] Stored step  84 label odd 2
+W0301 20:51:21.171743  3506 build_database.cpp:426] Stored step  85 label even 2
+I0301 20:51:21.679415  3506 build_database.cpp:242] 0
+I0301 20:51:21.679432  3506 build_database.cpp:257] 15
+W0301 20:51:21.679512  3506 build_database.cpp:321] Stored step  86 label odd 6
+W0301 20:51:22.179618  3506 build_database.cpp:426] Stored step  87 label even 2
+I0301 20:51:22.681318  3506 build_database.cpp:242] 0
+I0301 20:51:22.681350  3506 build_database.cpp:257] 15
+W0301 20:51:22.681430  3506 build_database.cpp:321] Stored step  88 label odd 1
+W0301 20:51:23.181068  3506 build_database.cpp:426] Stored step  89 label even 1
+I0301 20:51:23.181145  3506 build_database.cpp:430] COMMIT 90
+I0301 20:51:23.682049  3506 build_database.cpp:242] 0
+I0301 20:51:23.682066  3506 build_database.cpp:257] 15
+W0301 20:51:23.682116  3506 build_database.cpp:321] Stored step  90 label odd 1
+W0301 20:51:24.182443  3506 build_database.cpp:426] Stored step  91 label even 0
+I0301 20:51:24.683154  3506 build_database.cpp:242] 0
+I0301 20:51:24.683171  3506 build_database.cpp:257] 15
+W0301 20:51:24.683223  3506 build_database.cpp:321] Stored step  92 label odd 0
+W0301 20:51:25.184121  3506 build_database.cpp:426] Stored step  93 label even 0
+I0301 20:51:25.684155  3506 build_database.cpp:242] 0
+I0301 20:51:25.684173  3506 build_database.cpp:257] 15
+W0301 20:51:25.684237  3506 build_database.cpp:321] Stored step  94 label odd 0
+W0301 20:51:26.185569  3506 build_database.cpp:426] Stored step  95 label even 0
+I0301 20:51:26.685842  3506 build_database.cpp:242] 0
+I0301 20:51:26.685858  3506 build_database.cpp:257] 15
+W0301 20:51:26.685910  3506 build_database.cpp:321] Stored step  96 label odd 0
+I0301 20:51:27.186493  3506 build_database.cpp:552] Updating target pose
+W0301 20:51:27.187094  3506 build_database.cpp:426] Stored step  97 label even 0
+I0301 20:51:27.688354  3506 build_database.cpp:242] 0
+I0301 20:51:27.688370  3506 build_database.cpp:257] 15
+W0301 20:51:27.688426  3506 build_database.cpp:321] Stored step  98 label odd 0
+W0301 20:51:28.189169  3506 build_database.cpp:426] Stored step  99 label even 4
+I0301 20:51:28.193240  3506 build_database.cpp:430] COMMIT 100
+I0301 20:51:28.690289  3506 build_database.cpp:242] 0
+I0301 20:51:28.690309  3506 build_database.cpp:257] 15
+W0301 20:51:28.690405  3506 build_database.cpp:321] Stored step  100 label odd 4
+W0301 20:51:29.191764  3506 build_database.cpp:426] Stored step  101 label even 4
+I0301 20:51:29.691776  3506 build_database.cpp:242] 0
+I0301 20:51:29.691792  3506 build_database.cpp:257] 15
+W0301 20:51:29.691844  3506 build_database.cpp:321] Stored step  102 label odd 0
+I0301 20:51:30.196899  3506 build_database.cpp:552] Updating target pose
+W0301 20:51:30.197343  3506 build_database.cpp:426] Stored step  103 label even 0
+I0301 20:51:30.698426  3506 build_database.cpp:242] 0
+I0301 20:51:30.698446  3506 build_database.cpp:257] 15
+W0301 20:51:30.698501  3506 build_database.cpp:321] Stored step  104 label odd 0
+W0301 20:51:31.206573  3506 build_database.cpp:426] Stored step  105 label even 2
+I0301 20:51:31.713209  3506 build_database.cpp:242] 0
+I0301 20:51:31.713225  3506 build_database.cpp:257] 15
+W0301 20:51:31.713290  3506 build_database.cpp:321] Stored step  106 label odd 2
+W0301 20:51:32.216560  3506 build_database.cpp:426] Stored step  107 label even 2
+I0301 20:51:32.719136  3506 build_database.cpp:242] 0
+I0301 20:51:32.719153  3506 build_database.cpp:257] 15
+W0301 20:51:32.719226  3506 build_database.cpp:321] Stored step  108 label odd 1
+W0301 20:51:33.221891  3506 build_database.cpp:426] Stored step  109 label even 1
+I0301 20:51:33.221973  3506 build_database.cpp:430] COMMIT 110
+I0301 20:51:33.725019  3506 build_database.cpp:242] 0
+I0301 20:51:33.725035  3506 build_database.cpp:257] 15
+W0301 20:51:33.725083  3506 build_database.cpp:321] Stored step  110 label odd 0
+W0301 20:51:34.226738  3506 build_database.cpp:426] Stored step  111 label even 0
+I0301 20:51:34.729065  3506 build_database.cpp:242] 0
+I0301 20:51:34.729099  3506 build_database.cpp:257] 15
+W0301 20:51:34.729161  3506 build_database.cpp:321] Stored step  112 label odd 0
+W0301 20:51:35.232874  3506 build_database.cpp:426] Stored step  113 label even 0
+I0301 20:51:35.740437  3506 build_database.cpp:242] 0
+I0301 20:51:35.740451  3506 build_database.cpp:257] 15
+W0301 20:51:35.740530  3506 build_database.cpp:321] Stored step  114 label odd 0
+W0301 20:51:36.246078  3506 build_database.cpp:426] Stored step  115 label even 0
+I0301 20:51:36.750524  3506 build_database.cpp:242] 0
+I0301 20:51:36.750541  3506 build_database.cpp:257] 15
+W0301 20:51:36.751170  3506 build_database.cpp:321] Stored step  116 label odd 0
+W0301 20:51:37.254066  3506 build_database.cpp:426] Stored step  117 label even 0
+I0301 20:51:37.756084  3506 build_database.cpp:242] 0
+I0301 20:51:37.756103  3506 build_database.cpp:257] 15
+W0301 20:51:37.756196  3506 build_database.cpp:321] Stored step  118 label odd 0
+W0301 20:51:38.259220  3506 build_database.cpp:426] Stored step  119 label even 0
+I0301 20:51:38.259279  3506 build_database.cpp:430] COMMIT 120
+I0301 20:51:38.762755  3506 build_database.cpp:242] 0
+I0301 20:51:38.762771  3506 build_database.cpp:257] 15
+W0301 20:51:38.762825  3506 build_database.cpp:321] Stored step  120 label odd 0
+W0301 20:51:39.268368  3506 build_database.cpp:426] Stored step  121 label even 0
+I0301 20:51:39.771417  3506 build_database.cpp:242] 0
+I0301 20:51:39.771452  3506 build_database.cpp:257] 15
+W0301 20:51:39.771533  3506 build_database.cpp:321] Stored step  122 label odd 0
+W0301 20:51:40.278296  3506 build_database.cpp:426] Stored step  123 label even 0
+I0301 20:51:43.535629  3506 build_database.cpp:468] Closing DATABASES 

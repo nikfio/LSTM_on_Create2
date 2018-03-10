@@ -1,0 +1,40 @@
+Log file created at: 2018/03/02 15:40:04
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0302 15:40:04.516829 21122 build_database.cpp:298] Stored step  0 label 12
+W0302 15:40:05.183727 21122 build_database.cpp:298] Stored step  1 label 0
+W0302 15:40:05.516914 21122 build_database.cpp:298] Stored step  2 label 0
+W0302 15:40:05.850445 21122 build_database.cpp:298] Stored step  3 label 0
+W0302 15:40:06.183640 21122 build_database.cpp:298] Stored step  4 label 0
+W0302 15:40:06.516999 21122 build_database.cpp:298] Stored step  5 label 0
+W0302 15:40:06.850183 21122 build_database.cpp:298] Stored step  6 label 0
+W0302 15:40:07.183531 21122 build_database.cpp:298] Stored step  7 label 0
+W0302 15:40:08.183567 21122 build_database.cpp:298] Stored step  8 label 1
+W0302 15:40:08.516826 21122 build_database.cpp:298] Stored step  9 label 0
+W0302 15:40:08.850244 21122 build_database.cpp:298] Stored step  10 label 0
+W0302 15:40:09.183573 21122 build_database.cpp:298] Stored step  11 label 0
+W0302 15:40:09.516782 21122 build_database.cpp:298] Stored step  12 label 0
+W0302 15:40:09.850250 21122 build_database.cpp:298] Stored step  13 label 0
+W0302 15:40:10.183584 21122 build_database.cpp:298] Stored step  14 label 0
+W0302 15:40:10.516846 21122 build_database.cpp:298] Stored step  15 label 0
+W0302 15:40:10.850164 21122 build_database.cpp:298] Stored step  16 label 0
+W0302 15:40:11.183444 21122 build_database.cpp:298] Stored step  17 label 0
+W0302 15:40:11.516955 21122 build_database.cpp:298] Stored step  18 label 7
+W0302 15:40:11.850281 21122 build_database.cpp:298] Stored step  19 label 7
+W0302 15:40:12.183472 21122 build_database.cpp:298] Stored step  20 label 7
+W0302 15:40:12.516904 21122 build_database.cpp:298] Stored step  21 label 6
+W0302 15:40:12.850208 21122 build_database.cpp:298] Stored step  22 label 7
+W0302 15:40:13.183326 21122 build_database.cpp:298] Stored step  23 label 0
+W0302 15:40:13.516966 21122 build_database.cpp:298] Stored step  24 label 0
+W0302 15:40:13.850251 21122 build_database.cpp:298] Stored step  25 label 0
+W0302 15:40:14.183535 21122 build_database.cpp:298] Stored step  26 label 0
+W0302 15:40:14.516882 21122 build_database.cpp:298] Stored step  27 label 0
+W0302 15:40:14.850208 21122 build_database.cpp:298] Stored step  28 label 0
+W0302 15:40:15.183713 21122 build_database.cpp:298] Stored step  29 label 0
+W0302 15:40:15.516829 21122 build_database.cpp:298] Stored step  30 label 0
+W0302 15:40:15.850314 21122 build_database.cpp:298] Stored step  31 label 0
+W0302 15:40:16.516851 21122 build_database.cpp:298] Stored step  32 label 8
+W0302 15:40:16.850188 21122 build_database.cpp:298] Stored step  33 label 7
+W0302 15:40:17.183522 21122 build_database.cpp:298] Stored step  34 label 0
+W0302 15:40:17.516901 21122 build_database.cpp:298] Stored step  35 label 0
+W0302 15:40:17.850126 21122 build_database.cpp:298] Stored step  36 label 0

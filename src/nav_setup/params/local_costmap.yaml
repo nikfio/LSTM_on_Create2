@@ -17,22 +17,22 @@ local_costmap:
    rolling_window: true
    width: 5
    height: 5
-   resolution: 0.050
+   resolution: 0.1
    origin_x: 0.0
    origin_y: 0.0
 
    #Obstacle marking parameters
-   obstacle_range: 5.0
-   max_obstacle_height: 2.0
-   raytrace_range: 4.0
+   obstacle_range: 6.0
+   max_obstacle_height: 1.0
+   raytrace_range: 7.0
 
    #The footprint of the robot and associated padding
-   footprint: [[-0.140, -0.140], [-0.140, 0.140], [0.140, 0.140], [0.150, 0.0], [0.140, -0.140]]
-   footprint_padding: 0.01
+   footprint: [[-0.10, -0.10], [-0.10, 0.10], [0.10, 0.10], [0.110, 0.0], [0.10, -0.10]]
+   footprint_padding: 0.001
 
    #Cost function parameters
-   inflation_radius: 0.25
+   inflation_radius: 0.35
    cost_scaling_factor: 7.5
 
    #The cost at which a cell is considered an obstacle when a map is read from the map_server
-   lethal_cost_threshold: 135
+   lethal_cost_threshold: 150

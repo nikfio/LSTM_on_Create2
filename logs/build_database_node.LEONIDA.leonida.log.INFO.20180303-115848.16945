@@ -1,0 +1,25 @@
+Log file created at: 2018/03/03 11:58:48
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0303 11:58:48.590127 16945 build_database.cpp:530] Allowed steer angle: 0.523599
+I0303 11:58:48.590262 16945 build_database.cpp:530] Allowed steer angle: 1.0472
+I0303 11:58:48.590271 16945 build_database.cpp:530] Allowed steer angle: 1.5708
+I0303 11:58:48.590277 16945 build_database.cpp:541] Allowed steer angle: -0.523599
+I0303 11:58:48.590282 16945 build_database.cpp:541] Allowed steer angle: -1.0472
+I0303 11:58:48.590286 16945 build_database.cpp:541] Allowed steer angle: -1.5708
+I0303 11:58:48.590291 16945 build_database.cpp:545] A total of 7 steering angles have been set
+I0303 11:58:48.817668 16945 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-23-7-3-3-11-58_lmdb
+I0303 11:58:48.817845 16945 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-23-7-3-3-11-58_lmdb
+I0303 11:58:48.817891 16945 build_database.cpp:195] DATASET INITIALIZED: sequence length: 23
+I0303 11:59:16.351950 16945 build_database.cpp:465] Updating target pose
+I0303 11:59:33.451684 16945 build_database.cpp:312] Label for previous step:  index 0 index_value: 0 real steer: 0.203988
+W0303 11:59:33.451737 16945 build_database.cpp:348] Stored step  1
+I0303 11:59:34.126432 16945 build_database.cpp:312] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.62288
+W0303 11:59:34.126516 16945 build_database.cpp:348] Stored step  6
+I0303 12:01:24.272171 16945 build_database.cpp:312] Label for previous step:  index 0 index_value: 0 real steer: -0.082244
+W0303 12:01:24.272243 16945 build_database.cpp:348] Stored step  7
+I0303 12:01:24.944100 16945 build_database.cpp:312] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.64693
+W0303 12:01:24.944156 16945 build_database.cpp:348] Stored step  12
+I0303 12:01:25.618396 16945 build_database.cpp:312] Label for previous step:  index 4 index_value: -0.523599 real steer: -0.411486
+W0303 12:01:25.618487 16945 build_database.cpp:348] Stored step  17
+I0303 12:22:16.371074 16945 build_database.cpp:381] Closing DATABASES 

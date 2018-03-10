@@ -1,0 +1,6 @@
+Log file created at: 2018/03/02 18:01:53
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0302 18:01:53.778599  2589 build_database.cpp:336] Stored step  6 label 0
+W0302 18:01:54.278506  2589 build_database.cpp:336] Stored step  13 label 0
+W0302 18:01:55.278506  2589 build_database.cpp:336] Stored step  20 label 0

@@ -46,7 +46,6 @@ namespace neural_network_planner {
 	private_nh.param("odom_topic", odom_topic, std::string("/odom") );
 	private_nh.param("command_topic", command_topic, std::string("/cmd_vel") );
 	private_nh.param<float>("pos_update_threshold", pos_update_threshold, 0.001);
-	private_nh.param("show_lines", show_lines, false);
 	private_nh.param("logs_path", logs_path, std::string(""));
 	private_nh.param<float>("control_rate", control_rate, 5);
 	private_nh.param<float>("cruise_vel", cruise_vel, 0.4);
@@ -54,7 +53,6 @@ namespace neural_network_planner {
 	private_nh.param("steer_feedback", steer_feedback, true);
 	private_nh.param("multiclass", multiclass, true);
 	private_nh.param("yaw_resolution", yaw_resolution, 10); 
-	private_nh.param<float>("rotate_vel_res", rotate_vel_res, 0.1);
 	private_nh.param<float>("min_rotate_vel", min_rotate_vel, 0.1);
 	private_nh.param<float>("max_rotate_vel", max_rotate_vel, 1);
 	
@@ -70,7 +68,7 @@ namespace neural_network_planner {
 	current_source = std::pair<float,float>(0,0);
 	prev_source = std::pair<float,float>(0,0);
 	
-	prev_closest_steer = prev_yaw_ref =  0;
+	prev_closest_steer = prev_steer_ref =  0;
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
 
@@ -111,7 +109,7 @@ namespace neural_network_planner {
 	CHECK_EQ( state_sequence_size, blobData->shape(1) ) << "train net: supposed input sequence size check failed";
 	
 	if( multiclass ) {
-		initializeSteer(steer_angles, yaw_resolution, -90, 90);
+		initializeSteer(steer_angles, yaw_resolution, min_steer_angle, max_steer_angle);
 		CHECK_EQ(blobOut->shape(1), steer_angles.size());
 	}
 	else
@@ -141,9 +139,6 @@ namespace neural_network_planner {
 	vel_command_pub_ = nh.advertise<geometry_msgs::Twist>(command_topic , 1);
 
 	net_ranges_pub_ = nh.advertise<LaserScan>("state_ranges", 1);
-	if( show_lines ) {
-		marker_pub_ = nh.advertise<Marker>("range_lines", 1);
-	}
 
 	goal_received = false;
 
@@ -181,15 +176,16 @@ namespace neural_network_planner {
 			blobData->mutable_cpu_data()[i] = range_data[i];
 		}	
 	
-		blobData->mutable_cpu_data()[range_data.size()] = hypot( x_rel, y_rel) * 50;
+		blobData->mutable_cpu_data()[range_data.size()] = hypot( x_rel, y_rel);
 		blobData->mutable_cpu_data()[range_data.size() + 1] = atan2( y_rel , x_rel );
+		blobData->mutable_cpu_data()[range_data.size() + 2] = yaw_measured;
 
 		if( steer_feedback ) {
 
 			if ( multiclass ) 
 				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_closest_steer;
 			else
-				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_yaw_ref;
+				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_steer_ref;
 	
 		}
 
@@ -221,32 +217,45 @@ namespace neural_network_planner {
 
 //		}
 
-		int steer_label;
-		float closest_steer = 0, yaw_ref = 0;
+		int steer_index;
+		float closest_steer = 0, steer_ref = 0;
 
 		if( multiclass ) {
-			steer_label = blobArgmax->mutable_cpu_data()[0];
-			closest_steer = steer_angles[steer_label];
-			LOG(INFO) << "Out index: " <<  steer_label
+			steer_index = blobArgmax->mutable_cpu_data()[0];
+			closest_steer = steer_angles[steer_index];
+			LOG(INFO) << "Out index: " <<  steer_index
 				     << " closest: " << closest_steer
 					<< " measured: " << yaw_measured; 
 
 		}
 		else {
-			yaw_ref = blobOut->mutable_cpu_data()[0];
-			LOG(INFO) << " Ref yaw: " << yaw_ref
+			steer_ref = blobOut->mutable_cpu_data()[0];
+			LOG(INFO) << " Ref steer: " << steer_ref
 			          << " measured: " << yaw_measured;
 		
 		}
 
+
+		float yaw_ref = yaw_measured + steer_ref;
+
+		float sat_res = saturate(YAW_NEG_LIM, YAW_POS_LIM, yaw_ref);
+
+		if( sat_res == YAW_NEG_LIM ) {
+					
+		yaw_ref = YAW_POS_LIM - fabs(YAW_NEG_LIM - yaw_ref);
+			
+
+		}
+		else if( sat_res == YAW_POS_LIM ) {
+	
+		yaw_ref = YAW_NEG_LIM + (YAW_POS_LIM - yaw_ref);
+		
+
+		}
+		
 		geometry_msgs::Twist drive_cmds;
 
-		bool got_command;
-
-		if ( multiclass )
-			got_command = ComputeNewCommands(closest_steer, yaw_measured, drive_cmds);
-		else
-			got_command = ComputeNewCommands(yaw_ref, yaw_measured, drive_cmds);
+		bool got_command = ComputeNewCommands(yaw_ref, yaw_measured, drive_cmds);
 
 		if( got_command ) {
 	
@@ -268,10 +277,10 @@ namespace neural_network_planner {
 		prev_meas_angular_z = meas_angular_z; 
 		prev_meas_linear_x = meas_linear_x; 	
 
-		prev_yaw_measured = yaw_measured;
-		prev_yaw_ref = yaw_ref;
+		// update previous step info
 		prev_closest_steer = closest_steer;
-
+		prev_steer_ref = steer_ref;	
+		prev_yaw_measured = yaw_measured;
       }
 
 	 if ( point_distance(current_source, current_target) <= target_tolerance ) {
@@ -317,9 +326,10 @@ namespace neural_network_planner {
 
  } 
 
+
  /* this thread is collecting navigation data - first variant - labels are set depending
- * on the real path effectively taken by the robot - output of controller (local planner)
- */
+  * on the real path effectively taken by the robot - output of controller (local planner)
+  */
 void OnlineDeploy::build_callback(const LaserScan::ConstPtr& laser_msg, 
 							const Odometry::ConstPtr& odom_msg)
 {
@@ -373,38 +383,15 @@ void OnlineDeploy::build_callback(const LaserScan::ConstPtr& laser_msg,
 	state_ranges.angle_max = laser_msg->angle_max;
 	state_ranges.range_min = laser_msg->range_min;
 	state_ranges.range_max = laser_msg->range_max;
-	state_ranges.header.stamp = line_list.header.stamp = ros::Time::now();
+	state_ranges.header.stamp = ros::Time::now();
 	state_ranges.ranges = range_data;
 	state_ranges.angle_increment = (state_ranges.angle_max - state_ranges.angle_min) / averaged_ranges_size;
 	state_ranges.header.frame_id = "hokuyo_link";
-	line_list.header.frame_id = "/odom";
-	line_list.action = visualization_msgs::Marker::ADD;
-	line_list.pose.orientation.w = 1.0;
-	line_list.id = 0;
-	line_list.type = visualization_msgs::Marker::LINE_LIST;
-	line_list.color.r = 1.0;
-     line_list.color.a = 1.0;
 
 	geometry_msgs::Point p_source;
 	p_source.x = tmp_source.first;
 	p_source.y = tmp_source.second;
 
-	if( show_lines ) {
-
-		for(int i = 0; i < current_ranges.size(); i++) {
-
-			geometry_msgs::Point p;
-			p.x = p_source.x + current_ranges[i] * cos(state_ranges.angle_min + state_ranges.angle_increment * i);
-			p.y = p_source.y + current_ranges[i] * sin(state_ranges.angle_min + state_ranges.angle_increment * i);
-			p.z = 0.025;
-
-			line_list.points.push_back(p);
-			line_list.points.push_back(p_source);
-
-		}
-		
-		marker_pub_.publish(line_list);
-	}
 
 	net_ranges_pub_.publish(state_ranges);	
 
@@ -431,19 +418,19 @@ void OnlineDeploy::PublishZeroVelocity() {
 bool OnlineDeploy::ComputeNewCommands(float yaw_ref, float yaw_measured, 
 								geometry_msgs::Twist& drive_cmds) { 
 
-	float min_rad_distance = M_PI_2;
+	float min_rad_distance = FLT_MAX;
 	float closest_rot_vel = 0;
 	float control_dt = 1 / control_rate;
+	
+	for( float w_i = - max_rotate_vel;
+		w_i < max_rotate_vel; w_i += min_rotate_vel) {
 
-	for( float vth_i = min_rotate_vel;
-		vth_i < max_rotate_vel; vth_i += rotate_vel_res) {
-
-		float yaw_i = ComputeNewThetaPosition(yaw_measured, vth_i, control_dt);
-		float dist_i = fabs( yaw_ref - yaw_i );
+		float yaw_i = ComputeNewRelativeTheta(w_i, control_dt);
+		float dist_i = fabs(yaw_ref - yaw_i );
 		
 		if ( dist_i < min_rad_distance ) {
 			min_rad_distance = dist_i;
-			closest_rot_vel = vth_i;
+			closest_rot_vel = w_i;
 		}
 
 	}
@@ -451,12 +438,10 @@ bool OnlineDeploy::ComputeNewCommands(float yaw_ref, float yaw_measured,
 	if( min_rad_distance == M_PI_2 )
 		return false;
 
-	
 	drive_cmds.angular.z = closest_rot_vel;
 
-	float yaw_step = yaw_measured - yaw_ref;
 
-	if( yaw_step > CRUISE_ANGLE )
+	if( yaw_ref > CRUISE_ANGLE )
 		drive_cmds.linear.x = min_cruise_vel;
 	else
 		drive_cmds.linear.x = cruise_vel;

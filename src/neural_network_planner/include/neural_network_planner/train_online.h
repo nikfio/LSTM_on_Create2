@@ -103,12 +103,12 @@ namespace neural_network_planner {
 	float meas_linear_x, meas_angular_z;
 	float ref_linear_x, ref_angular_z;
 
-	int min_steer_angle, max_steer_angle;
+	int min_steer_angle, max_steer_angle, prev_steer_index, prev_real_steer;
 
 	float yaw_measured, prev_yaw_measured, prev_closest_steer;
 	float target_tolerance;
 	
-	bool goal_received;	
+	bool goal_received, stop_straight;
 
 	void build_callback(const LaserScan::ConstPtr& laser_msg, 
 					const Odometry::ConstPtr& odom_msg);

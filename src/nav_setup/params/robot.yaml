@@ -11,10 +11,10 @@ base_frame: base_footprint
 odom_frame: "odom"
 
 # Time (s) without receiving a velocity command before stopping the robot
-latch_cmd_duration: 0.2
+latch_cmd_duration: 0.3
 
 # Internal loop update rate (Hz)
-loop_hz: 10.0
+loop_hz: 5
 
 # Whether to publish the transform between odom_frame and base_frame
 publish_tf: true

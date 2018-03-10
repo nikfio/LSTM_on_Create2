@@ -1,0 +1,45 @@
+Log file created at: 2018/03/01 20:41:22
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0301 20:41:22.033203  3074 build_database.cpp:630] A total of 7 steering angles have been set
+I0301 20:41:22.277824  3074 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-15-7-3-1-20-41_lmdb
+I0301 20:41:22.277959  3074 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-15-7-3-1-20-41_lmdb
+I0301 20:41:22.278007  3074 build_database.cpp:191] DATASET INITIALIZED: sequence length: 15
+I0301 20:41:27.316630  3074 build_database.cpp:548] Updating target pose
+I0301 20:41:27.317387  3074 build_database.cpp:242] 0
+I0301 20:41:27.317400  3074 build_database.cpp:257] 15
+W0301 20:41:27.317476  3074 build_database.cpp:319] Stored step  0 label odd 0
+W0301 20:41:27.822973  3074 build_database.cpp:422] Stored step  1 label even 1
+I0301 20:41:28.331830  3074 build_database.cpp:242] 0
+I0301 20:41:28.331845  3074 build_database.cpp:257] 15
+W0301 20:41:28.331928  3074 build_database.cpp:319] Stored step  2 label odd 1
+W0301 20:41:28.842989  3074 build_database.cpp:422] Stored step  3 label even 1
+I0301 20:41:29.344166  3074 build_database.cpp:242] 0
+I0301 20:41:29.344197  3074 build_database.cpp:257] 15
+W0301 20:41:29.344256  3074 build_database.cpp:319] Stored step  4 label odd 0
+W0301 20:41:29.844521  3074 build_database.cpp:422] Stored step  5 label even 0
+I0301 20:41:30.347157  3074 build_database.cpp:242] 0
+I0301 20:41:30.347178  3074 build_database.cpp:257] 15
+W0301 20:41:30.347232  3074 build_database.cpp:319] Stored step  6 label odd 0
+W0301 20:41:30.847324  3074 build_database.cpp:422] Stored step  7 label even 0
+I0301 20:41:31.348031  3074 build_database.cpp:242] 0
+I0301 20:41:31.348048  3074 build_database.cpp:257] 15
+W0301 20:41:31.348127  3074 build_database.cpp:319] Stored step  8 label odd 0
+W0301 20:41:31.850464  3074 build_database.cpp:422] Stored step  9 label even 0
+I0301 20:41:31.850484  3074 build_database.cpp:426] COMMIT 10
+I0301 20:41:32.352020  3074 build_database.cpp:242] 0
+I0301 20:41:32.352041  3074 build_database.cpp:257] 15
+W0301 20:41:32.352124  3074 build_database.cpp:319] Stored step  10 label odd 0
+W0301 20:41:32.855219  3074 build_database.cpp:422] Stored step  11 label even 0
+I0301 20:41:33.357023  3074 build_database.cpp:242] 0
+I0301 20:41:33.357041  3074 build_database.cpp:257] 15
+W0301 20:41:33.357127  3074 build_database.cpp:319] Stored step  12 label odd 0
+W0301 20:41:33.859733  3074 build_database.cpp:422] Stored step  13 label even 0
+I0301 20:41:34.362362  3074 build_database.cpp:242] 0
+I0301 20:41:34.362381  3074 build_database.cpp:257] 15
+W0301 20:41:34.362450  3074 build_database.cpp:319] Stored step  14 label odd 0
+W0301 20:41:34.865640  3074 build_database.cpp:422] Stored step  15 label even 0
+I0301 20:41:35.368798  3074 build_database.cpp:242] 0
+I0301 20:41:35.368815  3074 build_database.cpp:257] 15
+W0301 20:41:35.368867  3074 build_database.cpp:319] Stored step  16 label odd 0
+I0301 20:41:35.829653  3074 build_database.cpp:464] Closing DATABASES 

@@ -10,8 +10,8 @@
     <param name="calibrate_time" value="true"/>
     <param name="publish_intensity" value="false"/>
     <param name="publish_multiecho" value="false"/>
-    <param name="angle_min" value="-2.2680"/>
-    <param name="angle_max" value="2.2680"/>
+    <param name="angle_min" value="-1.570796"/>
+    <param name="angle_max" value="1.570796"/>
   </node>
 
   <arg name="config" default="$(find nav_setup)/params/robot.yaml" />

@@ -11,18 +11,25 @@
 #include <nav_msgs/Odometry.h>
 #include <actionlib/client/simple_action_client.h>
 #include <iostream>
+#include <tf/transform_datatypes.h>
+
+#include <neural_network_planner/build_database.h>
 
 #include <glog/logging.h>
 
+using neural_network_planner::saturate;
 
 std::pair<float, float> current_pos;
-
+float yaw_measured;
 
 void update_poseCallback(const nav_msgs::Odometry::ConstPtr& odom_msg) {
 
 	LOG(INFO) << "Update Position";
 	current_pos.first = odom_msg->pose.pose.position.x;
 	current_pos.second = odom_msg->pose.pose.position.y;
+	tf::Pose pose;
+     tf::poseMsgToTF(odom_msg->pose.pose, pose);
+     yaw_measured = tf::getYaw(pose.getRotation());
 
 };
 
@@ -64,103 +71,18 @@ int main(int argc, char **argv) {
 	goal_generated.target_pose.header.stamp = ros::Time::now();
 
 	std::pair<float, float> goal_coord;
-	std::pair<float, float> current_target;
 
-	ros::spinOnce();
+	while(current_pos.first == 0 || current_pos.second == 0) {
+		ros::spinOnce();
+	}
 
-	ros::Duration(2).sleep();
+	ros::Rate min_rate(0.2);
 
-	if( !one_shot ) {
+	while( nh.ok() ) { 
 
-	while( nh.ok() ) {  // random goal gen cycle
-
-
-		float prob = rand() % 100;
-
-		if( prob < 0.3 ) {
-
-			while(  hypot(goal_coord.second - current_pos.second, 
-						goal_coord.first - current_pos.first)  < min_radius &&
-
-				   hypot(goal_coord.second - current_pos.second,
-						 goal_coord.first - current_pos.first) > (ring_thick + min_radius)
-				) 
-		    {
-
-				goal_coord.first =    rand()  % ring_thick + min_radius;
-				goal_coord.second =   rand()  % ring_thick + min_radius;
-		    }
-
-		}
-		else if( prob < 0.80 ) {
-
-		 	while(  hypot(goal_coord.second - current_pos.second, 
-						goal_coord.first - current_pos.first)  < min_radius &&
-
-				   hypot(goal_coord.second - current_pos.second,
-						 goal_coord.first - current_pos.first) > (ring_thick*2 + min_radius)
-				)
-      	    {
-
-				goal_coord.first = rand()  % (ring_thick*2)  + min_radius;
-				goal_coord.second = rand()  % (ring_thick*2)  + min_radius;
-		 
-		    }
-	
-		}
-		else {
-	
-			while(  hypot(goal_coord.second - current_pos.second, 
-						goal_coord.first - current_pos.first)  < min_radius &&
-
-				   hypot(goal_coord.second - current_pos.second,
-						 goal_coord.first - current_pos.first) > max_radius
-				) {
-
-				goal_coord.first =  rand() % max_radius;
-				goal_coord.second = rand() % max_radius;
-		    }
-
-		}
-
-		goal_generated.target_pose.pose.position.x = goal_coord.first;
-		goal_generated.target_pose.pose.position.y = goal_coord.second;
-		goal_generated.target_pose.pose.orientation.w = 1.0;
-
-		ROS_INFO("Sending goal");
-		ac.sendGoal(goal_generated);
-
-		bool time_check = ac.waitForResult(ros::Duration(timeout));
-
-		if (time_check) {
-			if( ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-				LOG(INFO)  << "Goal generated : ( " << current_target.first  
-						 << " , " << current_target.second << " ) - FOUND!";
-			}
-			else {
-				LOG(INFO)  << "Goal generated : ( " << current_target.first  
-						 << " , " << current_target.second << " ) - NOT FOUND!";
-			}
-		}
-		else {
-
-			LOG(INFO) << "No result within the timeout";
-		}
-
-	} // random goal gen cycle end		
-
-
-	} 
-	else { // user definded goal cycle
-
-		LOG(INFO) << "Current Position update: (" << current_pos.first 
+     
+	   LOG(INFO) << "Current Position update: (" << current_pos.first 
 				<< "," << current_pos.second << ")";	
-
-		char answer;
-		LOG(INFO) << "New target coordinates? (y/n)";
-		std::cin >> answer;
-		
-		if(answer == 'y' ) {
 
 			char mode;
 			LOG(INFO) << "Coordinates or distance - angle? (c/d)";
@@ -180,47 +102,64 @@ int main(int argc, char **argv) {
 				float dist, angle;
 				LOG(INFO) << "Enter relative distance: ";
 				std::cin >> dist;
-				LOG(INFO) << "Enter relative angle: ";
+				LOG(INFO) << "Enter relative angle [-180, +180]: ";
 				std::cin >> angle;	
 
-				goal_coord.first = current_pos.first + dist * cos(angle);
-				goal_coord.second = current_pos.second + dist * sin(angle);	
-										
+				float yaw_req = angle * M_PI / 180;
+
+				
+				float sat_res = saturate( YAW_NEG_LIM, YAW_POS_LIM, yaw_req);
+
+				if( sat_res == YAW_NEG_LIM ) {
+					
+					yaw_req = YAW_POS_LIM - fabs(YAW_NEG_LIM - yaw_req);
+					goal_coord.first = current_pos.first + dist * cos(yaw_req);
+					goal_coord.second = current_pos.second + dist * sin(yaw_req);	
+
+				}
+				else if( sat_res == YAW_POS_LIM ) {
+			
+					yaw_req = YAW_NEG_LIM + (YAW_POS_LIM - yaw_req);
+					goal_coord.first = current_pos.first + dist * cos(yaw_req);
+					goal_coord.second = current_pos.second + dist * sin(yaw_req);
+
+				}
+				else {
+			
+					goal_coord.first = current_pos.first + dist * cos(yaw_measured + angle);
+					goal_coord.second = current_pos.second + dist * sin(yaw_measured + angle);
+	
+				}
+				
+				LOG(INFO) << "YAW DATA: " << yaw_measured << "   " << (yaw_measured + yaw_req) << "  " << yaw_req;
+
 			}
 			else {
 
-				LOG(INFO) << "Default: dist - angle from yaml config"; 
-			
-				goal_coord.first = current_pos.first + one_dist * cos(one_angle);
-				goal_coord.second = current_pos.second + one_dist * sin(one_angle);	
+				LOG(ERROR) << "NO VALID ANSWER!"; 
+				continue;
 
 			}
-		}
-		else {
-				LOG(INFO) << "Default: dist - angle from yaml config"; 
-			
-				goal_coord.first = current_pos.first + one_dist * cos(one_angle);
-				goal_coord.second = current_pos.second + one_dist * sin(one_angle);	
-		}
-
+		
 		goal_generated.target_pose.pose.position.x = goal_coord.first;
 		goal_generated.target_pose.pose.position.y = goal_coord.second;
 		goal_generated.target_pose.pose.orientation.w = 1.0;
 	
-
 		ROS_INFO("Sending goal: ( %.3f , %.3f ) ", goal_coord.first, goal_coord.second);
 		ac.sendGoal(goal_generated);
+
+		ros::spinOnce();
 
 		bool time_check = ac.waitForResult(ros::Duration(timeout));
 
 		if (time_check) {
 			if( ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-				LOG(INFO)  << "Goal generated : ( " << current_target.first 
-						 << " , " << current_target.second << " ) - FOUND!";
+				LOG(INFO)  << "Goal generated : ( " << goal_coord.first 
+						 << " , " << goal_coord.second << " ) - FOUND!";
 			}
 			else {
-				LOG(INFO)  << "Goal generated : ( " << current_target.first 
-						 << " , " << current_target.second << " ) - NOT FOUND!";
+				LOG(INFO)  << "Goal generated : ( " << goal_coord.first 
+						 << " , " << goal_coord.second << " ) - NOT FOUND!";
 			}
 		}
 		else {
@@ -228,7 +167,11 @@ int main(int argc, char **argv) {
 			LOG(INFO) << "No result within the timeout";
 		}
 
-	}  // user defined goal cycle end
+		ros::spinOnce();
+
+		min_rate.sleep();
+
+	}
 
 
 

@@ -6,9 +6,9 @@ resume: false
 
 validation_frequency: 3
 
-train_set_size: 1072
+train_set_size: 3970
 
-validation_set_size: 583
+validate_set_size: 3970
 
 epochs: 1000
 
@@ -18,15 +18,13 @@ trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_pla
 
 GPU: true
 
-time_sequence: 10
-
 folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/
 
-averaged_ranges_size: 12
+averaged_ranges_size: 8
 
-multiclass: false
+multiclass: true
 
-steer_feedback: false
+steer_feedback: true
 
 logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 
 
@@ -36,4 +34,4 @@ batch_updates: 1
 
 iter_size: 1
 
-
+stop_straight: true

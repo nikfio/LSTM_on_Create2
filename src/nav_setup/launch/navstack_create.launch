@@ -17,10 +17,6 @@
   
 <!--    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />  -->
     
-    <!--	
-    <param name="base_local_planner" value="astar_local_planner/AstarTrajectoryPlannerROS" />
-    -->    
-   
     <rosparam file="$(find nav_setup)/params/costmap_common.yaml" 
 	 command="load" ns="global_costmap" />
 
@@ -32,11 +28,11 @@
 
     <rosparam file="$(find nav_setup)/params/global_costmap.yaml" 
 	command="load" />
-
-    <rosparam file="$(find nav_setup)/params/base_local_planner.yaml" 
-	command="load" />
 	
     <rosparam file="$(find nav_setup)/params/base_global_planner.yaml" 
+	command="load" />
+
+    <rosparam file="$(find nav_setup)/params/base_local_planner.yaml" 
 	command="load" />
     
 <!--  <rosparam file="$(find nav_setup)/params/dwa_local_planner.yaml"-->

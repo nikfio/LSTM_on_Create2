@@ -87,7 +87,7 @@ void TrainOnline::build_callback(const LaserScan::ConstPtr& laser_msg,
 
 void TrainOnline::updateTarget_callback( const MoveBaseActionGoal::ConstPtr& actiongoal_msg) {
 
-//	LOG(INFO) << "Updating target pose";
+	LOG(WARNING) << "Updating target pose";
 	current_target.first = actiongoal_msg->goal.target_pose.pose.position.x;
 	current_target.second = actiongoal_msg->goal.target_pose.pose.position.y;
 	goal_received = true;

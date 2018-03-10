@@ -29,6 +29,9 @@ using namespace geometry_msgs;
 
 using boost::lexical_cast;
 
+const int train_check = 5;
+const int validate_check = 1;
+
 namespace neural_network_planner {
 
 	TrainOnline::TrainOnline(string& process_name) : private_nh("~")
@@ -61,6 +64,7 @@ namespace neural_network_planner {
 		private_nh.param("checking_rate", checking_rate, 1);
 		private_nh.param("max_steer_angle", max_steer_angle, 90);
 		private_nh.param("min_steer_angle", min_steer_angle, -90);
+		private_nh.param("stop_straight", stop_straight, true);
 
 
 		FLAGS_log_dir = logs_path;
@@ -73,7 +77,7 @@ namespace neural_network_planner {
 	
 		range_data = vector<float>(averaged_ranges_size, 0);
 
-		yaw_measured = prev_yaw_measured = 0;
+		yaw_measured = prev_yaw_measured = prev_steer_index = 0;
 
 		if (GPU) {
 	    		caffe::Caffe::set_mode(caffe::Caffe::GPU);
@@ -241,30 +245,36 @@ namespace neural_network_planner {
            */
 
 		// populate training clip blob 
-		for(int i = 0; i < minibatch; i++) {
+		for(int i = 0; i < blobClip->shape(0); i++) {
 
-			if( i % state_sequence_size == 0 ) {
-				blobClip->mutable_cpu_data()[i] = 0;
+			if( i == 0 ) {
+				for(int j = 0; j < state_sequence_size; j++) {
+					blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 0;
+				}
 			}
 			else {
-				blobClip->mutable_cpu_data()[i] = 1;
+				for(int j = 0; j < state_sequence_size; j++) {
+					blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 1;
+				}
 			}
 		
 		}
 	
 		// populate validating clip blob 
-		for(int i = 0; i < minibatch; i++) {
+		for(int i = 0; i < test_blobClip->shape(0); i++) {
 
-			if( i % state_sequence_size == 0 ) {
-				test_blobClip->mutable_cpu_data()[i] = 0;
+			if( i == 0 ) {
+				for(int j = 0; j < state_sequence_size; j++) {
+					test_blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 0;
+				}
 			}
 			else {
-				test_blobClip->mutable_cpu_data()[i] = 1;
+				for(int j = 0; j < state_sequence_size; j++) {
+					test_blobClip->mutable_cpu_data()[i * state_sequence_size + j] = 1;
+				}
 			}
 
 		}
-	
-		FLAGS_minloglevel = 0;
 
 		int SHOW_ITER_LOG = 1;
 		int validation_test = 0;
@@ -275,7 +285,9 @@ namespace neural_network_planner {
 			
 		LOG(INFO) << "TRAIN ONLINE PROCESS INITIALIZED";
 
-		int iter = 1;
+		int iter = 1, straight_tail = 0;
+
+		FLAGS_minloglevel = 0;
 
 		while( ros::ok() && iter < total_iterations ) { //  begin training process
 
@@ -284,62 +296,85 @@ namespace neural_network_planner {
 			if(  ( fabs(meas_linear_x) > noise_level || fabs(meas_angular_z) > noise_level )
 			 		&& goal_received ) { 
 
+				float closest_steer = 0;	
+
+				int steer_index = getClosestSteer( steer_angles, prev_yaw_measured - yaw_measured, closest_steer);
+	
+				float real_steer = prev_yaw_measured - yaw_measured;
+
+				if( multiclass ) {
+					if( steer_index == 0 && stop_straight) 
+						++straight_tail;
+					else
+						straight_tail = 0;
+				}
+				else {
+					if( fabs(real_steer) < real_steer_noise && stop_straight) 
+						++straight_tail;
+					else
+						straight_tail = 0;
+				}
+				
+
+				if( straight_tail <= STRAIGHT_LIMIT ) { // within straight direction limit
+					
+				if ( data_index > 0 && data_index < (minibatch + 1) ) {
+					
+				if ( multiclass ) {
+						
+					blobLabel_->mutable_cpu_data()[data_index - 1] = steer_index;
+								 
+//					printf("Label math: real_steer:  %.4f closest:  %.4f index : %d  \n", 
+//							prev_yaw_measured - yaw_measured, closest_steer, steer_index);
+		
+				}
+				else {
+
+					blobLabel_->mutable_cpu_data()[data_index - 1] = real_steer;
+											
+//					printf("Label math: real_steer:  %.4f closest:  %.4f index : %d  \n", 
+//							prev_yaw_measured - yaw_measured, closest_steer, steer_index);
+		
+ 
+				}
+
+				prev_closest_steer = closest_steer;
+				prev_steer_index = steer_index;
+				prev_real_steer = real_steer;
+
+				}			
+
+
 				blobData_ = TRAIN ? blobData : test_blobData;
 				blobLabel_ = TRAIN ? blobLabel : test_blobLabel;
 		
 				float x_rel = current_target.first - current_source.first;
 				float y_rel = current_target.second - current_source.second;	 
-
-				float closest_steer = 0;		
-
-				if ( data_index > 0 && data_index < (minibatch + 1) ) {
-					
-					if ( multiclass ) {
-						
-						int steer_label = getClosestSteer( steer_angles, yaw_measured - prev_yaw_measured, closest_steer);
-						blobLabel_->mutable_cpu_data()[data_index - 1] = steer_label;
-									 
-//						printf("Label math: prev_measured: %.4f measured:  %.4f closest:  %.4f index : %d  \n", 
-//								prev_yaw_measured, yaw_measured, closest_steer, steer_label);
-		
-					}
-					else {
-
-						blobLabel_->mutable_cpu_data()[data_index - 1] =
-											yaw_measured - prev_yaw_measured;
-
-//						printf("Label math: prev_measured: %.4f measured:  %.4f \n ", 
-//									prev_yaw_measured, yaw_measured );
- 
-					}
-
-				}			
-
-				
-
+			
 				if(data_index < minibatch ) {
 
 				int base_position = data_index * state_sequence_size;
 
 
 				for(int i = 0; i < range_data.size(); i++) {
-					blobData_->mutable_cpu_data()[base_position + i] = range_data[i];
+					blobData_->mutable_cpu_data()[base_position + i] = ceil(range_data[i]);
 				}		
 
-				blobData_->mutable_cpu_data()[base_position + range_data.size()] = hypot( x_rel, y_rel) * dist_scale;
+				blobData_->mutable_cpu_data()[base_position + range_data.size()] = ceil(hypot( x_rel, y_rel));
 				blobData_->mutable_cpu_data()[base_position + range_data.size() + 1] = atan2( y_rel , x_rel );
-				blobData_->mutable_cpu_data()[base_position + range_data.size() + 2] = yaw_measured * yaw_scale;
+				blobData_->mutable_cpu_data()[base_position + range_data.size() + 2] = yaw_measured;
  		
 				if( steer_feedback ) {
 
 					if( multiclass ) {
-						blobData_->mutable_cpu_data()[base_position + range_data.size() + 3] = prev_closest_steer;
+	
+						blobData_->mutable_cpu_data()[base_position + range_data.size() + 3] = prev_steer_index;
 									
 					}
 					else {
-						blobData_->mutable_cpu_data()[base_position + range_data.size() + 3] = 
-														yaw_measured - prev_yaw_measured;
-				
+
+						blobData_->mutable_cpu_data()[base_position + range_data.size() + 3] = prev_real_steer;
+														
 					}
 				
 				}
@@ -350,23 +385,27 @@ namespace neural_network_planner {
 //				}
 //				cout << endl;
 
-
+				
 				}
 
 				data_index++;
+				
+
+
+				} // within straight direction limit
+
+				
 				prev_yaw_measured = yaw_measured;
 				prev_source = current_source;
-				prev_closest_steer = closest_steer;
-
+				
 			}
 		
 
 			if ( point_distance(current_source, current_target) <= target_tolerance ) {
 		 		// current pos has achieved target within tolerance
-//				LOG(INFO) << "target reached";
+				LOG_EVERY_N(WARNING, 100) << "target reached: " << point_distance(current_source, current_target);
 				goal_received = false;
 		     }
-
 			
 			
 			if( data_index == (minibatch + 1) && TRAIN ) {	// begin train iteration 
@@ -381,70 +420,68 @@ namespace neural_network_planner {
 			if( multiclass )
 				Train_accu = blobAccu->mutable_cpu_data()[0];
 
-//			char answer;
-//			cout << "TRAINING: Want to check batch output? (y/n)" << endl;
-//			cin >> answer;
-//			if ( answer == 'y' ) {
+			if( iter % train_check == 0 ) {
 
-//				for(int i = 0; i < minibatch; i++) {  
+			char answer;
+			cout << "TRAINING: Want to check batch output? (y/n)" << endl;
+			cin >> answer;
+			if ( answer == 'y' ) {
 
-//					printf("Batch %d  sample %d  State input sequence: ", iter, i );
-//					for(int j = 0; j < state_sequence_size; j++) {
-//						printf(" %.4f  ",  blobData->mutable_cpu_data()[i * state_sequence_size + j]);
-//					}
-//					cout << endl;
+				for(int i = 0; i < minibatch; i++) {  
 
-//					printf("Batch %d  sample %d  NET OUTS: ", iter, i);   
+					printf("Batch %d  sample %d  State input sequence: ", iter, i );
+					for(int j = 0; j < state_sequence_size; j++) {
+						printf(" %.4f  ",  blobData->cpu_data()[i * state_sequence_size + j]);
+					}
+					cout << endl;
+
+					printf("Batch %d  sample %d  NET OUTS: ", iter, i);   
 
 
-//					for(int l=0; l < blobOut->channels(); l++) { 
-//		
-//						if(multiclass) {
-//							printf(" %.4f   ", blobSoftmax->mutable_cpu_data()[i * blobOut->channels() + l]);
-//						}	
-//						else 
-//							printf(" %.4f   ", blobOut->mutable_cpu_data()[i * blobOut->channels() + l]);
-//					}
-//			
-//					cout << endl;
-//					if( multiclass )
-//						printf("ARGMAX: %.3f \n", blobArgmax->cpu_data()[0]);
+					for(int l=0; l < blobOut->channels(); l++) { 
+		
+						if(multiclass) {
+							printf(" %.4f   ", blobSoftmax->cpu_data()[i * blobOut->channels() + l]);
+						}	
+						else 
+							printf(" %.4f   ", blobOut->cpu_data()[i * blobOut->channels() + l]);
+					}
+			
+					cout << endl;
+					
+					printf("Batch %d  sample %d  LABELS OUTS: ", iter, i); 
+					for(int l=0; l < blobLabel->channels(); l++) {  
+		
+						printf(" %.4f  ", blobLabel->mutable_cpu_data()[i * blobLabel->channels() + l]);
+			
+					}
+					cout << endl;
 
-//					printf("Batch %d  sample %d  LABELS OUTS: ", iter, i); 
-//					for(int l=0; l < blobLabel->channels(); l++) {  
-//		
-//						printf(" %.4f  ", blobLabel->mutable_cpu_data()[i * blobLabel->channels() + l]);
-//			
-//					}
-//					cout << endl;
+					if( multiclass ) {
+						printf("ARGMAX: %.3f \n", blobArgmax->cpu_data()[i]);
+						printf("ACCURACY: %.4f   %.4f \n", blobAccu->cpu_data()[i], Train_accu);
+						
+					}
 
-//					printf("Batch %d  sample %d  Loss: %.5f \n", iter, i, blobLoss->mutable_cpu_data()[0] );
-//		
-//					cout << "Wanna pass forward? (y/n)" << endl;
-//					cin >> answer;
+					printf("Batch %d  sample %d  Loss: %.5f \n", iter, i, blobLoss->cpu_data()[0] );
+		
+					cout << "Wanna pass forward? (y/n)" << endl;
+					cin >> answer;
 
-//					if(answer == 'y')
-//						break;
+					if(answer == 'y')
+						break;
 
-//				}
-//					
+				}
+					
 
-//			}
+			}
 
-//			printf("Batch %d  LABELS OUTS: ", iter); 
-//			for(int i = 0; i < minibatch; i++) {
-//				
-//				for(int l=0; l < blobLabel->channels(); l++) { 
-//						printf(" %.3f  ", blobLabel->mutable_cpu_data()[i * blobLabel->channels() + l]);
-//				}
-//			}
-//		
-//			cout << endl;
+			}
 
 			if ( iter % SHOW_ITER_LOG == 0 ) {
 				LOG(WARNING) << "TRAIN ITERATION: " << iter 
 	 				        << " AVERAGE LOSS: " << Train_loss	
-						   << "  AVERAGE ACCURACY: "  << Train_accu;
+						   << " AVERAGE ACCURACY: "  << Train_accu;
 			}
 		
 			plot = fopen(matlab_plot.c_str(), "a");
@@ -474,57 +511,64 @@ namespace neural_network_planner {
 		
 				Test_loss = test_blobLoss->mutable_cpu_data()[0];	
 				if( multiclass )
-					Test_accu += blobAccu->mutable_cpu_data()[0];		
+					Test_accu += blobAccu->mutable_cpu_data()[0];	
 
-//				char answer;
-//				cout << "VALIDATING: Want to check batch output? (y/n)" << endl;
-//				cin >> answer;
-//				if ( answer == 'y' ) {
+				if( iter % validate_check == 0 ) {	
 
-//					for(int i = 0; i < minibatch; i++) { 
-// 
-//						printf("Batch %d  sample %d  State input sequence: ", iter, i );
-//						for(int j = 0; j < state_sequence_size; j++) {
-//							printf(" %.4f  ",  test_blobData->mutable_cpu_data()[i * state_sequence_size + j]);
-//						}
-//						getchar();
-//						cout << endl;
+				char answer;
+				cout << "VALIDATING: Want to check batch output? (y/n)" << endl;
+				cin >> answer;
+				if ( answer == 'y' ) {
 
-//						printf("Batch %d  sample %d  NET OUTS: ", iter, i);   
-//						for(int l=0; l < blobOut->channels(); l++) { 
-//		
-//							if(multiclass) {
-//								printf(" %.4f   ", test_blobSoftmax->mutable_cpu_data()[i * blobOut->channels() + l]);
-//							}	
-//							else 
-//								printf(" %.4f   ", test_blobOut->mutable_cpu_data()[i * blobOut->channels() + l]);
-//			
-//						}
-//						cout << endl;
-//						
-//						if( multiclass )
-//							printf("ARGMAX: %.3f \n", test_blobArgmax->mutable_cpu_data()[0]);
+					for(int i = 0; i < minibatch; i++) { 
+ 
+						printf("Batch %d  sample %d  State input sequence: ", iter, i );
+						for(int j = 0; j < state_sequence_size; j++) {
+							printf(" %.4f  ",  test_blobData->mutable_cpu_data()[i * state_sequence_size + j]);
+						}
+						getchar();
+						cout << endl;
 
-//						printf("Batch %d  sample %d  LABELS OUTS: ", iter, i); 
-//						for(int l=0; l < blobLabel->channels(); l++) {  
-//		
-//							printf(" %.4f  ", test_blobLabel->mutable_cpu_data()[i * test_blobLabel->channels() + l]);
-//			
-//						}
-//						cout << endl;
+						printf("Batch %d  sample %d  NET OUTS: ", iter, i);   
+						for(int l=0; l < blobOut->channels(); l++) { 
+		
+							if(multiclass) {
+								printf(" %.4f   ", test_blobSoftmax->mutable_cpu_data()[i * blobOut->channels() + l]);
+							}	
+							else 
+								printf(" %.4f   ", test_blobOut->mutable_cpu_data()[i * blobOut->channels() + l]);
+			
+						}
+						cout << endl;
 
-//						printf("Batch %d  sample %d   Test Loss: %.5f \n", iter, i, test_blobLoss->mutable_cpu_data()[0] );
-//		
-//						cout << "Wanna pass forward? (y/n)" << endl;
-//						cin >> answer;
+						printf("Batch %d  sample %d  LABELS OUTS: ", iter, i); 
+						for(int l=0; l < blobLabel->channels(); l++) {  
+		
+							printf(" %.4f  ", test_blobLabel->mutable_cpu_data()[i * test_blobLabel->channels() + l]);
+			
+						}
+						cout << endl;
 
-//						if(answer == 'y')
-//							break;
+						if( multiclass ) {
+							printf("ARGMAX: %.3f \n", test_blobArgmax->cpu_data()[i]);
+							printf("ACCURACY: %.4f   %.4f \n", test_blobAccu->cpu_data()[i], Test_accu);
+							
+						}
 
-//				     }
-//					
+						printf("Batch %d  sample %d   Test Loss: %.5f \n", iter, i, test_blobLoss->mutable_cpu_data()[0] );
+		
+						cout << "Wanna pass forward? (y/n)" << endl;
+						cin >> answer;
 
-//				}
+						if(answer == 'y')
+							break;
+
+				     }
+					
+
+				}
+			
+				}
 
 
 				LOG(WARNING) << "TEST ITERATION : " << validation_test 

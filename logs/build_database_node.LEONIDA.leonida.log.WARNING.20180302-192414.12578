@@ -1,0 +1,16 @@
+Log file created at: 2018/03/02 19:24:14
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0302 19:24:14.180519 12578 build_database.cpp:336] Stored step  3 label 6
+W0302 19:24:15.191524 12578 build_database.cpp:336] Stored step  7 label 1
+W0302 19:24:16.198325 12578 build_database.cpp:336] Stored step  11 label 0
+W0302 19:24:17.199066 12578 build_database.cpp:336] Stored step  15 label 0
+W0302 19:24:18.201845 12578 build_database.cpp:336] Stored step  19 label 0
+W0302 19:27:04.236335 12578 build_database.cpp:336] Stored step  23 label 0
+W0302 19:27:57.643131 12578 build_database.cpp:336] Stored step  27 label 8
+W0302 19:27:58.650401 12578 build_database.cpp:336] Stored step  31 label 2
+W0302 19:27:59.652858 12578 build_database.cpp:336] Stored step  35 label 1
+W0302 19:28:00.653301 12578 build_database.cpp:336] Stored step  39 label 12
+W0302 19:28:01.668041 12578 build_database.cpp:336] Stored step  43 label 0
+W0302 19:28:02.669893 12578 build_database.cpp:336] Stored step  47 label 0
+W0302 19:28:03.671792 12578 build_database.cpp:336] Stored step  51 label 0

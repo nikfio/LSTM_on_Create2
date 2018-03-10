@@ -1,0 +1,4 @@
+Log file created at: 2018/03/01 16:46:42
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0301 16:46:42.791590 27819 db_lmdb.cpp:13] Check failed: mkdir(source.c_str(), 0744) == 0 (-1 vs. 0) mkdir /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-3-1-16-46_lmdb failed

@@ -35,7 +35,14 @@ using namespace geometry_msgs;
 const float TRASL_MAX = 0.5;
 const float ROTATE_MAX = 4.5; 
 
+// System limits
+const float YAW_NEG_LIM = - M_PI;
+const float YAW_POS_LIM = M_PI;
+
 const float noise_level = 0.05; 
+
+const int STRAIGHT_LIMIT = 2;
+const float real_steer_noise = 0.025;
 
 namespace neural_network_planner {
 
@@ -91,10 +98,14 @@ private:
 	float ref_linear_x, ref_angular_z;
 
 	float yaw_measured, prev_yaw_measured;
-	float prev_closest_steer, prev_real_steer;
+	float prev_closest_steer, back_closest_steer;
+	float prev_steer_index, back_steer_index;
+	float prev_real_steer, back_real_steer;
 	int steer_resolution, min_steer_angle, max_steer_angle;
+
+	int multiply_sample;
 	
-	bool goal_received, steer_feedback;	
+	bool goal_received, steer_feedback, multiclass, stop_straight;	
 
 	ros::Time cmdvel_time;
 
@@ -111,13 +122,13 @@ private:
 
 };
 
-int saturate(float neg_lim, float pos_lim, float& value);
+float saturate(float neg_lim, float pos_lim, float value);
 
 float point_distance(std::pair<float, float>& start_point, std::pair<float, float>& end_point);
 
 void initializeSteer(vector<float>& steer_angles, int steer_resolution, int min_angle, int max_angle);
 	
-int getClosestSteer(vector<float>& steer_angles, float yaw_angle, float& closest ); 
+int getClosestSteer(vector<float>& steer_angles, float steer_measured, float& closest ); 
  
 
 

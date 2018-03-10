@@ -143,7 +143,7 @@ target_link_libraries(train_online_node train_online)
 
 add_executable(goal_generator src/goal_generator.cpp)
 
-target_link_libraries(goal_generator ${catkin_LIBRARIES} -lglog -lprotobuf)
+target_link_libraries(goal_generator build_database ${catkin_LIBRARIES} -lglog -lprotobuf)
 
 add_library(online_deploy src/online_deploy.cpp)
 

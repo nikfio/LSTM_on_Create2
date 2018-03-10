@@ -6,7 +6,7 @@ global_costmap:
    robot_base_frame: base_footprint
 
    #Set the update and publish frequency of the costmap
-   update_frequency: 2.0
+   update_frequency: 0.5
    publish_frequency: 0.0
 
    #We'll use a map served by the map_server to initialize this costmap
@@ -14,17 +14,17 @@ global_costmap:
    rolling_window: false
 
    #Obstacle marking parameters
-   #obstacle_range: 8.0
-   #max_obstacle_height: 2.0
-   #raytrace_range: 7.0
+   #obstacle_range: 7.0
+   #max_obstacle_height: 1.0
+   #raytrace_range: 8.0
 
    #The footprint of the robot and associated padding
-   footprint: [[-150, -150], [-150, 150], [150, 150], [0.160, 0.0], [150, -150]]
-   footprint_padding: 0.01
+   footprint: [[-0.10, -0.10], [-0.10, 0.100], [0.100, 0.100], [0.120, 0.0], [0.100, -0.100]]
+   footprint_padding: 0.001
 
    #Cost function parameters
    inflation_radius: 0.45
    cost_scaling_factor: 10
 
    #The cost at which a cell is considered an obstacle when a map is read from the map_server
-   lethal_cost_threshold: 150
+   lethal_cost_threshold: 125

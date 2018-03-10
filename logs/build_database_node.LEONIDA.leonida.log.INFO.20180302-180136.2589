@@ -1,0 +1,15 @@
+Log file created at: 2018/03/02 18:01:36
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0302 18:01:36.963548  2589 build_database.cpp:542] A total of 13 steering angles have been set
+I0302 18:01:37.277665  2589 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-23-13-3-2-18-1_lmdb
+I0302 18:01:37.277853  2589 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-23-13-3-2-18-1_lmdb
+I0302 18:01:37.277899  2589 build_database.cpp:195] DATASET INITIALIZED: sequence length: 23
+I0302 18:01:48.778455  2589 build_database.cpp:460] Updating target pose
+I0302 18:01:53.778529  2589 build_database.cpp:311] Label for previous step:  index 0 index_value: 0 real steer: -0.0153064
+W0302 18:01:53.778599  2589 build_database.cpp:336] Stored step  6 label 0
+I0302 18:01:54.278394  2589 build_database.cpp:311] Label for previous step:  index 0 index_value: 0 real steer: 0.00614824
+W0302 18:01:54.278506  2589 build_database.cpp:336] Stored step  13 label 0
+I0302 18:01:55.278379  2589 build_database.cpp:311] Label for previous step:  index 0 index_value: 0 real steer: -0.00204941
+W0302 18:01:55.278506  2589 build_database.cpp:336] Stored step  20 label 0
+I0302 18:02:53.655195  2589 build_database.cpp:376] Closing DATABASES 

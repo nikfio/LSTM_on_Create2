@@ -1,0 +1,43 @@
+Log file created at: 2018/03/05 03:14:46
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0305 03:14:46.295402 12025 build_database.cpp:551] A total of 7 steering angles have been set
+I0305 03:14:46.534924 12025 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/yaw_db-24-7-3-5-3-14_lmdb
+I0305 03:14:46.535068 12025 db_lmdb.cpp:35] Opened lmdb /home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-24-7-3-5-3-14_lmdb
+I0305 03:14:46.535118 12025 build_database.cpp:195] DATASET INITIALIZED: sequence length: 24
+I0305 03:14:55.579941 12025 build_database.cpp:471] Updating target pose
+I0305 03:14:55.580554 12025 build_database.cpp:314] Label for previous step:  index 6 index_value: -1.5708 real steer: -1.56374
+W0305 03:14:55.580613 12025 build_database.cpp:351] Stored step  5
+I0305 03:14:56.082126 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.3035
+W0305 03:14:56.086104 12025 build_database.cpp:351] Stored step  10
+I0305 03:14:56.582880 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.496111
+W0305 03:14:56.582944 12025 build_database.cpp:351] Stored step  15
+I0305 03:14:57.085206 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.490433
+W0305 03:14:57.089124 12025 build_database.cpp:351] Stored step  20
+I0305 03:14:57.588909 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.487238
+W0305 03:14:57.588973 12025 build_database.cpp:351] Stored step  25
+I0305 03:14:58.090533 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.409026
+W0305 03:14:58.094385 12025 build_database.cpp:351] Stored step  30
+I0305 03:14:58.590965 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.269737
+W0305 03:14:58.591037 12025 build_database.cpp:351] Stored step  35
+I0305 03:14:59.092574 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.0764993
+W0305 03:14:59.092636 12025 build_database.cpp:351] Stored step  36
+I0305 03:14:59.593551 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0256295
+W0305 03:14:59.593622 12025 build_database.cpp:351] Stored step  37
+I0305 03:15:00.095237 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0278363
+W0305 03:15:00.095304 12025 build_database.cpp:351] Stored step  38
+I0305 03:15:06.126539 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.302174
+W0305 03:15:06.126626 12025 build_database.cpp:351] Stored step  43
+I0305 03:15:06.172190 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0
+W0305 03:15:06.172274 12025 build_database.cpp:351] Stored step  44
+I0305 03:15:06.677371 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.492028
+W0305 03:15:06.677439 12025 build_database.cpp:351] Stored step  49
+I0305 03:15:07.179769 12025 build_database.cpp:314] Label for previous step:  index 1 index_value: 0.523599 real steer: 0.393033
+W0305 03:15:07.179834 12025 build_database.cpp:351] Stored step  54
+I0305 03:15:07.682411 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: 0.141067
+W0305 03:15:07.682472 12025 build_database.cpp:351] Stored step  55
+I0305 03:15:08.183962 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.00363898
+W0305 03:15:08.184041 12025 build_database.cpp:351] Stored step  56
+I0305 03:15:08.683857 12025 build_database.cpp:314] Label for previous step:  index 0 index_value: 0 real steer: -0.0194085
+W0305 03:15:08.683974 12025 build_database.cpp:351] Stored step  57
+W0305 03:15:27.521790 12025 build_database.cpp:390] COMMITTED: 30

@@ -1,4 +1,4 @@
-name: "LSTM_stack-2-64"
+name: "LSTM_stack-2-1"
 
 
 layer {
@@ -6,20 +6,20 @@ layer {
 	type: "Input"
 	top:  "data"
 	top:  "clip"
-	top:  "label"
+	top: "label"
 	input_param {
 		shape {
-			dim: 16	
-			dim: 15 
+			dim: 8
+			dim: 12
 			dim: 1 
 		}
 		shape {
-			dim: 16
-			dim: 15		
+			dim: 8
+			dim: 12 		
 		}
 		shape {
-			dim: 16	
-			dim: 1	
+			dim: 8
+			dim: 1 		
 		}
 	}
 	
@@ -33,7 +33,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 32
+    num_output: 8
     weight_filler {
       type: "xavier"
     }
@@ -44,15 +44,32 @@ layer {
 }
 
 
+layer {
+  name: "lstm1"
+  type: "LSTM"
+  bottom: "lstm1"
+  bottom: "clip"
+  top: "lstm2"
+  recurrent_param {
+    num_output: 8
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
 
 layer {
   name: "out"
   type: "InnerProduct"
-  bottom: "lstm1"
+  bottom: "lstm2"
   top: "out"
 
   inner_product_param {
-    num_output: 7
+    num_output: 5
     weight_filler {
       type: "gaussian"
       std: 0.1
@@ -62,8 +79,6 @@ layer {
     }
   }
 }
-
-
 layer{
   name: "softmax"
   type: "Softmax"

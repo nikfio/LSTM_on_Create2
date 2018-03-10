@@ -4,7 +4,7 @@
 
 resume: false
 
-validation_frequency: 3
+validation_frequency: 5
 
 checking_rate: 2 # Hertz
 
@@ -12,7 +12,7 @@ pos_update_threshold: 0.005 # meters
 
 step_resolution: 0.1
 
-target_tolerance: 0.2
+target_tolerance: 0.35
 
 solver_config: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
 
@@ -20,31 +20,29 @@ trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_pla
 
 GPU: true
 
-total_iterations: 20000
-
-time_sequence: 10
+total_iterations: 1000
 
 folder_path: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/
 
-averaged_ranges_size: 12
+averaged_ranges_size: 8
 
 multiclass: true
 
-steer_feedback: false
+steer_feedback: true
 
-steer_resolution: 15
+steer_resolution: 45
 
-min_steer_angle: -45
-max_steer_angle: 45
+min_steer_angle: -90
+max_steer_angle: 90
 
 logs_path: /home/leonida/ThesisCode/LSTM_on_Create2/logs/ 
 
 dist_scale: 1
 
-yaw_scale: 25
+yaw_scale: 1
 
-batch_updates: 3
+batch_updates: 1
 
-iter_size: 3
+iter_size: 1
 
 

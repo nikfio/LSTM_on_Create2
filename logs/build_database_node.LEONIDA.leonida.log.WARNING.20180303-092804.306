@@ -1,0 +1,14 @@
+Log file created at: 2018/03/03 09:28:04
+Running on machine: LEONIDA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0303 09:28:04.710269   306 build_database.cpp:338] Stored step  4
+W0303 09:28:05.396409   306 build_database.cpp:338] Stored step  9
+W0303 09:28:06.070600   306 build_database.cpp:338] Stored step  14
+W0303 09:28:06.741241   306 build_database.cpp:338] Stored step  19
+W0303 09:28:07.412895   306 build_database.cpp:338] Stored step  20
+W0303 09:28:08.083184   306 build_database.cpp:338] Stored step  21
+W0303 09:28:08.752701   306 build_database.cpp:338] Stored step  22
+W0303 09:28:09.422993   306 build_database.cpp:338] Stored step  23
+W0303 09:28:10.095309   306 build_database.cpp:338] Stored step  24
+W0303 09:28:10.765566   306 build_database.cpp:338] Stored step  25
+W0303 09:28:11.436751   306 build_database.cpp:338] Stored step  26

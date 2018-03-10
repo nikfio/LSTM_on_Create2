@@ -1,0 +1,102 @@
+name: "LSTM_stack-2-32"
+
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  data_param {
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-12-5-3-6-17-34_lmdb"
+    batch_size: 30
+    backend: LMDB
+  }
+ 
+}
+
+
+
+layer {
+	name: "clip"
+	type: "Input"
+	top:  "clip"
+	input_param {
+		shape {
+			dim: 30
+			dim: 10 		
+		}
+	
+	}
+	
+}
+
+
+layer {
+  name: "lstm1"
+  type: "LSTM"
+  bottom: "data"
+  bottom: "clip"
+  top: "lstm1"
+  recurrent_param {
+    num_output: 32
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+
+
+layer {
+  name: "out"
+  type: "InnerProduct"
+  bottom: "lstm1"
+  top: "out"
+
+  inner_product_param {
+    num_output: 5
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+layer{
+  name: "softmax"
+  type: "Softmax"
+  bottom: "out"
+  top: "softmax"
+}
+
+
+layer{
+  name: "argmax"
+  type: "ArgMax"
+  bottom: "softmax"
+  top: "argmax"
+}
+  
+
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "softmax"
+  bottom: "label"
+  top: "accuracy"  
+}
+
+layer {
+  name: "softmaxloss"
+  type: "SoftmaxWithLoss"
+  bottom: "out"
+  bottom: "label"
+  top: "loss"  
+}
+
+
