@@ -23,8 +23,8 @@ global_costmap:
    footprint_padding: 0.001
 
    #Cost function parameters
-   inflation_radius: 0.45
+   inflation_radius: 0.55
    cost_scaling_factor: 10
 
    #The cost at which a cell is considered an obstacle when a map is read from the map_server
-   lethal_cost_threshold: 125
+   lethal_cost_threshold: 100

@@ -31,7 +31,7 @@ local_costmap:
    footprint_padding: 0.001
 
    #Cost function parameters
-   inflation_radius: 0.35
+   inflation_radius: 0.45
    cost_scaling_factor: 7.5
 
    #The cost at which a cell is considered an obstacle when a map is read from the map_server

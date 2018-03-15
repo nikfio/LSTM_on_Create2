@@ -349,7 +349,7 @@ namespace neural_network_planner {
 				cout << "Plot file opening failed.\n";
 				exit(1);
 			}
-			fprintf(plot, "    %.4f   ", Train_loss); 
+			fprintf(plot, " %.4f    %.4f   ",Train_accu,  Train_loss); 
 			fclose(plot);
 			
 			if( epoch % val_freq == 0 ) { // begin validation test

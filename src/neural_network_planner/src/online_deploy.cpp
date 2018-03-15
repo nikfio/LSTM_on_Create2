@@ -55,6 +55,8 @@ namespace neural_network_planner {
 	private_nh.param("yaw_resolution", yaw_resolution, 10); 
 	private_nh.param<float>("min_rotate_vel", min_rotate_vel, 0.1);
 	private_nh.param<float>("max_rotate_vel", max_rotate_vel, 1);
+	private_nh.param("max_steer_angle", max_steer_angle, 90);
+	private_nh.param("min_steer_angle", min_steer_angle, -90);
 	
 
 	CHECK_LE( max_rotate_vel, ROTATE_MAX ) << " max_rotate_vel limit exceeded"; 
@@ -68,7 +70,7 @@ namespace neural_network_planner {
 	current_source = std::pair<float,float>(0,0);
 	prev_source = std::pair<float,float>(0,0);
 	
-	prev_closest_steer = prev_steer_ref =  0;
+	prev_closest_steer = prev_steer_ref =  prev_steer_index = 0;
 	
 	range_data = vector<float>(averaged_ranges_size, 0);
 
@@ -102,9 +104,9 @@ namespace neural_network_planner {
 
 	// input state size checks
 	if( steer_feedback ) 
-		state_sequence_size = averaged_ranges_size + 3;
+		state_sequence_size = averaged_ranges_size + 4;
 	else
-		state_sequence_size = averaged_ranges_size + 2;
+		state_sequence_size = averaged_ranges_size + 3;
 				
 	CHECK_EQ( state_sequence_size, blobData->shape(1) ) << "train net: supposed input sequence size check failed";
 	
@@ -180,14 +182,22 @@ namespace neural_network_planner {
 		blobData->mutable_cpu_data()[range_data.size() + 1] = atan2( y_rel , x_rel );
 		blobData->mutable_cpu_data()[range_data.size() + 2] = yaw_measured;
 
+ 		
 		if( steer_feedback ) {
 
-			if ( multiclass ) 
-				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_closest_steer;
-			else
-				blobData->mutable_cpu_data()[range_data.size() + 2] = prev_steer_ref;
+			if( multiclass ) {
 	
+				blobData->mutable_cpu_data()[range_data.size() + 3] = prev_steer_index;
+									
+			}
+			else {
+
+				blobData->mutable_cpu_data()[range_data.size() + 3] = prev_steer_ref;
+														
+			}
+				
 		}
+			
 
 		online_net->Forward();
 	
@@ -222,9 +232,9 @@ namespace neural_network_planner {
 
 		if( multiclass ) {
 			steer_index = blobArgmax->mutable_cpu_data()[0];
-			closest_steer = steer_angles[steer_index];
+			steer_ref = steer_angles[steer_index];
 			LOG(INFO) << "Out index: " <<  steer_index
-				     << " closest: " << closest_steer
+				     << " value: " << steer_ref
 					<< " measured: " << yaw_measured; 
 
 		}
@@ -234,36 +244,19 @@ namespace neural_network_planner {
 			          << " measured: " << yaw_measured;
 		
 		}
-
-
-		float yaw_ref = yaw_measured + steer_ref;
-
-		float sat_res = saturate(YAW_NEG_LIM, YAW_POS_LIM, yaw_ref);
-
-		if( sat_res == YAW_NEG_LIM ) {
-					
-		yaw_ref = YAW_POS_LIM - fabs(YAW_NEG_LIM - yaw_ref);
-			
-
-		}
-		else if( sat_res == YAW_POS_LIM ) {
-	
-		yaw_ref = YAW_NEG_LIM + (YAW_POS_LIM - yaw_ref);
 		
-
-		}
-		
+		getchar();
 		geometry_msgs::Twist drive_cmds;
 
-		bool got_command = ComputeNewCommands(yaw_ref, yaw_measured, drive_cmds);
+		bool got_command = ComputeNewCommands(steer_ref, yaw_measured, drive_cmds);
 
 		if( got_command ) {
 	
 			LOG(INFO) << "Vel commands: Trasl: " << drive_cmds.linear.x
 					<< " Rot: " << drive_cmds.angular.z;
 			getchar();
-			getchar();
-			vel_command_pub_.publish(drive_cmds);
+
+//			vel_command_pub_.publish(drive_cmds);
 	
 		}
 		else {
@@ -279,9 +272,13 @@ namespace neural_network_planner {
 
 		// update previous step info
 		prev_closest_steer = closest_steer;
+		prev_steer_index = steer_index;
 		prev_steer_ref = steer_ref;	
 		prev_yaw_measured = yaw_measured;
+
       }
+
+	 LOG(INFO) << "Distance to goal " << point_distance(current_source, current_target);
 
 	 if ( point_distance(current_source, current_target) <= target_tolerance ) {
 		 // current pos has achieved target within the tolerance
@@ -423,7 +420,7 @@ bool OnlineDeploy::ComputeNewCommands(float yaw_ref, float yaw_measured,
 	float control_dt = 1 / control_rate;
 	
 	for( float w_i = - max_rotate_vel;
-		w_i < max_rotate_vel; w_i += min_rotate_vel) {
+		w_i <= max_rotate_vel; w_i += min_rotate_vel) {
 
 		float yaw_i = ComputeNewRelativeTheta(w_i, control_dt);
 		float dist_i = fabs(yaw_ref - yaw_i );

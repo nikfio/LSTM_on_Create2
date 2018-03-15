@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Map1/Position1
+        - /Global Costmap1
+        - /Local Costmap1
         - /StateRanges1
       Splitter Ratio: 0.5
     Tree Height: 843
@@ -45,14 +47,14 @@ Visualization Manager:
       Color: 170; 0; 255
       Enabled: true
       Name: Robot Footprint
-      Topic: /move_base_node/local_costmap/footprint
+      Topic: /move_base_mod_node/local_costmap/footprint
       Unreliable: false
       Value: true
     - Alpha: 1
       Buffer Length: 5
       Class: rviz/Path
       Color: 255; 149; 0
-      Enabled: true
+      Enabled: false
       Head Diameter: 0.3
       Head Length: 0.2
       Length: 0.3
@@ -68,9 +70,9 @@ Visualization Manager:
       Radius: 0.03
       Shaft Diameter: 0.1
       Shaft Length: 0.1
-      Topic: /move_base_node/GlobalPlanner/plan
+      Topic: /move_base_mod_node/GlobalPlanner/plan
       Unreliable: false
-      Value: true
+      Value: false
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
@@ -91,7 +93,7 @@ Visualization Manager:
       Radius: 0.03
       Shaft Diameter: 0.1
       Shaft Length: 0.1
-      Topic: /move_base_node/TrajectoryPlannerROS/local_plan
+      Topic: /move_base_mod_node/TrajectoryPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -288,6 +290,16 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Angle Tolerance: 0.1
+      Class: rviz/Odometry
+      Color: 255; 25; 0
+      Enabled: true
+      Keep: 100
+      Length: 1
+      Name: RobotTrace
+      Position Tolerance: 0.1
+      Topic: /odom
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -312,7 +324,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 18.9013
+      Distance: 11.335
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -324,10 +336,10 @@ Visualization Manager:
         Z: 0
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.984797
+      Pitch: 0.739797
       Target Frame: base_link
       Value: ThirdPersonFollower (rviz)
-      Yaw: 4.04323
+      Yaw: 3.02141
     Saved: ~
 Window Geometry:
   Displays:

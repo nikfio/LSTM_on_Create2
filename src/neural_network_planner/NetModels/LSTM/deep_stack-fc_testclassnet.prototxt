@@ -9,16 +9,16 @@ layer {
 	top: "label"
 	input_param {
 		shape {
-			dim: 8
+			dim: 10
 			dim: 12
 			dim: 1 
 		}
 		shape {
-			dim: 8
+			dim: 10
 			dim: 12 		
 		}
 		shape {
-			dim: 8
+			dim: 10
 			dim: 1 		
 		}
 	}
@@ -45,7 +45,7 @@ layer {
 
 
 layer {
-  name: "lstm1"
+  name: "lstm2"
   type: "LSTM"
   bottom: "lstm1"
   bottom: "clip"
@@ -69,7 +69,7 @@ layer {
   top: "out"
 
   inner_product_param {
-    num_output: 5
+    num_output: 10
     weight_filler {
       type: "gaussian"
       std: 0.1

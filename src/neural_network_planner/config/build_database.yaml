@@ -1,6 +1,6 @@
 # example of build_database_node parameters set up
 
-set_size: 10000
+set_size: 1000
 
 batch_size: 10
 

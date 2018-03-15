@@ -1,8 +1,8 @@
 # example of online deployment parameters set up
 
-trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-regression-3-64-16-27_iter_550000.caffemodel
+trained: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_online_deep-db-2-8-12-5_iter_4000.caffemodel
 
-online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack-fc_online.prototxt
+online_model: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_stack_online.prototxt
 
 GPU: false
 
@@ -10,29 +10,29 @@ control_rate: 0.5 # Hertz
 
 pos_update_threshold: 0.01 # meters
 
-target_tolerance: 0.3
+target_tolerance: 0.5
 
-averaged_ranges_size: 20
+averaged_ranges_size: 8
 
 # if it is a multi classification net
 multiclass: true
 
 # classes yaw resolution [degrees]
-yaw_resolution: 15
+yaw_resolution: 45
 
 min_steer_angle: -90
 max_steer_angle: 90
 
 # add the previous action to the input state
-steer_feedback: false
+steer_feedback: true
 
 # translational velocity limits
 cruise_vel: 0.2
 min_cruise_vel: 0.05
 
 # rotational velocity limits
-min_rotate_vel: 0.1
-max_rotate_vel: 1
+min_rotate_vel: 0.25
+max_rotate_vel: 0.5
 
 # if true publish state ranges as lines, false means only points 
 show_lines: true

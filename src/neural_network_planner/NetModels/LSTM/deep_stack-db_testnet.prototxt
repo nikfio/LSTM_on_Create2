@@ -6,7 +6,7 @@ layer {
   top: "data"
   top: "label"
   data_param {
-    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/steer_db-12-5-3-6-17-34_lmdb"
+    source: "/home/leonida/ThesisCode/LSTM_on_Create2/NavDatabases/final-rec/steer_db-12-5-3-12-0-11_lmdb"
     batch_size: 30
     backend: LMDB
   }
@@ -37,7 +37,7 @@ layer {
   bottom: "clip"
   top: "lstm1"
   recurrent_param {
-    num_output: 32
+    num_output: 8
     weight_filler {
       type: "xavier"
     }
@@ -48,11 +48,28 @@ layer {
 }
 
 
+layer {
+  name: "lstm2"
+  type: "LSTM"
+  bottom: "lstm1"
+  bottom: "clip"
+  top: "lstm2"
+  recurrent_param {
+    num_output: 8
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
 
 layer {
   name: "out"
   type: "InnerProduct"
-  bottom: "lstm1"
+  bottom: "lstm2"
   top: "out"
 
   inner_product_param {
@@ -82,7 +99,6 @@ layer{
   top: "argmax"
 }
   
-
 layer {
   name: "accuracy"
   type: "Accuracy"

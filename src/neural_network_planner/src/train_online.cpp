@@ -324,8 +324,8 @@ namespace neural_network_planner {
 						
 					blobLabel_->mutable_cpu_data()[data_index - 1] = steer_index;
 								 
-//					printf("Label math: real_steer:  %.4f closest:  %.4f index : %d  \n", 
-//							prev_yaw_measured - yaw_measured, closest_steer, steer_index);
+					printf("Label math: real_steer:  %.4f closest:  %.4f index : %d  \n", 
+							prev_yaw_measured - yaw_measured, closest_steer, steer_index);
 		
 				}
 				else {

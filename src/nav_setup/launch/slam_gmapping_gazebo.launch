@@ -31,7 +31,9 @@
       lasamplerange: 0.005
       lasamplestep: 0.005
       base_frame: base_link
-	 scan: base_scan "base_scan"
     </rosparam>
     </node>
+
+	    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nav_setup)/rviz_config/attempt1.rviz" />
+
 </launch>

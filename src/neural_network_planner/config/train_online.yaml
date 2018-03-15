@@ -6,7 +6,7 @@ resume: false
 
 validation_frequency: 5
 
-checking_rate: 2 # Hertz
+checking_rate: 10 # Hertz
 
 pos_update_threshold: 0.005 # meters
 
@@ -16,7 +16,7 @@ target_tolerance: 0.35
 
 solver_config: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/deep_lstm_solver.prototxt
 
-trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/stack-fc/yaw/LSTM_deep-multiclass-3-64-16-27_iter_500000.caffemodel
+trained_weights: /home/leonida/ThesisCode/LSTM_on_Create2/src/neural_network_planner/NetModels/LSTM/Snapshots/LSTM_online_deep-db-2-8-12-5_iter_31000.caffemodel
 
 GPU: true
 

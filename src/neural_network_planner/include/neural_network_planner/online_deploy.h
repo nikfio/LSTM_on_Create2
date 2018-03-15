@@ -68,6 +68,7 @@ namespace neural_network_planner {
 	float meas_linear_x, meas_angular_z;
 	float prev_ref_linear_x, prev_meas_linear_x;
 	float prev_ref_angular_z, prev_meas_angular_z;
+	float prev_steer_index;
 
 	int time_sequence, averaged_ranges_size, state_sequence_size;
 	std::pair<float, float> current_source;
