@@ -12,3 +12,17 @@ But, for me implementation of this online agent was complicated, this repo can b
 
 Developing and testing on Ubuntu 14.04 LTS Trusty.
 Core libraries: cuda-8.0 working with GTX 1080Ti, CAFFE latest from the master branch of the main repository, ROS-jade.
+
+Build instructions:
+
+    cmake files search for caffe in /usr/local, just like for cuda, fastest way is to copy your caffe build in there
+
+    place terminal in home directory
+
+    rm -r build (I usually upload already built versions, so you have to delete everthing of the existing build)
+
+    catkin_make
+
+
+
+If you have suggestions or comments, please feel free to contact me.
